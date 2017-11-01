@@ -1,0 +1,6 @@
+<device_state libver="3.4" filemajor="1" fileminor="0">
+    <device name="DFK 33GP006" base_name="DFK 33GP006" unique_name="DFK 33GP006 36714308">
+        <videoformat>RGB64 (1024x768)</videoformat>
+        <fps>45.031454470947956281</fps>
+    </device>
+</device_state>

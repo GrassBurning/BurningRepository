@@ -1,0 +1,1 @@
+#define EASYSIZEOPEN 1
