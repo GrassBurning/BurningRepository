@@ -812,7 +812,7 @@ int FindPrepare(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig
 }
 int FindEdgeLocation(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 {
-
+	return 0;
 }
 /*
 	0 OK
