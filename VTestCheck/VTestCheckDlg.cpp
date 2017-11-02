@@ -810,8 +810,86 @@ int FindPrepare(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig
 {
 	uchar ** pFont1 = NULL;
 }
-int FindEdgeLocation(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+int FindSpotLocation(Mat * mPic,int &iSkipNum,int& rows,int &cols,int& channels,)
 {
+}
+int FindEdgeLocation(Mat * mPic,)
+{
+	if(mPic == NULL || mPic->empty())
+	{
+		return 1;
+	}
+	
+	uchar **ptr = NULL;
+	int j;
+
+	ptr = new uchar * [iSkipNum];
+	for(j = 0;j < iSkipNum;j++)
+	{
+		ptr[j] =  NULL;
+	}
+	while(true)
+	{
+		for(j = iSkipNum - 1;j > -1;j --)
+		{
+			ptr[j] = mPic->ptr<uchar>(rows + j);
+			if (ptr[j][cols] < iSpec)
+			{
+				break;
+			}
+		}
+
+	}
+}
+int FindEdgeLocation(Mat * mPic,int &iBoundary,
+				int &iSkipNum,int& rows,int &cols,int& channels,int &iSpec)
+{
+	if (mPic == NULL || mPic->empty())
+	{
+		return 1;
+	}
+	
+//	uchar ** pFont = NULL;
+	uchar ** ptr = NULL;
+	int rows,cols,channels;
+	int i,j,k;
+	int iCheckNum;
+	
+	ptr = new uchar * [iSkipNum];
+	for(j = 0;j < iSkipNum;j++)
+	{
+		ptr[j] =  NULL;
+	}
+	iCheckNum = iSkipNum/3;
+	for(i = rows;i > 0; )
+	{
+		for(k = iSkipNum - 1;k > -1;k --)
+		{
+			ptr[k] = mPic->ptr<uchar>(i + k);
+		}
+		uColsNum = ;
+		for (j = 0;j < uColsNum;)
+		{
+			for(k = 0;k < iSkipNum;k ++)
+			{
+				if(ptr[i][k] < iSpec)
+				{
+					break;
+				}
+			}
+			if(k >= iSkipNum - 1)
+			{
+				rows = i;
+				cols = j;
+				iBoundary = k + i;
+				delete ptr;
+				return 1;
+			}
+			j = j + channels;
+		}
+		i = i - iSkipNum + 1;
+	}
+	delete ptr;
 	return 0;
 }
 /*
