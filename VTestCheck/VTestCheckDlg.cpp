@@ -805,17 +805,237 @@ int fLoadConfig(sTestPicConfig& TestConfig)
 	TestConfig.iTargetLeftRightMinPlace=GetPrivateProfileInt("Basic Info","TargetLeftRightMinPlace",0,Configfile);
 	return 0;
 }
+typedef struct SpotInfo
+{
+	int rows;
+	int cols;
+}sSpotInfo,*pSpotInfo;
+int FindSpotLocation(Mat* mPic,int& rows,int& cols,int& channels,int& spec,vector<sSpotInfo> vSpotInfo,sTestPicConfig& TestConfig)
+{
+	int irows = rows;
+	int icols = cols;
+	int ichannels = channels;
+	int ispec = spec;
+	int i,j,k;
+	uchar * ptr;
 
+	if(mPic == NULL || mPic->empty())
+	{
+		return 1;
+	}
+	
+	ichannels = mPic->channels();
+	icols = mPic->cols * ichannels;
+	for(i = irows;i > 0;i --)
+	{
+		ptr = mPic->ptr<uchar>();
+		
+		for(j = 0;j < icols;)
+		{
+			if()
+			j = j + ichannels;
+
+		}
+
+	}
+
+}
+int ergodic(Mat* mPic,int& rows,int& cols,int& channels,sTestPicConfig& TestConfig,vector<sSpot>& vSpot)
+{
+	int irows = rows;
+	int icols = cols;
+	int ichannels = channels;
+	int ispec = spec;
+	int i,j,k;
+	uchar * ptr;
+	vector<sSpotInfo> vSpot1;
+	vector<sSpotInfo> vSpot2;
+	sSpotInfo sSpot1,sSpot2;
+
+
+	if(mPic == NULL || mPic->empty())
+	{
+		return 1;
+	}
+	sSpot1.rows = irows;
+	sSpot1.cols = icols;
+	vSpot1.push_back(sSpot1);
+
+	while(vSpot1.size() > 0)
+	{
+		sSpot1 = vSpot1.front();
+		ptr = mPic->ptr<uchar>(sSpot.rows);
+		if(ptr[sSpot1.cols*3 + 2] < ispec)
+		{
+			vSpot2.push_back(sSpot1);
+			//右上
+			for(i = 0;i < vSpot2.size();i ++)
+			{
+				if(vSpot2[i].rows == sSpot1.rows - 1&&vSpot2.cols == sSpot1.cols + 1)
+				{
+					break;
+				}
+			}
+			if(i >= vSpot2.size())
+			{
+				sSpot2.rows = sSpot1.rows - 1;
+				sSpot2.cols = sSpot1.cols + 1;
+				vSpot1.push_back(sSpot2);
+			}
+			//上
+			for(i = 0;i < vSpot2.size();i ++)
+			{
+				if(vSpot2[i].rows == sSpot1.rows - 1&&vSpot2.cols == sSpot1.cols)
+				{
+					break;
+				}
+			}
+			if(i >= vSpot2.size())
+			{
+				sSpot2.rows = sSpot1.rows - 1;
+				sSpot2.cols = sSpot1.cols;
+				vSpot1.push_back(sSpot2);
+			}
+			//左上
+			for(i = 0;i < vSpot2.size();i ++)
+			{
+				if(vSpot2[i].rows == sSpot1.rows - 1&&vSpot2.cols == sSpot1.cols - 1)
+				{
+					break;
+				}
+			}
+			if(i >= vSpot2.size())
+			{
+				sSpot2.rows = sSpot1.rows - 1;
+				sSpot2.cols = sSpot1.cols - 1;
+				vSpot1.push_back(sSpot2);
+			}
+			//左
+			for(i = 0;i < vSpot2.size();i ++)
+			{
+				if(vSpot2[i].rows == sSpot1.rows &&vSpot2.cols == sSpot1.cols - 1)
+				{
+					break;
+				}
+			}
+			if(i >= vSpot2.size())
+			{
+				sSpot2.rows = sSpot1.rows;
+				sSpot2.cols = sSpot1.cols - 1;
+				vSpot1.push_back(sSpot2);
+			}
+			//左下
+			for(i = 0;i < vSpot2.size();i ++)
+			{
+				if(vSpot2[i].rows == sSpot1.rows + 1&&vSpot2.cols == sSpot1.cols - 1)
+				{
+					break;
+				}
+			}
+			if(i >= vSpot2.size())
+			{
+				sSpot2.rows = sSpot1.rows + 1;
+				sSpot2.cols = sSpot1.cols - 1;
+				vSpot1.push_back(sSpot2);
+			}
+			//下
+			for(i = 0;i < vSpot2.size();i ++)
+			{
+				if(vSpot2[i].rows == sSpot1.rows + 1&&vSpot2.cols == sSpot1.cols)
+				{
+					break;
+				}
+			}
+			if(i >= vSpot2.size())
+			{
+				sSpot2.rows = sSpot1.rows + 1;
+				sSpot2.cols = sSpot1.cols;
+				vSpot1.push_back(sSpot2);
+			}
+			//右下
+			for(i = 0;i < vSpot2.size();i ++)
+			{
+				if(vSpot2[i].rows == sSpot1.rows + 1&&vSpot2.cols == sSpot1.cols + 1)
+				{
+					break;
+				}
+			}
+			if(i >= vSpot2.size())
+			{
+				sSpot2.rows = sSpot1.rows + 1;
+				sSpot2.cols = sSpot1.cols + 1;
+				vSpot1.push_back(sSpot2);
+			}
+		}
+	}
+
+	
+}
 int FindPrepare(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 {
 	uchar ** pFont1 = NULL;
 }
-int FindSpotLocation(Mat * mPic,int &iSkipNum,int& rows,int &cols,int& channels,)
+int FindSpotLocation(Mat * mPic,int *pEdgeInfo,int &iSkipNum,int& rows,
+				int &cols,int& channels,int iEdgeBegin,int iEdgeEnd)
 {
+	int irows = rows;
+	int icols = cols;
+	int ichannels = channels;
+	int iskipnum = iSkipNum;
+	int ispec = spec;
+	uchar * ptr;
+	int i,j,iEnd;
+	int iDSum,iDSumBackup;
+	vector<int> vSpotRowsInfo;
+	vector<int> vSpotColsInfo;
+
+	vector<int> vSpotLength;
+
+	if(mPic == NULL || mPic->empty() || pEdgeInfo == NULL)
+	{
+		return 1;
+	}
+	iDSumBackup = 0;
+	for(i = 7;i < iEnd;i ++)
+	{
+		iDSum = 0;
+		for(j = iEdgeBegin;j < iEdgeEnd;j ++)
+		{
+			ptr = mPic->ptr<uchar>(pEdgeInfo[j] + i);
+
+			if(ptr[j] < iSpec)
+			{
+				vSpotRowsInfo.pushback(pEdgeInfo[j] + i);
+				vSpotColsInfo.pushback(j);
+				iDSum ++;
+				
+			}else
+			{
+				vSpotLength.pushback(iDSum);
+				iDSum = 0;
+			}
+
+		}
+		if(iDsumBackup > 7)
+		{
+			break;//找到目标
+		}
+		
+	}
+
+	
+
 }
-int FindEdgeLocation(Mat * mPic,)
+int FindEdgeLocation(Mat * mPic,int * pEdgeInfo,int &iSkipNum,int& rows,int &cols,int& channels,int &spec)
 {
-	if(mPic == NULL || mPic->empty())
+	int irows = rows;
+	int icols = cols;
+	int ichannels = channels;
+	int iskipnum = iSkipNum;
+	int ispec = spec;
+
+
+	if(mPic == NULL || mPic->empty() || pEdgeInfo == NULL)
 	{
 		return 1;
 	}
@@ -823,22 +1043,50 @@ int FindEdgeLocation(Mat * mPic,)
 	uchar **ptr = NULL;
 	int j;
 
-	ptr = new uchar * [iSkipNum];
-	for(j = 0;j < iSkipNum;j++)
+	ptr = new uchar * [iskipnum];
+	for(j = 0;j < iskipnum;j++)
 	{
 		ptr[j] =  NULL;
 	}
 	while(true)
 	{
-		for(j = iSkipNum - 1;j > -1;j --)
+		for(j = iskipnum - 1;j > -1;j --)
 		{
-			ptr[j] = mPic->ptr<uchar>(rows + j);
-			if (ptr[j][cols] < iSpec)
+			ptr[j] = mPic->ptr<uchar>(irows + j);
+			if (ptr[j][icols] < ispec)
 			{
 				break;
 			}
 		}
+		if(j  == -1)
+		{
+			;//全白
+			irows = irows + iskipnum/2;
+			icols = icols;//向下
+			if(irows > mPic->rows)
+			{
+				return 2;
+			}
 
+		}else if(j == iSkipNum - 1)
+		{
+			;//全背景
+			irows = irows - iskipnum/2;
+			icols = icols;
+			if(irows > mPic->rows)
+			{
+				return 3;
+			}
+		}else
+		{
+			pEdge[icols] = pEdge[icols] < irows?pEdge[icols]:irows*;
+			irows = irows;
+			icols = icols + 1; //向右
+			if(icols > mPic->cols)
+			{
+				return 4;
+			}
+		}
 	}
 }
 int FindEdgeLocation(Mat * mPic,int &iBoundary,
