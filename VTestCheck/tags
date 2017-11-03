@@ -1,0 +1,737 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AddProcInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^void AddProcInfo(CString strProcInfo)$/;"	f	signature:(CString strProcInfo)
+AddProcInfo	.\VTestCheckDlg.cpp	/^void AddProcInfo(CString strProcInfo)$/;"	f	signature:(CString strProcInfo)
+BEGIN_EASYSIZE_MAP	.\EasySize.h	49;"	d
+BitmapFail	.\VTestCheckDlg - ¸±±¾.cpp	/^CBitmap BitmapFail;$/;"	v
+BitmapFail	.\VTestCheckDlg.cpp	/^CBitmap BitmapFail;$/;"	v
+BitmapPass	.\VTestCheckDlg - ¸±±¾.cpp	/^CBitmap BitmapPass;$/;"	v
+BitmapPass	.\VTestCheckDlg.cpp	/^CBitmap BitmapPass;$/;"	v
+BitmapStop	.\VTestCheckDlg - ¸±±¾.cpp	/^CBitmap BitmapStop;$/;"	v
+BitmapStop	.\VTestCheckDlg.cpp	/^CBitmap BitmapStop;$/;"	v
+BitmapTest	.\VTestCheckDlg - ¸±±¾.cpp	/^CBitmap BitmapTest;$/;"	v
+BitmapTest	.\VTestCheckDlg.cpp	/^CBitmap BitmapTest;$/;"	v
+BitmapWait	.\VTestCheckDlg - ¸±±¾.cpp	/^CBitmap BitmapWait;$/;"	v
+BitmapWait	.\VTestCheckDlg.cpp	/^CBitmap BitmapWait;$/;"	v
+Bpp	.\CvvImage.h	/^	int Bpp() { return m_img ? (m_img->depth & 255)*m_img->nChannels : 0; };$/;"	f	class:CvvImage	access:public	signature:()
+CImage	.\CvvImage.h	/^	typedef CvvImage CImage;$/;"	t	namespace:cv
+CPassword	.\Password.cpp	/^CPassword::CPassword(CWnd* pParent \/*=NULL*\/)$/;"	f	class:CPassword	signature:(CWnd* pParent )
+CPassword	.\Password.h	/^	CPassword(CWnd* pParent = NULL);   \/\/ ±ê×¼¹¹Ôìº¯Êý$/;"	p	class:CPassword	access:public	signature:(CWnd* pParent = NULL)
+CPassword	.\Password.h	/^class CPassword : public CDialogEx$/;"	c	inherits:CDialogEx
+CPassword::CPassword	.\Password.cpp	/^CPassword::CPassword(CWnd* pParent \/*=NULL*\/)$/;"	f	class:CPassword	signature:(CWnd* pParent )
+CPassword::CPassword	.\Password.h	/^	CPassword(CWnd* pParent = NULL);   \/\/ ±ê×¼¹¹Ôìº¯Êý$/;"	p	class:CPassword	access:public	signature:(CWnd* pParent = NULL)
+CPassword::DoDataExchange	.\Password.cpp	/^void CPassword::DoDataExchange(CDataExchange* pDX)$/;"	f	class:CPassword	signature:(CDataExchange* pDX)
+CPassword::DoDataExchange	.\Password.h	/^	virtual void DoDataExchange(CDataExchange* pDX);    \/\/ DDX\/DDV Ö§³Ö$/;"	p	class:CPassword	access:protected	signature:(CDataExchange* pDX)
+CPassword::IDD	.\Password.h	/^	enum { IDD = IDD_D_Password };$/;"	e	enum:CPassword::__anon2
+CPassword::OnBnClickedCancel	.\Password.cpp	/^void CPassword::OnBnClickedCancel()$/;"	f	class:CPassword	signature:()
+CPassword::OnBnClickedCancel	.\Password.h	/^	afx_msg void OnBnClickedCancel();$/;"	p	class:CPassword	access:public	signature:()
+CPassword::OnBnClickedOk	.\Password.cpp	/^void CPassword::OnBnClickedOk()$/;"	f	class:CPassword	signature:()
+CPassword::OnBnClickedOk	.\Password.h	/^	afx_msg void OnBnClickedOk();$/;"	p	class:CPassword	access:public	signature:()
+CPassword::~CPassword	.\Password.cpp	/^CPassword::~CPassword()$/;"	f	class:CPassword	signature:()
+CPassword::~CPassword	.\Password.h	/^	virtual ~CPassword();$/;"	p	class:CPassword	access:public	signature:()
+CVTestCheckApp	.\VTestCheck.cpp	/^CVTestCheckApp::CVTestCheckApp()$/;"	f	class:CVTestCheckApp	signature:()
+CVTestCheckApp	.\VTestCheck.h	/^	CVTestCheckApp();$/;"	p	class:CVTestCheckApp	access:public	signature:()
+CVTestCheckApp	.\VTestCheck.h	/^class CVTestCheckApp : public CWinApp$/;"	c	inherits:CWinApp
+CVTestCheckApp::CVTestCheckApp	.\VTestCheck.cpp	/^CVTestCheckApp::CVTestCheckApp()$/;"	f	class:CVTestCheckApp	signature:()
+CVTestCheckApp::CVTestCheckApp	.\VTestCheck.h	/^	CVTestCheckApp();$/;"	p	class:CVTestCheckApp	access:public	signature:()
+CVTestCheckApp::InitInstance	.\VTestCheck.cpp	/^BOOL CVTestCheckApp::InitInstance()$/;"	f	class:CVTestCheckApp	signature:()
+CVTestCheckApp::InitInstance	.\VTestCheck.h	/^	virtual BOOL InitInstance();$/;"	p	class:CVTestCheckApp	access:public	signature:()
+CVTestCheckApp::OnBnClickedCancel	.\VTestCheck.cpp	/^void CVTestCheckApp::OnBnClickedCancel()$/;"	f	class:CVTestCheckApp	signature:()
+CVTestCheckApp::OnBnClickedCancel	.\VTestCheck.h	/^	afx_msg void OnBnClickedCancel();$/;"	p	class:CVTestCheckApp	access:public	signature:()
+CVTestCheckDlg	.\VTestCheckDlg - ¸±±¾.cpp	/^CVTestCheckDlg::CVTestCheckDlg(CWnd* pParent \/*=NULL*\/)$/;"	f	class:CVTestCheckDlg	signature:(CWnd* pParent )
+CVTestCheckDlg	.\VTestCheckDlg.cpp	/^CVTestCheckDlg::CVTestCheckDlg(CWnd* pParent \/*=NULL*\/)$/;"	f	class:CVTestCheckDlg	signature:(CWnd* pParent )
+CVTestCheckDlg	.\VTestCheckDlg.h	/^	CVTestCheckDlg(CWnd* pParent = NULL);	\/\/ ±ê×¼¹¹Ôìº¯Êý$/;"	p	class:CVTestCheckDlg	access:public	signature:(CWnd* pParent = NULL)
+CVTestCheckDlg	.\VTestCheckDlg.h	/^class CVTestCheckDlg : public CDialogEx$/;"	c	inherits:CDialogEx
+CVTestCheckDlg::CVTestCheckDlg	.\VTestCheckDlg - ¸±±¾.cpp	/^CVTestCheckDlg::CVTestCheckDlg(CWnd* pParent \/*=NULL*\/)$/;"	f	class:CVTestCheckDlg	signature:(CWnd* pParent )
+CVTestCheckDlg::CVTestCheckDlg	.\VTestCheckDlg.cpp	/^CVTestCheckDlg::CVTestCheckDlg(CWnd* pParent \/*=NULL*\/)$/;"	f	class:CVTestCheckDlg	signature:(CWnd* pParent )
+CVTestCheckDlg::CVTestCheckDlg	.\VTestCheckDlg.h	/^	CVTestCheckDlg(CWnd* pParent = NULL);	\/\/ ±ê×¼¹¹Ôìº¯Êý$/;"	p	class:CVTestCheckDlg	access:public	signature:(CWnd* pParent = NULL)
+CVTestCheckDlg::DoDataExchange	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::DoDataExchange(CDataExchange* pDX)$/;"	f	class:CVTestCheckDlg	signature:(CDataExchange* pDX)
+CVTestCheckDlg::DoDataExchange	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::DoDataExchange(CDataExchange* pDX)$/;"	f	class:CVTestCheckDlg	signature:(CDataExchange* pDX)
+CVTestCheckDlg::DoDataExchange	.\VTestCheckDlg.h	/^	virtual void DoDataExchange(CDataExchange* pDX);	\/\/ DDX\/DDV Ö§³Ö$/;"	p	class:CVTestCheckDlg	access:protected	signature:(CDataExchange* pDX)
+CVTestCheckDlg::IDD	.\VTestCheckDlg.h	/^	enum { IDD = IDD_VTESTCHECK_DIALOG };$/;"	e	enum:CVTestCheckDlg::__anon3
+CVTestCheckDlg::OnBnClickedBSetposition	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnBnClickedBSetposition()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnBnClickedBSetposition	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnBnClickedBSetposition()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnBnClickedBSetposition	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedBSetposition();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+CVTestCheckDlg::OnBnClickedButton1	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedButton1();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+CVTestCheckDlg::OnBnClickedCancel	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnBnClickedCancel()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnBnClickedCancel	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnBnClickedCancel()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnBnClickedCancel	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedCancel();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+CVTestCheckDlg::OnBnClickedConfig	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnBnClickedConfig()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnBnClickedConfig	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnBnClickedConfig()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnBnClickedConfig	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedConfig();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+CVTestCheckDlg::OnBnClickedOk	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnBnClickedOk()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnBnClickedOk	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnBnClickedOk()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnBnClickedOk	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedOk();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+CVTestCheckDlg::OnInitDialog	.\VTestCheckDlg - ¸±±¾.cpp	/^BOOL CVTestCheckDlg::OnInitDialog()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnInitDialog	.\VTestCheckDlg.cpp	/^BOOL CVTestCheckDlg::OnInitDialog()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnInitDialog	.\VTestCheckDlg.h	/^	virtual BOOL OnInitDialog();$/;"	p	class:CVTestCheckDlg	access:protected	signature:()
+CVTestCheckDlg::OnPaint	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnPaint()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnPaint	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnPaint()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnPaint	.\VTestCheckDlg.h	/^	afx_msg void OnPaint();$/;"	p	class:CVTestCheckDlg	access:protected	signature:()
+CVTestCheckDlg::OnQueryDragIcon	.\VTestCheckDlg - ¸±±¾.cpp	/^HCURSOR CVTestCheckDlg::OnQueryDragIcon()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnQueryDragIcon	.\VTestCheckDlg.cpp	/^HCURSOR CVTestCheckDlg::OnQueryDragIcon()$/;"	f	class:CVTestCheckDlg	signature:()
+CVTestCheckDlg::OnQueryDragIcon	.\VTestCheckDlg.h	/^	afx_msg HCURSOR OnQueryDragIcon();$/;"	p	class:CVTestCheckDlg	access:protected	signature:()
+CVTestCheckDlg::OnSize	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnSize(UINT nType, int cx, int cy)$/;"	f	class:CVTestCheckDlg	signature:(UINT nType, int cx, int cy)
+CVTestCheckDlg::OnSize	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnSize(UINT nType, int cx, int cy)$/;"	f	class:CVTestCheckDlg	signature:(UINT nType, int cx, int cy)
+CVTestCheckDlg::OnSize	.\VTestCheckDlg.h	/^	afx_msg void OnSize(UINT nType, int cx, int cy);$/;"	p	class:CVTestCheckDlg	access:public	signature:(UINT nType, int cx, int cy)
+CVTestCheckDlg::m_ListBox	.\VTestCheckDlg.h	/^	CListBox m_ListBox;$/;"	m	class:CVTestCheckDlg	access:public
+CVTestCheckDlg::m_Picture_PF	.\VTestCheckDlg.h	/^	CStatic m_Picture_PF;$/;"	m	class:CVTestCheckDlg	access:public
+CVTestCheckDlg::m_cStaticVideoWindow	.\VTestCheckDlg.h	/^	CStatic m_cStaticVideoWindow;$/;"	m	class:CVTestCheckDlg	access:public
+CVTestCheckDlg::m_hIcon	.\VTestCheckDlg.h	/^	HICON m_hIcon;$/;"	m	class:CVTestCheckDlg	access:protected
+CVVIMAGE_CLASS_DEF	.\CvvImage.h	7;"	d
+Config	.\Config - ¸±±¾.cpp	/^Config::Config(CWnd* pParent \/*=NULL*\/)$/;"	f	class:Config	signature:(CWnd* pParent )
+Config	.\Config.cpp	/^Config::Config(CWnd* pParent \/*=NULL*\/)$/;"	f	class:Config	signature:(CWnd* pParent )
+Config	.\Config.h	/^	Config(CWnd* pParent = NULL);   \/\/ ±ê×¼¹¹Ôìº¯Êý$/;"	p	class:Config	access:public	signature:(CWnd* pParent = NULL)
+Config	.\Config.h	/^class Config : public CDialogEx$/;"	c	inherits:CDialogEx
+Config::Config	.\Config - ¸±±¾.cpp	/^Config::Config(CWnd* pParent \/*=NULL*\/)$/;"	f	class:Config	signature:(CWnd* pParent )
+Config::Config	.\Config.cpp	/^Config::Config(CWnd* pParent \/*=NULL*\/)$/;"	f	class:Config	signature:(CWnd* pParent )
+Config::Config	.\Config.h	/^	Config(CWnd* pParent = NULL);   \/\/ ±ê×¼¹¹Ôìº¯Êý$/;"	p	class:Config	access:public	signature:(CWnd* pParent = NULL)
+Config::DoDataExchange	.\Config - ¸±±¾.cpp	/^void Config::DoDataExchange(CDataExchange* pDX)$/;"	f	class:Config	signature:(CDataExchange* pDX)
+Config::DoDataExchange	.\Config.cpp	/^void Config::DoDataExchange(CDataExchange* pDX)$/;"	f	class:Config	signature:(CDataExchange* pDX)
+Config::DoDataExchange	.\Config.h	/^	virtual void DoDataExchange(CDataExchange* pDX);    \/\/ DDX\/DDV Ö§³Ö$/;"	p	class:Config	access:protected	signature:(CDataExchange* pDX)
+Config::IDD	.\Config.h	/^	enum { IDD = IDD_D_Config };$/;"	e	enum:Config::__anon1
+Config::OnBnClickedCancel	.\Config - ¸±±¾.cpp	/^void Config::OnBnClickedCancel()$/;"	f	class:Config	signature:()
+Config::OnBnClickedCancel	.\Config.cpp	/^void Config::OnBnClickedCancel()$/;"	f	class:Config	signature:()
+Config::OnBnClickedCancel	.\Config.h	/^	afx_msg void OnBnClickedCancel();$/;"	p	class:Config	access:public	signature:()
+Config::OnBnClickedOk	.\Config - ¸±±¾.cpp	/^void Config::OnBnClickedOk()$/;"	f	class:Config	signature:()
+Config::OnBnClickedOk	.\Config.cpp	/^void Config::OnBnClickedOk()$/;"	f	class:Config	signature:()
+Config::OnBnClickedOk	.\Config.h	/^	afx_msg void OnBnClickedOk();$/;"	p	class:Config	access:public	signature:()
+Config::OnClickedButtonconfigcanmera	.\Config.cpp	/^void Config::OnClickedButtonconfigcanmera()$/;"	f	class:Config	signature:()
+Config::OnClickedButtonconfigcanmera	.\Config.h	/^	afx_msg void OnClickedButtonconfigcanmera();$/;"	p	class:Config	access:public	signature:()
+Config::OnClickedCheckFliph	.\Config - ¸±±¾.cpp	/^void Config::OnClickedCheckFliph()$/;"	f	class:Config	signature:()
+Config::OnClickedCheckFlipv	.\Config - ¸±±¾.cpp	/^void Config::OnClickedCheckFlipv()$/;"	f	class:Config	signature:()
+Config::OnInitDialog	.\Config - ¸±±¾.cpp	/^BOOL Config::OnInitDialog()$/;"	f	class:Config	signature:()
+Config::OnInitDialog	.\Config.cpp	/^BOOL Config::OnInitDialog()$/;"	f	class:Config	signature:()
+Config::OnInitDialog	.\Config.h	/^	virtual BOOL OnInitDialog();$/;"	p	class:Config	access:public	signature:()
+Config::OnSelchangeComboDevice	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboDevice()$/;"	f	class:Config	signature:()
+Config::OnSelchangeComboFramerate	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboFramerate()$/;"	f	class:Config	signature:()
+Config::OnSelchangeComboInputchannel	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboInputchannel()$/;"	f	class:Config	signature:()
+Config::OnSelchangeComboVideoformat	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboVideoformat()$/;"	f	class:Config	signature:()
+Config::OnSelchangeComboVideonorm	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboVideonorm()$/;"	f	class:Config	signature:()
+Config::restoreDeviceSettings	.\Config - ¸±±¾.cpp	/^void Config::restoreDeviceSettings()$/;"	f	class:Config	signature:()
+Config::saveDeviceSettings	.\Config - ¸±±¾.cpp	/^void Config::saveDeviceSettings()$/;"	f	class:Config	signature:()
+Config::updateDevices	.\Config - ¸±±¾.cpp	/^void Config::updateDevices()$/;"	f	class:Config	signature:()
+Config::updateFlip	.\Config - ¸±±¾.cpp	/^void Config::updateFlip()$/;"	f	class:Config	signature:()
+Config::updateFrameRates	.\Config - ¸±±¾.cpp	/^void Config::updateFrameRates()$/;"	f	class:Config	signature:()
+Config::updateInputChannels	.\Config - ¸±±¾.cpp	/^void Config::updateInputChannels()$/;"	f	class:Config	signature:()
+Config::updateVideoFormats	.\Config - ¸±±¾.cpp	/^void Config::updateVideoFormats()$/;"	f	class:Config	signature:()
+Config::updateVideoNorms	.\Config - ¸±±¾.cpp	/^void Config::updateVideoNorms()$/;"	f	class:Config	signature:()
+Config::~Config	.\Config - ¸±±¾.cpp	/^Config::~Config()$/;"	f	class:Config	signature:()
+Config::~Config	.\Config.cpp	/^Config::~Config()$/;"	f	class:Config	signature:()
+Config::~Config	.\Config.h	/^	virtual ~Config();$/;"	p	class:Config	access:public	signature:()
+CopyOf	.\CvvImage.cpp	/^void CvvImage::CopyOf( CvvImage& image, int desired_color )$/;"	f	class:CvvImage	signature:( CvvImage& image, int desired_color )
+CopyOf	.\CvvImage.cpp	/^void CvvImage::CopyOf( IplImage* img, int desired_color )$/;"	f	class:CvvImage	signature:( IplImage* img, int desired_color )
+CopyOf	.\CvvImage.h	/^	virtual void CopyOf( CvvImage& image, int desired_color = -1 );$/;"	p	class:CvvImage	access:public	signature:( CvvImage& image, int desired_color = -1 )
+CopyOf	.\CvvImage.h	/^	virtual void CopyOf( IplImage* img, int desired_color = -1 );$/;"	p	class:CvvImage	access:public	signature:( IplImage* img, int desired_color = -1 )
+Create	.\CvvImage.cpp	/^bool CvvImage::Create( int w, int h, int bpp, int origin )$/;"	f	class:CvvImage	signature:( int w, int h, int bpp, int origin )
+Create	.\CvvImage.h	/^	virtual bool Create( int width, int height, int bits_per_pixel, int image_origin = 0 );$/;"	p	class:CvvImage	access:public	signature:( int width, int height, int bits_per_pixel, int image_origin = 0 )
+CvRectToRect	.\CvvImage.cpp	/^CV_INLINE RECT CvRectToRect( CvRect sr )$/;"	f	signature:( CvRect sr )
+CvRectToRect	.\CvvImage.cpp	/^CV_INLINE RECT CvRectToRect( CvRect sr );$/;"	p	file:	signature:( CvRect sr )
+CvvImage	.\CvvImage.cpp	/^CvvImage::CvvImage()$/;"	f	class:CvvImage	signature:()
+CvvImage	.\CvvImage.h	/^	CvvImage();$/;"	p	class:CvvImage	access:public	signature:()
+CvvImage	.\CvvImage.h	/^class CvvImage$/;"	c
+CvvImage::Bpp	.\CvvImage.h	/^	int Bpp() { return m_img ? (m_img->depth & 255)*m_img->nChannels : 0; };$/;"	f	class:CvvImage	access:public	signature:()
+CvvImage::CopyOf	.\CvvImage.cpp	/^void CvvImage::CopyOf( CvvImage& image, int desired_color )$/;"	f	class:CvvImage	signature:( CvvImage& image, int desired_color )
+CvvImage::CopyOf	.\CvvImage.cpp	/^void CvvImage::CopyOf( IplImage* img, int desired_color )$/;"	f	class:CvvImage	signature:( IplImage* img, int desired_color )
+CvvImage::CopyOf	.\CvvImage.h	/^	virtual void CopyOf( CvvImage& image, int desired_color = -1 );$/;"	p	class:CvvImage	access:public	signature:( CvvImage& image, int desired_color = -1 )
+CvvImage::CopyOf	.\CvvImage.h	/^	virtual void CopyOf( IplImage* img, int desired_color = -1 );$/;"	p	class:CvvImage	access:public	signature:( IplImage* img, int desired_color = -1 )
+CvvImage::Create	.\CvvImage.cpp	/^bool CvvImage::Create( int w, int h, int bpp, int origin )$/;"	f	class:CvvImage	signature:( int w, int h, int bpp, int origin )
+CvvImage::Create	.\CvvImage.h	/^	virtual bool Create( int width, int height, int bits_per_pixel, int image_origin = 0 );$/;"	p	class:CvvImage	access:public	signature:( int width, int height, int bits_per_pixel, int image_origin = 0 )
+CvvImage::CvvImage	.\CvvImage.cpp	/^CvvImage::CvvImage()$/;"	f	class:CvvImage	signature:()
+CvvImage::CvvImage	.\CvvImage.h	/^	CvvImage();$/;"	p	class:CvvImage	access:public	signature:()
+CvvImage::Destroy	.\CvvImage.cpp	/^void CvvImage::Destroy()$/;"	f	class:CvvImage	signature:()
+CvvImage::Destroy	.\CvvImage.h	/^	virtual void Destroy(void);$/;"	p	class:CvvImage	access:public	signature:(void)
+CvvImage::DrawToHDC	.\CvvImage.cpp	/^void CvvImage::DrawToHDC( HDC hDCDst, RECT* pDstRect )$/;"	f	class:CvvImage	signature:( HDC hDCDst, RECT* pDstRect )
+CvvImage::DrawToHDC	.\CvvImage.h	/^	virtual void DrawToHDC( HDC hDCDst, RECT* pDstRect );$/;"	p	class:CvvImage	access:public	signature:( HDC hDCDst, RECT* pDstRect )
+CvvImage::Fill	.\CvvImage.cpp	/^void CvvImage::Fill( int color )$/;"	f	class:CvvImage	signature:( int color )
+CvvImage::Fill	.\CvvImage.h	/^	virtual void Fill( int color );$/;"	p	class:CvvImage	access:public	signature:( int color )
+CvvImage::GetImage	.\CvvImage.h	/^	IplImage* GetImage() { return m_img; };$/;"	f	class:CvvImage	access:public	signature:()
+CvvImage::Height	.\CvvImage.h	/^	int Height() { return !m_img ? 0 : !m_img->roi ? m_img->height : m_img->roi->height;};$/;"	f	class:CvvImage	access:public	signature:()
+CvvImage::Load	.\CvvImage.cpp	/^bool CvvImage::Load( const char* filename, int desired_color )$/;"	f	class:CvvImage	signature:( const char* filename, int desired_color )
+CvvImage::Load	.\CvvImage.h	/^	virtual bool Load( const char* filename, int desired_color = 1 );$/;"	p	class:CvvImage	access:public	signature:( const char* filename, int desired_color = 1 )
+CvvImage::LoadRect	.\CvvImage.cpp	/^bool CvvImage::LoadRect( const char* filename,$/;"	f	class:CvvImage	signature:( const char* filename, int desired_color, CvRect r )
+CvvImage::LoadRect	.\CvvImage.h	/^	virtual bool LoadRect( const char* filename,$/;"	f	class:CvvImage	access:public	signature:( const char* filename, int desired_color, RECT r )
+CvvImage::LoadRect	.\CvvImage.h	/^	virtual bool LoadRect( const char* filename,$/;"	p	class:CvvImage	access:public	signature:( const char* filename, int desired_color, CvRect r )
+CvvImage::Save	.\CvvImage.cpp	/^bool CvvImage::Save( const char* filename )$/;"	f	class:CvvImage	signature:( const char* filename )
+CvvImage::Save	.\CvvImage.h	/^	virtual bool Save( const char* filename );$/;"	p	class:CvvImage	access:public	signature:( const char* filename )
+CvvImage::Show	.\CvvImage.cpp	/^void CvvImage::Show( HDC dc, int x, int y, int w, int h, int from_x, int from_y )$/;"	f	class:CvvImage	signature:( HDC dc, int x, int y, int w, int h, int from_x, int from_y )
+CvvImage::Show	.\CvvImage.cpp	/^void CvvImage::Show( const char* window )$/;"	f	class:CvvImage	signature:( const char* window )
+CvvImage::Show	.\CvvImage.h	/^	virtual void Show( HDC dc, int x, int y, int width, int height,$/;"	p	class:CvvImage	access:public	signature:( HDC dc, int x, int y, int width, int height, int from_x = 0, int from_y = 0 )
+CvvImage::Show	.\CvvImage.h	/^	virtual void Show( const char* window );$/;"	p	class:CvvImage	access:public	signature:( const char* window )
+CvvImage::Width	.\CvvImage.h	/^	int Width() { return !m_img ? 0 : !m_img->roi ? m_img->width : m_img->roi->width; };$/;"	f	class:CvvImage	access:public	signature:()
+CvvImage::m_img	.\CvvImage.h	/^	IplImage* m_img;$/;"	m	class:CvvImage	access:protected
+CvvImage::~CvvImage	.\CvvImage.cpp	/^CvvImage::~CvvImage()$/;"	f	class:CvvImage	signature:()
+CvvImage::~CvvImage	.\CvvImage.h	/^	virtual ~CvvImage();$/;"	p	class:CvvImage	access:public	signature:()
+DECLARE_EASYSIZE	.\EasySize.h	43;"	d
+Destroy	.\CvvImage.cpp	/^void CvvImage::Destroy()$/;"	f	class:CvvImage	signature:()
+Destroy	.\CvvImage.h	/^	virtual void Destroy(void);$/;"	p	class:CvvImage	access:public	signature:(void)
+DoDataExchange	.\Config - ¸±±¾.cpp	/^void Config::DoDataExchange(CDataExchange* pDX)$/;"	f	class:Config	signature:(CDataExchange* pDX)
+DoDataExchange	.\Config.cpp	/^void Config::DoDataExchange(CDataExchange* pDX)$/;"	f	class:Config	signature:(CDataExchange* pDX)
+DoDataExchange	.\Config.h	/^	virtual void DoDataExchange(CDataExchange* pDX);    \/\/ DDX\/DDV Ö§³Ö$/;"	p	class:Config	access:protected	signature:(CDataExchange* pDX)
+DoDataExchange	.\Password.cpp	/^void CPassword::DoDataExchange(CDataExchange* pDX)$/;"	f	class:CPassword	signature:(CDataExchange* pDX)
+DoDataExchange	.\Password.h	/^	virtual void DoDataExchange(CDataExchange* pDX);    \/\/ DDX\/DDV Ö§³Ö$/;"	p	class:CPassword	access:protected	signature:(CDataExchange* pDX)
+DoDataExchange	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::DoDataExchange(CDataExchange* pDX)$/;"	f	class:CVTestCheckDlg	signature:(CDataExchange* pDX)
+DoDataExchange	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::DoDataExchange(CDataExchange* pDX)$/;"	f	class:CVTestCheckDlg	signature:(CDataExchange* pDX)
+DoDataExchange	.\VTestCheckDlg.h	/^	virtual void DoDataExchange(CDataExchange* pDX);	\/\/ DDX\/DDV Ö§³Ö$/;"	p	class:CVTestCheckDlg	access:protected	signature:(CDataExchange* pDX)
+DrawToHDC	.\CvvImage.cpp	/^void CvvImage::DrawToHDC( HDC hDCDst, RECT* pDstRect )$/;"	f	class:CvvImage	signature:( HDC hDCDst, RECT* pDstRect )
+DrawToHDC	.\CvvImage.h	/^	virtual void DrawToHDC( HDC hDCDst, RECT* pDstRect );$/;"	p	class:CvvImage	access:public	signature:( HDC hDCDst, RECT* pDstRect )
+EASYSIZE	.\EasySize.h	58;"	d
+EASYSIZEOPEN	.\General.h	1;"	d
+EASYSIZE_MINSIZE	.\EasySize.h	48;"	d
+END_EASYSIZE_MAP	.\EasySize.h	57;"	d
+ES_BORDER	.\EasySize.h	39;"	d
+ES_HCENTER	.\EasySize.h	41;"	d
+ES_KEEPSIZE	.\EasySize.h	40;"	d
+ES_VCENTER	.\EasySize.h	42;"	d
+Fill	.\CvvImage.cpp	/^void CvvImage::Fill( int color )$/;"	f	class:CvvImage	signature:( int color )
+Fill	.\CvvImage.h	/^	virtual void Fill( int color );$/;"	p	class:CvvImage	access:public	signature:( int color )
+FillBitmapInfo	.\CvvImage.cpp	/^void FillBitmapInfo( BITMAPINFO* bmi, int width, int height, int bpp, int origin )$/;"	f	signature:( BITMAPINFO* bmi, int width, int height, int bpp, int origin )
+FindColsLeftSpot	.\VTestCheckDlg.cpp	/^int FindColsLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sLeftOne)$/;"	f	signature:(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sLeftOne)
+FindColsRightSpot	.\VTestCheckDlg.cpp	/^int FindColsRightSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sRightOne)$/;"	f	signature:(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sRightOne)
+FindEdgeLocation	.\VTestCheckDlg - ¸±±¾.cpp	/^int FindEdgeLocation(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+FindEdgeLocation	.\VTestCheckDlg.cpp	/^int FindEdgeLocation(Mat * mPic,int &iBoundary,$/;"	f	signature:(Mat * mPic,int &iBoundary, int &iSkipNum,int& rows,int &cols,int& channels,int &iSpec)
+FindEdgeLocation	.\VTestCheckDlg.cpp	/^int FindEdgeLocation(Mat * mPic,int * pEdgeInfo,int &iSkipNum,int& rows,int &cols,int& channels,int &spec)$/;"	f	signature:(Mat * mPic,int * pEdgeInfo,int &iSkipNum,int& rows,int &cols,int& channels,int &spec)
+FindPrepare	.\VTestCheckDlg - ¸±±¾.cpp	/^int FindPrepare(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+FindPrepare	.\VTestCheckDlg.cpp	/^int FindPrepare(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+FindRowsMidLeftSpot	.\VTestCheckDlg.cpp	/^int FindRowsMidLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)$/;"	f	signature:(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)
+FindSpotLocation	.\VTestCheckDlg.cpp	/^int FindSpotLocation(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)$/;"	f	signature:(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)
+FindSpotLocationPrepare	.\VTestCheckDlg.cpp	/^int FindSpotLocationPrepare(Mat * mPic,int Spec,int &iSkipNum,int iEdgeBegin,int iRowsEnd,vector<sSpotInfo>vSpot1,vector<sSpotInfo>vSpot2)$/;"	f	signature:(Mat * mPic,int Spec,int &iSkipNum,int iEdgeBegin,int iRowsEnd,vector<sSpotInfo>vSpot1,vector<sSpotInfo>vSpot2)
+GetImage	.\CvvImage.h	/^	IplImage* GetImage() { return m_img; };$/;"	f	class:CvvImage	access:public	signature:()
+GlobalTestInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^vector<sTestThreadInfo> GlobalTestInfo;$/;"	v
+GlobalTestInfo	.\VTestCheckDlg.cpp	/^vector<sTestThreadInfo> GlobalTestInfo;$/;"	v
+HG_IS_IMAGE	.\CvvImage.cpp	118;"	d	file:
+Height	.\CvvImage.h	/^	int Height() { return !m_img ? 0 : !m_img->roi ? m_img->height : m_img->roi->height;};$/;"	f	class:CvvImage	access:public	signature:()
+IDB_BITMAP_Fail	.\resource.h	10;"	d
+IDB_BITMAP_Pass	.\resource.h	11;"	d
+IDB_BITMAP_Stop	.\resource.h	12;"	d
+IDB_BITMAP_Test	.\resource.h	9;"	d
+IDB_BITMAP_Wait	.\resource.h	13;"	d
+IDC_BUTTON1	.\resource.h	14;"	d
+IDC_BUTTONConfigCanmera	.\resource.h	16;"	d
+IDC_B_SetPosition	.\resource.h	24;"	d
+IDC_Config	.\resource.h	15;"	d
+IDC_EDIT1	.\resource.h	17;"	d
+IDC_E_Password	.\resource.h	18;"	d
+IDC_Edit_PF	.\resource.h	19;"	d
+IDC_ListInfo	.\resource.h	20;"	d
+IDC_P_PF	.\resource.h	23;"	d
+IDC_S1	.\resource.h	21;"	d
+IDC_S2	.\resource.h	22;"	d
+IDC_STATI	.\resource.h	25;"	d
+IDC_STATICVIDEO	.\resource.h	26;"	d
+IDD	.\Config.h	/^	enum { IDD = IDD_D_Config };$/;"	e	enum:Config::__anon1
+IDD	.\Password.h	/^	enum { IDD = IDD_D_Password };$/;"	e	enum:CPassword::__anon2
+IDD	.\VTestCheckDlg.h	/^	enum { IDD = IDD_VTESTCHECK_DIALOG };$/;"	e	enum:CVTestCheckDlg::__anon3
+IDD_D_Config	.\resource.h	7;"	d
+IDD_D_Password	.\resource.h	8;"	d
+IDD_VTESTCHECK_DIALOG	.\resource.h	5;"	d
+IDR_MAINFRAME	.\resource.h	6;"	d
+INIT_EASYSIZE	.\EasySize.h	46;"	d
+InitInstance	.\VTestCheck.cpp	/^BOOL CVTestCheckApp::InitInstance()$/;"	f	class:CVTestCheckApp	signature:()
+InitInstance	.\VTestCheck.h	/^	virtual BOOL InitInstance();$/;"	p	class:CVTestCheckApp	access:public	signature:()
+Load	.\CvvImage.cpp	/^bool CvvImage::Load( const char* filename, int desired_color )$/;"	f	class:CvvImage	signature:( const char* filename, int desired_color )
+Load	.\CvvImage.h	/^	virtual bool Load( const char* filename, int desired_color = 1 );$/;"	p	class:CvvImage	access:public	signature:( const char* filename, int desired_color = 1 )
+LoadRect	.\CvvImage.cpp	/^bool CvvImage::LoadRect( const char* filename,$/;"	f	class:CvvImage	signature:( const char* filename, int desired_color, CvRect r )
+LoadRect	.\CvvImage.h	/^	virtual bool LoadRect( const char* filename,$/;"	f	class:CvvImage	access:public	signature:( const char* filename, int desired_color, RECT r )
+LoadRect	.\CvvImage.h	/^	virtual bool LoadRect( const char* filename,$/;"	p	class:CvvImage	access:public	signature:( const char* filename, int desired_color, CvRect r )
+MAX_LEN	.\VTestCheckDlg - ¸±±¾.cpp	755;"	d	file:
+MAX_LEN	.\VTestCheckDlg.cpp	755;"	d	file:
+NOT_AVAILABLE	.\Config.h	5;"	d
+NormalizeRect	.\CvvImage.cpp	/^CV_INLINE RECT NormalizeRect( RECT r )$/;"	f	signature:( RECT r )
+NormalizeRect	.\CvvImage.cpp	/^CV_INLINE RECT NormalizeRect( RECT r );$/;"	p	file:	signature:( RECT r )
+OnBnClickedBSetposition	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnBnClickedBSetposition()$/;"	f	class:CVTestCheckDlg	signature:()
+OnBnClickedBSetposition	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnBnClickedBSetposition()$/;"	f	class:CVTestCheckDlg	signature:()
+OnBnClickedBSetposition	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedBSetposition();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+OnBnClickedButton1	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedButton1();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+OnBnClickedCancel	.\Config - ¸±±¾.cpp	/^void Config::OnBnClickedCancel()$/;"	f	class:Config	signature:()
+OnBnClickedCancel	.\Config.cpp	/^void Config::OnBnClickedCancel()$/;"	f	class:Config	signature:()
+OnBnClickedCancel	.\Config.h	/^	afx_msg void OnBnClickedCancel();$/;"	p	class:Config	access:public	signature:()
+OnBnClickedCancel	.\Password.cpp	/^void CPassword::OnBnClickedCancel()$/;"	f	class:CPassword	signature:()
+OnBnClickedCancel	.\Password.h	/^	afx_msg void OnBnClickedCancel();$/;"	p	class:CPassword	access:public	signature:()
+OnBnClickedCancel	.\VTestCheck.cpp	/^void CVTestCheckApp::OnBnClickedCancel()$/;"	f	class:CVTestCheckApp	signature:()
+OnBnClickedCancel	.\VTestCheck.h	/^	afx_msg void OnBnClickedCancel();$/;"	p	class:CVTestCheckApp	access:public	signature:()
+OnBnClickedCancel	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnBnClickedCancel()$/;"	f	class:CVTestCheckDlg	signature:()
+OnBnClickedCancel	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnBnClickedCancel()$/;"	f	class:CVTestCheckDlg	signature:()
+OnBnClickedCancel	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedCancel();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+OnBnClickedConfig	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnBnClickedConfig()$/;"	f	class:CVTestCheckDlg	signature:()
+OnBnClickedConfig	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnBnClickedConfig()$/;"	f	class:CVTestCheckDlg	signature:()
+OnBnClickedConfig	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedConfig();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+OnBnClickedOk	.\Config - ¸±±¾.cpp	/^void Config::OnBnClickedOk()$/;"	f	class:Config	signature:()
+OnBnClickedOk	.\Config.cpp	/^void Config::OnBnClickedOk()$/;"	f	class:Config	signature:()
+OnBnClickedOk	.\Config.h	/^	afx_msg void OnBnClickedOk();$/;"	p	class:Config	access:public	signature:()
+OnBnClickedOk	.\Password.cpp	/^void CPassword::OnBnClickedOk()$/;"	f	class:CPassword	signature:()
+OnBnClickedOk	.\Password.h	/^	afx_msg void OnBnClickedOk();$/;"	p	class:CPassword	access:public	signature:()
+OnBnClickedOk	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnBnClickedOk()$/;"	f	class:CVTestCheckDlg	signature:()
+OnBnClickedOk	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnBnClickedOk()$/;"	f	class:CVTestCheckDlg	signature:()
+OnBnClickedOk	.\VTestCheckDlg.h	/^	afx_msg void OnBnClickedOk();$/;"	p	class:CVTestCheckDlg	access:public	signature:()
+OnClickedButtonconfigcanmera	.\Config.cpp	/^void Config::OnClickedButtonconfigcanmera()$/;"	f	class:Config	signature:()
+OnClickedButtonconfigcanmera	.\Config.h	/^	afx_msg void OnClickedButtonconfigcanmera();$/;"	p	class:Config	access:public	signature:()
+OnClickedCheckFliph	.\Config - ¸±±¾.cpp	/^void Config::OnClickedCheckFliph()$/;"	f	class:Config	signature:()
+OnClickedCheckFlipv	.\Config - ¸±±¾.cpp	/^void Config::OnClickedCheckFlipv()$/;"	f	class:Config	signature:()
+OnInitDialog	.\Config - ¸±±¾.cpp	/^BOOL Config::OnInitDialog()$/;"	f	class:Config	signature:()
+OnInitDialog	.\Config.cpp	/^BOOL Config::OnInitDialog()$/;"	f	class:Config	signature:()
+OnInitDialog	.\Config.h	/^	virtual BOOL OnInitDialog();$/;"	p	class:Config	access:public	signature:()
+OnInitDialog	.\VTestCheckDlg - ¸±±¾.cpp	/^BOOL CVTestCheckDlg::OnInitDialog()$/;"	f	class:CVTestCheckDlg	signature:()
+OnInitDialog	.\VTestCheckDlg.cpp	/^BOOL CVTestCheckDlg::OnInitDialog()$/;"	f	class:CVTestCheckDlg	signature:()
+OnInitDialog	.\VTestCheckDlg.h	/^	virtual BOOL OnInitDialog();$/;"	p	class:CVTestCheckDlg	access:protected	signature:()
+OnPaint	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnPaint()$/;"	f	class:CVTestCheckDlg	signature:()
+OnPaint	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnPaint()$/;"	f	class:CVTestCheckDlg	signature:()
+OnPaint	.\VTestCheckDlg.h	/^	afx_msg void OnPaint();$/;"	p	class:CVTestCheckDlg	access:protected	signature:()
+OnQueryDragIcon	.\VTestCheckDlg - ¸±±¾.cpp	/^HCURSOR CVTestCheckDlg::OnQueryDragIcon()$/;"	f	class:CVTestCheckDlg	signature:()
+OnQueryDragIcon	.\VTestCheckDlg.cpp	/^HCURSOR CVTestCheckDlg::OnQueryDragIcon()$/;"	f	class:CVTestCheckDlg	signature:()
+OnQueryDragIcon	.\VTestCheckDlg.h	/^	afx_msg HCURSOR OnQueryDragIcon();$/;"	p	class:CVTestCheckDlg	access:protected	signature:()
+OnSelchangeComboDevice	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboDevice()$/;"	f	class:Config	signature:()
+OnSelchangeComboFramerate	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboFramerate()$/;"	f	class:Config	signature:()
+OnSelchangeComboInputchannel	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboInputchannel()$/;"	f	class:Config	signature:()
+OnSelchangeComboVideoformat	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboVideoformat()$/;"	f	class:Config	signature:()
+OnSelchangeComboVideonorm	.\Config - ¸±±¾.cpp	/^void Config::OnSelchangeComboVideonorm()$/;"	f	class:Config	signature:()
+OnSize	.\VTestCheckDlg - ¸±±¾.cpp	/^void CVTestCheckDlg::OnSize(UINT nType, int cx, int cy)$/;"	f	class:CVTestCheckDlg	signature:(UINT nType, int cx, int cy)
+OnSize	.\VTestCheckDlg.cpp	/^void CVTestCheckDlg::OnSize(UINT nType, int cx, int cy)$/;"	f	class:CVTestCheckDlg	signature:(UINT nType, int cx, int cy)
+OnSize	.\VTestCheckDlg.h	/^	afx_msg void OnSize(UINT nType, int cx, int cy);$/;"	p	class:CVTestCheckDlg	access:public	signature:(UINT nType, int cx, int cy)
+PShowImg	.\VTestCheckDlg - ¸±±¾.cpp	/^Mat PShowImg;$/;"	v
+PShowImg	.\VTestCheckDlg.cpp	/^Mat PShowImg;$/;"	v
+PicChangeInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^typedef struct PicChangeInfo$/;"	s	file:
+PicChangeInfo	.\VTestCheckDlg.cpp	/^typedef struct PicChangeInfo$/;"	s	file:
+PicChangeInfo::cDataB	.\VTestCheckDlg - ¸±±¾.cpp	/^	char cDataB;$/;"	m	struct:PicChangeInfo	file:	access:public
+PicChangeInfo::cDataB	.\VTestCheckDlg.cpp	/^	char cDataB;$/;"	m	struct:PicChangeInfo	file:	access:public
+PicChangeInfo::cDataG	.\VTestCheckDlg - ¸±±¾.cpp	/^	char cDataG;$/;"	m	struct:PicChangeInfo	file:	access:public
+PicChangeInfo::cDataG	.\VTestCheckDlg.cpp	/^	char cDataG;$/;"	m	struct:PicChangeInfo	file:	access:public
+PicChangeInfo::cDataR	.\VTestCheckDlg - ¸±±¾.cpp	/^	char cDataR;$/;"	m	struct:PicChangeInfo	file:	access:public
+PicChangeInfo::cDataR	.\VTestCheckDlg.cpp	/^	char cDataR;$/;"	m	struct:PicChangeInfo	file:	access:public
+PicChangeInfo::iPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iPosition;$/;"	m	struct:PicChangeInfo	file:	access:public
+PicChangeInfo::iPosition	.\VTestCheckDlg.cpp	/^	int iPosition;$/;"	m	struct:PicChangeInfo	file:	access:public
+PicChangeInfo::state	.\VTestCheckDlg - ¸±±¾.cpp	/^	int state;  \/*$/;"	m	struct:PicChangeInfo	file:	access:public
+PicChangeInfo::state	.\VTestCheckDlg.cpp	/^	int state;  \/*$/;"	m	struct:PicChangeInfo	file:	access:public
+RectToCvRect	.\CvvImage.cpp	/^CV_INLINE CvRect RectToCvRect( RECT sr )$/;"	f	signature:( RECT sr )
+RectToCvRect	.\CvvImage.cpp	/^CV_INLINE CvRect RectToCvRect( RECT sr );$/;"	p	file:	signature:( RECT sr )
+RectToROI	.\CvvImage.cpp	/^CV_INLINE IplROI RectToROI( RECT r )$/;"	f	signature:( RECT r )
+RectToROI	.\CvvImage.cpp	/^CV_INLINE IplROI RectToROI( RECT r );$/;"	p	file:	signature:( RECT r )
+Save	.\CvvImage.cpp	/^bool CvvImage::Save( const char* filename )$/;"	f	class:CvvImage	signature:( const char* filename )
+Save	.\CvvImage.h	/^	virtual bool Save( const char* filename );$/;"	p	class:CvvImage	access:public	signature:( const char* filename )
+SelectFlag	.\VTestCheckDlg - ¸±±¾.cpp	/^bool SelectFlag;$/;"	v
+SelectFlag	.\VTestCheckDlg.cpp	/^bool SelectFlag;$/;"	v
+SelectRect	.\VTestCheckDlg - ¸±±¾.cpp	/^Rect SelectRect;$/;"	v
+SelectRect	.\VTestCheckDlg.cpp	/^Rect SelectRect;$/;"	v
+Show	.\CvvImage.cpp	/^void CvvImage::Show( HDC dc, int x, int y, int w, int h, int from_x, int from_y )$/;"	f	class:CvvImage	signature:( HDC dc, int x, int y, int w, int h, int from_x, int from_y )
+Show	.\CvvImage.cpp	/^void CvvImage::Show( const char* window )$/;"	f	class:CvvImage	signature:( const char* window )
+Show	.\CvvImage.h	/^	virtual void Show( HDC dc, int x, int y, int width, int height,$/;"	p	class:CvvImage	access:public	signature:( HDC dc, int x, int y, int width, int height, int from_x = 0, int from_y = 0 )
+Show	.\CvvImage.h	/^	virtual void Show( const char* window );$/;"	p	class:CvvImage	access:public	signature:( const char* window )
+SpotInfo	.\VTestCheckDlg.cpp	/^typedef struct SpotInfo$/;"	s	file:
+SpotInfo::cols	.\VTestCheckDlg.cpp	/^	int cols;$/;"	m	struct:SpotInfo	file:	access:public
+SpotInfo::rows	.\VTestCheckDlg.cpp	/^	int rows;$/;"	m	struct:SpotInfo	file:	access:public
+Test	.\VTestCheckDlg - ¸±±¾.cpp	/^UINT Test(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
+Test	.\VTestCheckDlg.cpp	/^UINT Test(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
+TestBegin	.\VTestCheckDlg - ¸±±¾.cpp	/^UINT TestBegin(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
+TestBegin	.\VTestCheckDlg.cpp	/^UINT TestBegin(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
+TestEntry	.\VTestCheckDlg - ¸±±¾.cpp	/^UINT TestEntry(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
+TestEntry	.\VTestCheckDlg - ¸±±¾.cpp	/^UINT TestEntry(LPVOID pParam);$/;"	p	file:	signature:(LPVOID pParam)
+TestEntry	.\VTestCheckDlg.cpp	/^UINT TestEntry(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
+TestEntry	.\VTestCheckDlg.cpp	/^UINT TestEntry(LPVOID pParam);$/;"	p	file:	signature:(LPVOID pParam)
+TestLog	.\VTestCheckDlg - ¸±±¾.cpp	/^typedef struct TestLog$/;"	s	file:
+TestLog	.\VTestCheckDlg.cpp	/^typedef struct TestLog$/;"	s	file:
+TestLog::iTestPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	UINT iTestPosition;$/;"	m	struct:TestLog	file:	access:public
+TestLog::iTestPosition	.\VTestCheckDlg.cpp	/^	UINT iTestPosition;$/;"	m	struct:TestLog	file:	access:public
+TestPicConfig	.\VTestCheckDlg - ¸±±¾.cpp	/^typedef struct TestPicConfig$/;"	s	file:
+TestPicConfig	.\VTestCheckDlg.cpp	/^typedef struct TestPicConfig$/;"	s	file:
+TestPicConfig::iBackgroundDeviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBackgroundDeviation;  \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª±³¾°Öµ£¬ÔòÈÏÎª±³¾°¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBackgroundDeviation	.\VTestCheckDlg.cpp	/^	int iBackgroundDeviation;  \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª±³¾°Öµ£¬ÔòÈÏÎª±³¾°¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBackgroundMinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBackgroundMinLength;     \/\/±³¾°×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBackgroundMinLength	.\VTestCheckDlg.cpp	/^	int iBackgroundMinLength;     \/\/±³¾°×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBackgroundSpec	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBackgroundSpec;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBackgroundSpec	.\VTestCheckDlg.cpp	/^	int iBackgroundSpec;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBandFirstMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandFirstMinWidth;        \/\/µ×¶ËµÚÒ»¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBandFirstMinWidth	.\VTestCheckDlg.cpp	/^	int iBandFirstMinWidth;        \/\/µ×¶ËµÚÒ»¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBandSecondMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandSecondMinWidth ;       \/\/µ×¶ËµÚ¶þ¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBandSecondMinWidth	.\VTestCheckDlg.cpp	/^	int iBandSecondMinWidth ;       \/\/µ×¶ËµÚ¶þ¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBandThirdMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandThirdMinWidth;        \/\/µ×¶ËµÚÈý¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iBandThirdMinWidth	.\VTestCheckDlg.cpp	/^	int iBandThirdMinWidth;        \/\/µ×¶ËµÚÈý¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1BandMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1BandMinWidth;      \/\/×ÖÌå×îÐ¡¼ä¾à$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1BandMinWidth	.\VTestCheckDlg.cpp	/^	int iFont1BandMinWidth;      \/\/×ÖÌå×îÐ¡¼ä¾à$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1Deviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1Deviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª×ÖÌåÖµ£¬ÔòÈÏÎª×ÖÌå¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1Deviation	.\VTestCheckDlg.cpp	/^	int iFont1Deviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª×ÖÌåÖµ£¬ÔòÈÏÎª×ÖÌå¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1MinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1MinLength;           \/\/×ÖÌå×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1MinLength	.\VTestCheckDlg.cpp	/^	int iFont1MinLength;           \/\/×ÖÌå×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1MinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1MinWidth;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1MinWidth	.\VTestCheckDlg.cpp	/^	int iFont1MinWidth;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1SkipMaxWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1SkipMaxWidth;      \/\/×ÖÌå¿ç¶È×î´ó¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1SkipMaxWidth	.\VTestCheckDlg.cpp	/^	int iFont1SkipMaxWidth;      \/\/×ÖÌå¿ç¶È×î´ó¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1Spec	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1Spec;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont1Spec	.\VTestCheckDlg.cpp	/^	int iFont1Spec;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2BandMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2BandMinWidth;      \/\/×ÖÌå×îÐ¡¼ä¾à$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2BandMinWidth	.\VTestCheckDlg.cpp	/^	int iFont2BandMinWidth;      \/\/×ÖÌå×îÐ¡¼ä¾à$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2Deviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2Deviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª×ÖÌåÖµ£¬ÔòÈÏÎª×ÖÌå¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2Deviation	.\VTestCheckDlg.cpp	/^	int iFont2Deviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª×ÖÌåÖµ£¬ÔòÈÏÎª×ÖÌå¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2MinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2MinLength;           \/\/×ÖÌå×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2MinLength	.\VTestCheckDlg.cpp	/^	int iFont2MinLength;           \/\/×ÖÌå×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2MinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2MinWidth;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2MinWidth	.\VTestCheckDlg.cpp	/^	int iFont2MinWidth;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2SkipMaxWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2SkipMaxWidth;      \/\/×ÖÌå¿ç¶È×î´ó¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2SkipMaxWidth	.\VTestCheckDlg.cpp	/^	int iFont2SkipMaxWidth;      \/\/×ÖÌå¿ç¶È×î´ó¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2Spec	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2Spec;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iFont2Spec	.\VTestCheckDlg.cpp	/^	int iFont2Spec;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iSpotDeviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotDeviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±ÎªµãÖµ£¬ÔòÈÏÎªµã¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iSpotDeviation	.\VTestCheckDlg.cpp	/^	int iSpotDeviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±ÎªµãÖµ£¬ÔòÈÏÎªµã¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iSpotMinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotMinLength;            \/\/µã×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iSpotMinLength	.\VTestCheckDlg.cpp	/^	int iSpotMinLength;            \/\/µã×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iSpotMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotMinWidth;             \/\/µã×îÐ¡¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iSpotMinWidth	.\VTestCheckDlg.cpp	/^	int iSpotMinWidth;             \/\/µã×îÐ¡¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iSpotSpec	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotSpec;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iSpotSpec	.\VTestCheckDlg.cpp	/^	int iSpotSpec;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetDeviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetDeviation;       \/\/¶à´ó·¶Î§ÄÚÒ»Ö±ÎªÄ¿±êÖµ£¬ÔòÈÏÎªÄ¿±ê¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetDeviation	.\VTestCheckDlg.cpp	/^	int iTargetDeviation;       \/\/¶à´ó·¶Î§ÄÚÒ»Ö±ÎªÄ¿±êÖµ£¬ÔòÈÏÎªÄ¿±ê¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetLeftRightMinPlace	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetLeftRightMinPlace;         \/\/µ±Ä¿±ê×óÓÒ³¬³ö¸ÃÖµ£¬ÔòÈÏÎªÄ¿±ê²»´æÔÚ$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetLeftRightMinPlace	.\VTestCheckDlg.cpp	/^	int iTargetLeftRightMinPlace;         \/\/µ±Ä¿±ê×óÓÒ³¬³ö¸ÃÖµ£¬ÔòÈÏÎªÄ¿±ê²»´æÔÚ$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetMinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetMinLength;          \/\/Ä¿±ê×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetMinLength	.\VTestCheckDlg.cpp	/^	int iTargetMinLength;          \/\/Ä¿±ê×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetPixMinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetPixMinLength;    \/\/$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetPixMinLength	.\VTestCheckDlg.cpp	/^	int iTargetPixMinLength;    \/\/$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetSpec1	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetSpec1;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetSpec1	.\VTestCheckDlg.cpp	/^	int iTargetSpec1;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetSpec2	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetSpec2;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetSpec2	.\VTestCheckDlg.cpp	/^	int iTargetSpec2;$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetTopBottomMinPlace	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetTopBottomMinPlace;         \/\/µ±Ä¿±êÉÏÏÂ³¬³ö¸ÃÖµ£¬ÔòÈÏÎªÄ¿±ê²»´æÔÚ$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicConfig::iTargetTopBottomMinPlace	.\VTestCheckDlg.cpp	/^	int iTargetTopBottomMinPlace;         \/\/µ±Ä¿±êÉÏÏÂ³¬³ö¸ÃÖµ£¬ÔòÈÏÎªÄ¿±ê²»´æÔÚ$/;"	m	struct:TestPicConfig	file:	access:public
+TestPicResult	.\VTestCheckDlg - ¸±±¾.cpp	/^typedef struct TestPicResult$/;"	s	file:
+TestPicResult	.\VTestCheckDlg.cpp	/^typedef struct TestPicResult$/;"	s	file:
+TestPicResult::bA1CheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bA1CheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::bA1CheckResult	.\VTestCheckDlg.cpp	/^	bool bA1CheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::bA2CheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bA2CheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::bA2CheckResult	.\VTestCheckDlg.cpp	/^	bool bA2CheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::bBCheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bBCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::bBCheckResult	.\VTestCheckDlg.cpp	/^	bool bBCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::bRCheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bRCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::bRCheckResult	.\VTestCheckDlg.cpp	/^	bool bRCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::bUCheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bUCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::bUCheckResult	.\VTestCheckDlg.cpp	/^	bool bUCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iA1FontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iA1FontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iA1FontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iA1FontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iA2FontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iA2FontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iA2FontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iA2FontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iBFontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iBFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iBFontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iBFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iBandFirstWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandFirstWidth;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iBandFirstWidth	.\VTestCheckDlg.cpp	/^	int iBandFirstWidth;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iBandSecondWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandSecondWidth;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iBandSecondWidth	.\VTestCheckDlg.cpp	/^	int iBandSecondWidth;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iBandThirdWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandThirdWidth;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iBandThirdWidth	.\VTestCheckDlg.cpp	/^	int iBandThirdWidth;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iEdgeLeftPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iEdgeLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iEdgeLeftPosition	.\VTestCheckDlg.cpp	/^	int iEdgeLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iEdgeLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iEdgeLength;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iEdgeLength	.\VTestCheckDlg.cpp	/^	int iEdgeLength;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iEdgePosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iEdgePosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iEdgePosition	.\VTestCheckDlg.cpp	/^	int iEdgePosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iEdgeRightPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iEdgeRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iEdgeRightPosition	.\VTestCheckDlg.cpp	/^	int iEdgeRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont1BeginPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1BeginPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont1BeginPosition	.\VTestCheckDlg.cpp	/^	int iFont1BeginPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont1BottomPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1BottomPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont1BottomPosition	.\VTestCheckDlg.cpp	/^	int iFont1BottomPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont1EndPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1EndPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont1EndPosition	.\VTestCheckDlg.cpp	/^	int iFont1EndPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont1TopPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1TopPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont1TopPosition	.\VTestCheckDlg.cpp	/^	int iFont1TopPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont2BeginPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2BeginPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont2BeginPosition	.\VTestCheckDlg.cpp	/^	int iFont2BeginPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont2BottomPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2BottomPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont2BottomPosition	.\VTestCheckDlg.cpp	/^	int iFont2BottomPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont2EndPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2EndPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont2EndPosition	.\VTestCheckDlg.cpp	/^	int iFont2EndPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont2TopPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2TopPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iFont2TopPosition	.\VTestCheckDlg.cpp	/^	int iFont2TopPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iRFontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iRFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iRFontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iRFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotFirstLeftPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotFirstLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotFirstLeftPosition	.\VTestCheckDlg.cpp	/^	int iSpotFirstLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotFirstRightPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotFirstRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotFirstRightPosition	.\VTestCheckDlg.cpp	/^	int iSpotFirstRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotLength;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotLength	.\VTestCheckDlg.cpp	/^	int iSpotLength;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotPosition	.\VTestCheckDlg.cpp	/^	int iSpotPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotSecondLeftPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotSecondLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotSecondLeftPosition	.\VTestCheckDlg.cpp	/^	int iSpotSecondLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotSecondRightPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotSecondRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iSpotSecondRightPosition	.\VTestCheckDlg.cpp	/^	int iSpotSecondRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iUFontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iUFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::iUFontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iUFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::vFontInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> vFontInfo;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::vFontInfo	.\VTestCheckDlg.cpp	/^	vector<vector<int>> vFontInfo;$/;"	m	struct:TestPicResult	file:	access:public
+TestResultHandle	.\VTestCheckDlg - ¸±±¾.cpp	/^UINT TestResultHandle(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
+TestResultHandle	.\VTestCheckDlg.cpp	/^UINT TestResultHandle(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
+TestThreadInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^typedef struct TestThreadInfo$/;"	s	file:
+TestThreadInfo	.\VTestCheckDlg.cpp	/^typedef struct TestThreadInfo$/;"	s	file:
+TestThreadInfo::TestTime	.\VTestCheckDlg - ¸±±¾.cpp	/^	CTime TestTime;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::TestTime	.\VTestCheckDlg.cpp	/^	CTime TestTime;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::bTestEnd	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bTestEnd;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::bTestEnd	.\VTestCheckDlg.cpp	/^	bool bTestEnd;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::bTestResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bTestResult;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::bTestResult	.\VTestCheckDlg.cpp	/^	bool bTestResult;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::iTestItem	.\VTestCheckDlg - ¸±±¾.cpp	/^	ULONG iTestItem;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::iTestItem	.\VTestCheckDlg.cpp	/^	ULONG iTestItem;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::iTestPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	UINT iTestPosition;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::iTestPosition	.\VTestCheckDlg.cpp	/^	UINT iTestPosition;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::mTestData	.\VTestCheckDlg - ¸±±¾.cpp	/^	Mat * mTestData;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::mTestData	.\VTestCheckDlg.cpp	/^	Mat * mTestData;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::pTestThreadEntry	.\VTestCheckDlg - ¸±±¾.cpp	/^	CWinThread *pTestThreadEntry;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestThreadInfo::pTestThreadEntry	.\VTestCheckDlg.cpp	/^	CWinThread *pTestThreadEntry;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestTime	.\VTestCheckDlg - ¸±±¾.cpp	/^	CTime TestTime;$/;"	m	struct:TestThreadInfo	file:	access:public
+TestTime	.\VTestCheckDlg.cpp	/^	CTime TestTime;$/;"	m	struct:TestThreadInfo	file:	access:public
+UPDATE_EASYSIZE	.\EasySize.h	47;"	d
+VC_EXTRALEAN	.\stdafx.h	13;"	d
+Width	.\CvvImage.h	/^	int Width() { return !m_img ? 0 : !m_img->roi ? m_img->width : m_img->roi->width; };$/;"	f	class:CvvImage	access:public	signature:()
+_AFX_ALL_WARNINGS	.\stdafx.h	21;"	d
+_APS_NEXT_COMMAND_VALUE	.\resource.h	33;"	d
+_APS_NEXT_CONTROL_VALUE	.\resource.h	34;"	d
+_APS_NEXT_RESOURCE_VALUE	.\resource.h	32;"	d
+_APS_NEXT_SYMED_VALUE	.\resource.h	35;"	d
+_ATL_CSTRING_EXPLICIT_CONSTRUCTORS	.\stdafx.h	18;"	d
+_SECURE_ATL	.\stdafx.h	9;"	d
+__EASYSIZE_H_	.\EasySize.h	38;"	d
+bA1CheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bA1CheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+bA1CheckResult	.\VTestCheckDlg.cpp	/^	bool bA1CheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+bA2CheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bA2CheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+bA2CheckResult	.\VTestCheckDlg.cpp	/^	bool bA2CheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+bBCheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bBCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+bBCheckResult	.\VTestCheckDlg.cpp	/^	bool bBCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+bRCheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bRCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+bRCheckResult	.\VTestCheckDlg.cpp	/^	bool bRCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+bTestEnd	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bTestEnd;$/;"	m	struct:TestThreadInfo	file:	access:public
+bTestEnd	.\VTestCheckDlg.cpp	/^	bool bTestEnd;$/;"	m	struct:TestThreadInfo	file:	access:public
+bTestResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bTestResult;$/;"	m	struct:TestThreadInfo	file:	access:public
+bTestResult	.\VTestCheckDlg.cpp	/^	bool bTestResult;$/;"	m	struct:TestThreadInfo	file:	access:public
+bUCheckResult	.\VTestCheckDlg - ¸±±¾.cpp	/^	bool bUCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+bUCheckResult	.\VTestCheckDlg.cpp	/^	bool bUCheckResult;$/;"	m	struct:TestPicResult	file:	access:public
+cDataB	.\VTestCheckDlg - ¸±±¾.cpp	/^	char cDataB;$/;"	m	struct:PicChangeInfo	file:	access:public
+cDataB	.\VTestCheckDlg.cpp	/^	char cDataB;$/;"	m	struct:PicChangeInfo	file:	access:public
+cDataG	.\VTestCheckDlg - ¸±±¾.cpp	/^	char cDataG;$/;"	m	struct:PicChangeInfo	file:	access:public
+cDataG	.\VTestCheckDlg.cpp	/^	char cDataG;$/;"	m	struct:PicChangeInfo	file:	access:public
+cDataR	.\VTestCheckDlg - ¸±±¾.cpp	/^	char cDataR;$/;"	m	struct:PicChangeInfo	file:	access:public
+cDataR	.\VTestCheckDlg.cpp	/^	char cDataR;$/;"	m	struct:PicChangeInfo	file:	access:public
+checkA1	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkA1(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkA1	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkA1(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkA1	.\VTestCheckDlg.cpp	/^int checkA1(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkA1	.\VTestCheckDlg.cpp	/^int checkA1(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkA2	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkA2	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkA2	.\VTestCheckDlg.cpp	/^int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkA2	.\VTestCheckDlg.cpp	/^int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkB	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkB(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkB	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkB(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkB	.\VTestCheckDlg.cpp	/^int checkB(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkB	.\VTestCheckDlg.cpp	/^int checkB(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkR	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkR	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkR	.\VTestCheckDlg.cpp	/^int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkR	.\VTestCheckDlg.cpp	/^int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkU	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkU(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkU	.\VTestCheckDlg - ¸±±¾.cpp	/^int checkU(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkU	.\VTestCheckDlg.cpp	/^int checkU(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+checkU	.\VTestCheckDlg.cpp	/^int checkU(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+cols	.\VTestCheckDlg.cpp	/^	int cols;$/;"	m	struct:SpotInfo	file:	access:public
+config	.\Password.cpp	/^Config config;$/;"	v
+cv	.\CvvImage.h	/^namespace cv$/;"	n
+cv::CImage	.\CvvImage.h	/^	typedef CvvImage CImage;$/;"	t	namespace:cv
+ex	.\VTestCheckDlg - ¸±±¾.cpp	/^CVTestCheckDlg * ex = NULL;$/;"	v
+ex	.\VTestCheckDlg.cpp	/^CVTestCheckDlg * ex = NULL;$/;"	v
+fLoadConfig	.\VTestCheckDlg - ¸±±¾.cpp	/^int fLoadConfig(sTestPicConfig& TestConfig)$/;"	f	signature:(sTestPicConfig& TestConfig)
+fLoadConfig	.\VTestCheckDlg - ¸±±¾.cpp	/^int fLoadConfig(sTestPicConfig& TestConfig);$/;"	p	file:	signature:(sTestPicConfig& TestConfig)
+fLoadConfig	.\VTestCheckDlg.cpp	/^int fLoadConfig(sTestPicConfig& TestConfig)$/;"	f	signature:(sTestPicConfig& TestConfig)
+fLoadConfig	.\VTestCheckDlg.cpp	/^int fLoadConfig(sTestPicConfig& TestConfig);$/;"	p	file:	signature:(sTestPicConfig& TestConfig)
+fTargetLocation	.\VTestCheckDlg - ¸±±¾.cpp	/^int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+fTargetLocation	.\VTestCheckDlg - ¸±±¾.cpp	/^int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+fTargetLocation	.\VTestCheckDlg.cpp	/^int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+fTargetLocation	.\VTestCheckDlg.cpp	/^int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+iA1FontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iA1FontChange;$/;"	m	struct:TestPicResult	file:	access:public
+iA1FontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iA1FontChange;$/;"	m	struct:TestPicResult	file:	access:public
+iA2FontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iA2FontChange;$/;"	m	struct:TestPicResult	file:	access:public
+iA2FontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iA2FontChange;$/;"	m	struct:TestPicResult	file:	access:public
+iBFontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iBFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+iBFontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iBFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+iBackgroundDeviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBackgroundDeviation;  \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª±³¾°Öµ£¬ÔòÈÏÎª±³¾°¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iBackgroundDeviation	.\VTestCheckDlg.cpp	/^	int iBackgroundDeviation;  \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª±³¾°Öµ£¬ÔòÈÏÎª±³¾°¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iBackgroundMinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBackgroundMinLength;     \/\/±³¾°×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iBackgroundMinLength	.\VTestCheckDlg.cpp	/^	int iBackgroundMinLength;     \/\/±³¾°×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iBackgroundSpec	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBackgroundSpec;$/;"	m	struct:TestPicConfig	file:	access:public
+iBackgroundSpec	.\VTestCheckDlg.cpp	/^	int iBackgroundSpec;$/;"	m	struct:TestPicConfig	file:	access:public
+iBandFirstMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandFirstMinWidth;        \/\/µ×¶ËµÚÒ»¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iBandFirstMinWidth	.\VTestCheckDlg.cpp	/^	int iBandFirstMinWidth;        \/\/µ×¶ËµÚÒ»¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iBandFirstWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandFirstWidth;$/;"	m	struct:TestPicResult	file:	access:public
+iBandFirstWidth	.\VTestCheckDlg.cpp	/^	int iBandFirstWidth;$/;"	m	struct:TestPicResult	file:	access:public
+iBandSecondMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandSecondMinWidth ;       \/\/µ×¶ËµÚ¶þ¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iBandSecondMinWidth	.\VTestCheckDlg.cpp	/^	int iBandSecondMinWidth ;       \/\/µ×¶ËµÚ¶þ¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iBandSecondWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandSecondWidth;$/;"	m	struct:TestPicResult	file:	access:public
+iBandSecondWidth	.\VTestCheckDlg.cpp	/^	int iBandSecondWidth;$/;"	m	struct:TestPicResult	file:	access:public
+iBandThirdMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandThirdMinWidth;        \/\/µ×¶ËµÚÈý¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iBandThirdMinWidth	.\VTestCheckDlg.cpp	/^	int iBandThirdMinWidth;        \/\/µ×¶ËµÚÈý¸ö°×É«±³¾°¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iBandThirdWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iBandThirdWidth;$/;"	m	struct:TestPicResult	file:	access:public
+iBandThirdWidth	.\VTestCheckDlg.cpp	/^	int iBandThirdWidth;$/;"	m	struct:TestPicResult	file:	access:public
+iEdgeLeftPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iEdgeLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iEdgeLeftPosition	.\VTestCheckDlg.cpp	/^	int iEdgeLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iEdgeLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iEdgeLength;$/;"	m	struct:TestPicResult	file:	access:public
+iEdgeLength	.\VTestCheckDlg.cpp	/^	int iEdgeLength;$/;"	m	struct:TestPicResult	file:	access:public
+iEdgePosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iEdgePosition;$/;"	m	struct:TestPicResult	file:	access:public
+iEdgePosition	.\VTestCheckDlg.cpp	/^	int iEdgePosition;$/;"	m	struct:TestPicResult	file:	access:public
+iEdgeRightPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iEdgeRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iEdgeRightPosition	.\VTestCheckDlg.cpp	/^	int iEdgeRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont1BandMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1BandMinWidth;      \/\/×ÖÌå×îÐ¡¼ä¾à$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1BandMinWidth	.\VTestCheckDlg.cpp	/^	int iFont1BandMinWidth;      \/\/×ÖÌå×îÐ¡¼ä¾à$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1BeginPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1BeginPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont1BeginPosition	.\VTestCheckDlg.cpp	/^	int iFont1BeginPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont1BottomPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1BottomPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont1BottomPosition	.\VTestCheckDlg.cpp	/^	int iFont1BottomPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont1Deviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1Deviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª×ÖÌåÖµ£¬ÔòÈÏÎª×ÖÌå¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1Deviation	.\VTestCheckDlg.cpp	/^	int iFont1Deviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª×ÖÌåÖµ£¬ÔòÈÏÎª×ÖÌå¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1EndPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1EndPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont1EndPosition	.\VTestCheckDlg.cpp	/^	int iFont1EndPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont1MinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1MinLength;           \/\/×ÖÌå×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1MinLength	.\VTestCheckDlg.cpp	/^	int iFont1MinLength;           \/\/×ÖÌå×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1MinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1MinWidth;$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1MinWidth	.\VTestCheckDlg.cpp	/^	int iFont1MinWidth;$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1SkipMaxWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1SkipMaxWidth;      \/\/×ÖÌå¿ç¶È×î´ó¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1SkipMaxWidth	.\VTestCheckDlg.cpp	/^	int iFont1SkipMaxWidth;      \/\/×ÖÌå¿ç¶È×î´ó¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1Spec	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1Spec;$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1Spec	.\VTestCheckDlg.cpp	/^	int iFont1Spec;$/;"	m	struct:TestPicConfig	file:	access:public
+iFont1TopPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont1TopPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont1TopPosition	.\VTestCheckDlg.cpp	/^	int iFont1TopPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont2BandMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2BandMinWidth;      \/\/×ÖÌå×îÐ¡¼ä¾à$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2BandMinWidth	.\VTestCheckDlg.cpp	/^	int iFont2BandMinWidth;      \/\/×ÖÌå×îÐ¡¼ä¾à$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2BeginPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2BeginPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont2BeginPosition	.\VTestCheckDlg.cpp	/^	int iFont2BeginPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont2BottomPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2BottomPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont2BottomPosition	.\VTestCheckDlg.cpp	/^	int iFont2BottomPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont2Deviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2Deviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª×ÖÌåÖµ£¬ÔòÈÏÎª×ÖÌå¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2Deviation	.\VTestCheckDlg.cpp	/^	int iFont2Deviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±Îª×ÖÌåÖµ£¬ÔòÈÏÎª×ÖÌå¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2EndPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2EndPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont2EndPosition	.\VTestCheckDlg.cpp	/^	int iFont2EndPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont2MinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2MinLength;           \/\/×ÖÌå×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2MinLength	.\VTestCheckDlg.cpp	/^	int iFont2MinLength;           \/\/×ÖÌå×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2MinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2MinWidth;$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2MinWidth	.\VTestCheckDlg.cpp	/^	int iFont2MinWidth;$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2SkipMaxWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2SkipMaxWidth;      \/\/×ÖÌå¿ç¶È×î´ó¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2SkipMaxWidth	.\VTestCheckDlg.cpp	/^	int iFont2SkipMaxWidth;      \/\/×ÖÌå¿ç¶È×î´ó¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2Spec	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2Spec;$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2Spec	.\VTestCheckDlg.cpp	/^	int iFont2Spec;$/;"	m	struct:TestPicConfig	file:	access:public
+iFont2TopPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iFont2TopPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iFont2TopPosition	.\VTestCheckDlg.cpp	/^	int iFont2TopPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iPosition;$/;"	m	struct:PicChangeInfo	file:	access:public
+iPosition	.\VTestCheckDlg.cpp	/^	int iPosition;$/;"	m	struct:PicChangeInfo	file:	access:public
+iRFontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iRFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+iRFontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iRFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotDeviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotDeviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±ÎªµãÖµ£¬ÔòÈÏÎªµã¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iSpotDeviation	.\VTestCheckDlg.cpp	/^	int iSpotDeviation;         \/\/¶à´ó·¶Î§ÄÚÒ»Ö±ÎªµãÖµ£¬ÔòÈÏÎªµã¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iSpotFirstLeftPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotFirstLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotFirstLeftPosition	.\VTestCheckDlg.cpp	/^	int iSpotFirstLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotFirstRightPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotFirstRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotFirstRightPosition	.\VTestCheckDlg.cpp	/^	int iSpotFirstRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotLength;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotLength	.\VTestCheckDlg.cpp	/^	int iSpotLength;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotMinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotMinLength;            \/\/µã×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iSpotMinLength	.\VTestCheckDlg.cpp	/^	int iSpotMinLength;            \/\/µã×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iSpotMinWidth	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotMinWidth;             \/\/µã×îÐ¡¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iSpotMinWidth	.\VTestCheckDlg.cpp	/^	int iSpotMinWidth;             \/\/µã×îÐ¡¿í¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iSpotPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotPosition	.\VTestCheckDlg.cpp	/^	int iSpotPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotSecondLeftPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotSecondLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotSecondLeftPosition	.\VTestCheckDlg.cpp	/^	int iSpotSecondLeftPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotSecondRightPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotSecondRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotSecondRightPosition	.\VTestCheckDlg.cpp	/^	int iSpotSecondRightPosition;$/;"	m	struct:TestPicResult	file:	access:public
+iSpotSpec	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iSpotSpec;$/;"	m	struct:TestPicConfig	file:	access:public
+iSpotSpec	.\VTestCheckDlg.cpp	/^	int iSpotSpec;$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetDeviation	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetDeviation;       \/\/¶à´ó·¶Î§ÄÚÒ»Ö±ÎªÄ¿±êÖµ£¬ÔòÈÏÎªÄ¿±ê¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetDeviation	.\VTestCheckDlg.cpp	/^	int iTargetDeviation;       \/\/¶à´ó·¶Î§ÄÚÒ»Ö±ÎªÄ¿±êÖµ£¬ÔòÈÏÎªÄ¿±ê¿ªÊ¼$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetLeftRightMinPlace	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetLeftRightMinPlace;         \/\/µ±Ä¿±ê×óÓÒ³¬³ö¸ÃÖµ£¬ÔòÈÏÎªÄ¿±ê²»´æÔÚ$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetLeftRightMinPlace	.\VTestCheckDlg.cpp	/^	int iTargetLeftRightMinPlace;         \/\/µ±Ä¿±ê×óÓÒ³¬³ö¸ÃÖµ£¬ÔòÈÏÎªÄ¿±ê²»´æÔÚ$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetMinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetMinLength;          \/\/Ä¿±ê×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetMinLength	.\VTestCheckDlg.cpp	/^	int iTargetMinLength;          \/\/Ä¿±ê×îÐ¡³¤¶È$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetPixMinLength	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetPixMinLength;    \/\/$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetPixMinLength	.\VTestCheckDlg.cpp	/^	int iTargetPixMinLength;    \/\/$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetSpec1	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetSpec1;$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetSpec1	.\VTestCheckDlg.cpp	/^	int iTargetSpec1;$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetSpec2	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetSpec2;$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetSpec2	.\VTestCheckDlg.cpp	/^	int iTargetSpec2;$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetTopBottomMinPlace	.\VTestCheckDlg - ¸±±¾.cpp	/^	int iTargetTopBottomMinPlace;         \/\/µ±Ä¿±êÉÏÏÂ³¬³ö¸ÃÖµ£¬ÔòÈÏÎªÄ¿±ê²»´æÔÚ$/;"	m	struct:TestPicConfig	file:	access:public
+iTargetTopBottomMinPlace	.\VTestCheckDlg.cpp	/^	int iTargetTopBottomMinPlace;         \/\/µ±Ä¿±êÉÏÏÂ³¬³ö¸ÃÖµ£¬ÔòÈÏÎªÄ¿±ê²»´æÔÚ$/;"	m	struct:TestPicConfig	file:	access:public
+iTestItem	.\VTestCheckDlg - ¸±±¾.cpp	/^	ULONG iTestItem;$/;"	m	struct:TestThreadInfo	file:	access:public
+iTestItem	.\VTestCheckDlg.cpp	/^	ULONG iTestItem;$/;"	m	struct:TestThreadInfo	file:	access:public
+iTestLog	.\VTestCheckDlg - ¸±±¾.cpp	/^} iTestLog;$/;"	t	typeref:struct:TestLog	file:
+iTestLog	.\VTestCheckDlg.cpp	/^} iTestLog;$/;"	t	typeref:struct:TestLog	file:
+iTestPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	UINT iTestPosition;$/;"	m	struct:TestLog	file:	access:public
+iTestPosition	.\VTestCheckDlg - ¸±±¾.cpp	/^	UINT iTestPosition;$/;"	m	struct:TestThreadInfo	file:	access:public
+iTestPosition	.\VTestCheckDlg.cpp	/^	UINT iTestPosition;$/;"	m	struct:TestLog	file:	access:public
+iTestPosition	.\VTestCheckDlg.cpp	/^	UINT iTestPosition;$/;"	m	struct:TestThreadInfo	file:	access:public
+iUFontChange	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> iUFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+iUFontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iUFontChange;$/;"	m	struct:TestPicResult	file:	access:public
+ii	.\VTestCheckDlg - ¸±±¾.cpp	/^int ii = 0;$/;"	v
+ii	.\VTestCheckDlg.cpp	/^int ii = 0;$/;"	v
+mTestData	.\VTestCheckDlg - ¸±±¾.cpp	/^	Mat * mTestData;$/;"	m	struct:TestThreadInfo	file:	access:public
+mTestData	.\VTestCheckDlg.cpp	/^	Mat * mTestData;$/;"	m	struct:TestThreadInfo	file:	access:public
+m_ListBox	.\VTestCheckDlg.h	/^	CListBox m_ListBox;$/;"	m	class:CVTestCheckDlg	access:public
+m_Picture_PF	.\VTestCheckDlg.h	/^	CStatic m_Picture_PF;$/;"	m	class:CVTestCheckDlg	access:public
+m_cStaticVideoWindow	.\VTestCheckDlg.h	/^	CStatic m_cStaticVideoWindow;$/;"	m	class:CVTestCheckDlg	access:public
+m_hIcon	.\VTestCheckDlg.h	/^	HICON m_hIcon;$/;"	m	class:CVTestCheckDlg	access:protected
+m_img	.\CvvImage.h	/^	IplImage* m_img;$/;"	m	class:CvvImage	access:protected
+m_pGrabber	.\VTestCheckDlg - ¸±±¾.cpp	/^DShowLib::Grabber* m_pGrabber;$/;"	v
+m_pGrabber	.\VTestCheckDlg.cpp	/^DShowLib::Grabber* m_pGrabber;$/;"	v
+new	.\VTestCheck.cpp	10;"	d	file:
+new	.\VTestCheckDlg - ¸±±¾.cpp	19;"	d	file:
+new	.\VTestCheckDlg.cpp	19;"	d	file:
+onMouse	.\VTestCheckDlg - ¸±±¾.cpp	/^void onMouse(int Event,int x,int y, int flags,void * param)$/;"	f	signature:(int Event,int x,int y, int flags,void * param)
+onMouse	.\VTestCheckDlg - ¸±±¾.cpp	/^void onMouse(int Event,int x,int y, int flags,void * param);$/;"	p	file:	signature:(int Event,int x,int y, int flags,void * param)
+onMouse	.\VTestCheckDlg.cpp	/^void onMouse(int Event,int x,int y, int flags,void * param)$/;"	f	signature:(int Event,int x,int y, int flags,void * param)
+onMouse	.\VTestCheckDlg.cpp	/^void onMouse(int Event,int x,int y, int flags,void * param);$/;"	p	file:	signature:(int Event,int x,int y, int flags,void * param)
+pBuf	.\VTestCheckDlg - ¸±±¾.cpp	/^BYTE* pBuf[1];$/;"	v
+pBuf	.\VTestCheckDlg.cpp	/^BYTE* pBuf[1];$/;"	v
+pPicChangeInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^}sPicChangeInfo,*pPicChangeInfo;$/;"	t	typeref:struct:PicChangeInfo	file:
+pPicChangeInfo	.\VTestCheckDlg.cpp	/^}sPicChangeInfo,*pPicChangeInfo;$/;"	t	typeref:struct:PicChangeInfo	file:
+pSink	.\VTestCheckDlg - ¸±±¾.cpp	/^tFrameHandlerSinkPtr pSink;$/;"	v
+pSink	.\VTestCheckDlg.cpp	/^tFrameHandlerSinkPtr pSink;$/;"	v
+pSpotInfo	.\VTestCheckDlg.cpp	/^}sSpotInfo,*pSpotInfo;$/;"	t	typeref:struct:SpotInfo	file:
+pTestPicConfig	.\VTestCheckDlg - ¸±±¾.cpp	/^}sTestPicConfig,*pTestPicConfig;$/;"	t	typeref:struct:TestPicConfig	file:
+pTestPicConfig	.\VTestCheckDlg.cpp	/^}sTestPicConfig,*pTestPicConfig;$/;"	t	typeref:struct:TestPicConfig	file:
+pTestPicResult	.\VTestCheckDlg - ¸±±¾.cpp	/^} sTestPicResult,*pTestPicResult;$/;"	t	typeref:struct:TestPicResult	file:
+pTestPicResult	.\VTestCheckDlg.cpp	/^} sTestPicResult,*pTestPicResult;$/;"	t	typeref:struct:TestPicResult	file:
+pTestThreadEntry	.\VTestCheckDlg - ¸±±¾.cpp	/^	CWinThread *pTestThreadEntry;$/;"	m	struct:TestThreadInfo	file:	access:public
+pTestThreadEntry	.\VTestCheckDlg.cpp	/^	CWinThread *pTestThreadEntry;$/;"	m	struct:TestThreadInfo	file:	access:public
+pTestThreadInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^} *pTestThreadInfo,sTestThreadInfo;$/;"	t	typeref:struct:TestThreadInfo	file:
+pTestThreadInfo	.\VTestCheckDlg.cpp	/^} *pTestThreadInfo,sTestThreadInfo;$/;"	t	typeref:struct:TestThreadInfo	file:
+restoreDeviceSettings	.\Config - ¸±±¾.cpp	/^void Config::restoreDeviceSettings()$/;"	f	class:Config	signature:()
+rows	.\VTestCheckDlg.cpp	/^	int rows;$/;"	m	struct:SpotInfo	file:	access:public
+sPicChangeInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^}sPicChangeInfo,*pPicChangeInfo;$/;"	t	typeref:struct:PicChangeInfo	file:
+sPicChangeInfo	.\VTestCheckDlg.cpp	/^}sPicChangeInfo,*pPicChangeInfo;$/;"	t	typeref:struct:PicChangeInfo	file:
+sSpotInfo	.\VTestCheckDlg.cpp	/^}sSpotInfo,*pSpotInfo;$/;"	t	typeref:struct:SpotInfo	file:
+sTestPicConfig	.\VTestCheckDlg - ¸±±¾.cpp	/^}sTestPicConfig,*pTestPicConfig;$/;"	t	typeref:struct:TestPicConfig	file:
+sTestPicConfig	.\VTestCheckDlg.cpp	/^}sTestPicConfig,*pTestPicConfig;$/;"	t	typeref:struct:TestPicConfig	file:
+sTestPicResult	.\VTestCheckDlg - ¸±±¾.cpp	/^} sTestPicResult,*pTestPicResult;$/;"	t	typeref:struct:TestPicResult	file:
+sTestPicResult	.\VTestCheckDlg.cpp	/^} sTestPicResult,*pTestPicResult;$/;"	t	typeref:struct:TestPicResult	file:
+sTestThreadInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^} *pTestThreadInfo,sTestThreadInfo;$/;"	t	typeref:struct:TestThreadInfo	file:
+sTestThreadInfo	.\VTestCheckDlg.cpp	/^} *pTestThreadInfo,sTestThreadInfo;$/;"	t	typeref:struct:TestThreadInfo	file:
+saveDeviceSettings	.\Config - ¸±±¾.cpp	/^void Config::saveDeviceSettings()$/;"	f	class:Config	signature:()
+setupDeviceFromFile	.\Config.cpp	/^bool	setupDeviceFromFile(Grabber& gr, $/;"	f	signature:(Grabber& gr, const std::string& devStateFilename )
+setupDeviceFromFile	.\Config.cpp	/^bool setupDeviceFromFile( Grabber& gr, const std::string& devStateFilename= "lastSelectedDeviceState.xml");$/;"	p	file:	signature:( Grabber& gr, const std::string& devStateFilename= Ó)
+splitcharacter	.\VTestCheckDlg - ¸±±¾.cpp	/^int splitcharacter(uchar**pFont,int iFontSkip,int &k,vector<vector<int>>& iFontChange,sTestPicConfig& TestConfig,int & iEdgeRightPosition)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,vector<vector<int>>& iFontChange,sTestPicConfig& TestConfig,int & iEdgeRightPosition)
+splitcharacter	.\VTestCheckDlg - ¸±±¾.cpp	/^int splitcharacter(uchar**pFont,int iFontSkip,int &k,vector<vector<int>>& iFontChange,sTestPicConfig& TestConfig,int & iEdgeRightPosition);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,vector<vector<int>>& iFontChange,sTestPicConfig& TestConfig,int & iEdgeRightPosition)
+splitcharacter	.\VTestCheckDlg.cpp	/^int splitcharacter(uchar**pFont,int iFontSkip,int &k,vector<vector<int>>& iFontChange,sTestPicConfig& TestConfig,int & iEdgeRightPosition)$/;"	f	signature:(uchar**pFont,int iFontSkip,int &k,vector<vector<int>>& iFontChange,sTestPicConfig& TestConfig,int & iEdgeRightPosition)
+splitcharacter	.\VTestCheckDlg.cpp	/^int splitcharacter(uchar**pFont,int iFontSkip,int &k,vector<vector<int>>& iFontChange,sTestPicConfig& TestConfig,int & iEdgeRightPosition);$/;"	p	file:	signature:(uchar**pFont,int iFontSkip,int &k,vector<vector<int>>& iFontChange,sTestPicConfig& TestConfig,int & iEdgeRightPosition)
+state	.\VTestCheckDlg - ¸±±¾.cpp	/^	int state;  \/*$/;"	m	struct:PicChangeInfo	file:	access:public
+state	.\VTestCheckDlg.cpp	/^	int state;  \/*$/;"	m	struct:PicChangeInfo	file:	access:public
+theApp	.\VTestCheck.cpp	/^CVTestCheckApp theApp;$/;"	v
+updateDevices	.\Config - ¸±±¾.cpp	/^void Config::updateDevices()$/;"	f	class:Config	signature:()
+updateFlip	.\Config - ¸±±¾.cpp	/^void Config::updateFlip()$/;"	f	class:Config	signature:()
+updateFrameRates	.\Config - ¸±±¾.cpp	/^void Config::updateFrameRates()$/;"	f	class:Config	signature:()
+updateInputChannels	.\Config - ¸±±¾.cpp	/^void Config::updateInputChannels()$/;"	f	class:Config	signature:()
+updateVideoFormats	.\Config - ¸±±¾.cpp	/^void Config::updateVideoFormats()$/;"	f	class:Config	signature:()
+updateVideoNorms	.\Config - ¸±±¾.cpp	/^void Config::updateVideoNorms()$/;"	f	class:Config	signature:()
+vFontInfo	.\VTestCheckDlg - ¸±±¾.cpp	/^	vector<vector<int>> vFontInfo;$/;"	m	struct:TestPicResult	file:	access:public
+vFontInfo	.\VTestCheckDlg.cpp	/^	vector<vector<int>> vFontInfo;$/;"	m	struct:TestPicResult	file:	access:public
+~CPassword	.\Password.cpp	/^CPassword::~CPassword()$/;"	f	class:CPassword	signature:()
+~CPassword	.\Password.h	/^	virtual ~CPassword();$/;"	p	class:CPassword	access:public	signature:()
+~Config	.\Config - ¸±±¾.cpp	/^Config::~Config()$/;"	f	class:Config	signature:()
+~Config	.\Config.cpp	/^Config::~Config()$/;"	f	class:Config	signature:()
+~Config	.\Config.h	/^	virtual ~Config();$/;"	p	class:Config	access:public	signature:()
+~CvvImage	.\CvvImage.cpp	/^CvvImage::~CvvImage()$/;"	f	class:CvvImage	signature:()
+~CvvImage	.\CvvImage.h	/^	virtual ~CvvImage();$/;"	p	class:CvvImage	access:public	signature:()

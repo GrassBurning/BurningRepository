@@ -810,37 +810,7 @@ typedef struct SpotInfo
 	int rows;
 	int cols;
 }sSpotInfo,*pSpotInfo;
-int FindSpotLocation(Mat* mPic,int& rows,int& cols,int& channels,int& spec,vector<sSpotInfo> vSpotInfo,sTestPicConfig& TestConfig)
-{
-	int irows = rows;
-	int icols = cols;
-	int ichannels = channels;
-	int ispec = spec;
-	int i,j,k;
-	uchar * ptr;
-
-	if(mPic == NULL || mPic->empty())
-	{
-		return 1;
-	}
-	
-	ichannels = mPic->channels();
-	icols = mPic->cols * ichannels;
-	for(i = irows;i > 0;i --)
-	{
-		ptr = mPic->ptr<uchar>();
-		
-		for(j = 0;j < icols;)
-		{
-			if()
-			j = j + ichannels;
-
-		}
-
-	}
-
-}
-int ergodic(Mat* mPic,int& rows,int& cols,int& channels,sTestPicConfig& TestConfig,vector<sSpot>& vSpot)
+int FindSpotLocation(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)
 {
 	int irows = rows;
 	int icols = cols;
@@ -865,6 +835,8 @@ int ergodic(Mat* mPic,int& rows,int& cols,int& channels,sTestPicConfig& TestConf
 	{
 		sSpot1 = vSpot1.front();
 		ptr = mPic->ptr<uchar>(sSpot.rows);
+		vSpot1.pop_front();
+		vSpot2.push_back(sSpot1);
 		if(ptr[sSpot1.cols*3 + 2] < ispec)
 		{
 			vSpot2.push_back(sSpot1);
@@ -966,66 +938,292 @@ int ergodic(Mat* mPic,int& rows,int& cols,int& channels,sTestPicConfig& TestConf
 				sSpot2.cols = sSpot1.cols + 1;
 				vSpot1.push_back(sSpot2);
 			}
+		}else
+		{
+			vSpot.push_back(sSpot1);
 		}
 	}
 
+	return 0;
+}
+int FindRowsBottomSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)
+{
+	if(vSpotInfo.size() < 1)
+		return 1;
+
+	int i;
+
+	sTargetOne = vSpotInfo[0];
+
+	for(i = 1;i < vSpotInfo.size();i ++)
+	{
+		if(vSpotInfo[i].rows < sTargetOne.rows)
+		{
+			sTargetOne.cols = vSpotInfo[i].cols;
+			sTargetOne.rows = vSpotInfo[i].rows;
+		}
+	}
+
+	return 0;
+}
+int FindRowsTopSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)
+{
+	if(vSpotInfo.size() < 1)
+		return 1;
+
+	int i;
+
+	sTargetOne = vSpotInfo[0];
+
+	for(i = 1;i < vSpotInfo.size();i ++)
+	{
+		if(vSpotInfo[i].rows > sTargetOne.rows)
+		{
+			sTargetOne.cols = vSpotInfo[i].cols;
+			sTargetOne.rows = vSpotInfo[i].rows;
+		}
+	}
+
+	return 0;
+}
+int FindColsRightSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sRightOne)
+{
+	if(vSpotInfo.size() < 1)
+		return 1;
+
+	int i;
+
+	sRightOne = vSpotInfo.front();
 	
+	for(i = 1;i < vSpotInfo.size();i ++)
+	{
+		if(vSpotInfo[i].cols > sLeftOne.cols)
+		{
+			sRightOne.cols = vSpotInfo[i].cols;
+			sRightOne.rows = vSpotInfo[i].rows;
+		}
+	}
+	return 0;
 }
-int FindPrepare(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+int FindColsLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sLeftOne)
 {
-	uchar ** pFont1 = NULL;
+	if(vSpotInfo.size() < 1)
+		return 1;
+
+	int i;
+
+	sLeftOne = vSpotInfo.front();
+	
+	for(i = 1;i < vSpotInfo.size();i ++)
+	{
+		if(vSpotInfo[i].cols > sLeftOne.cols)
+		{
+			sLeftOne.cols = vSpotInfo[i].cols;
+			sLeftOne.rows = vSpotInfo[i].rows;
+		}
+	}
+
+	return 0;
 }
-int FindSpotLocation(Mat * mPic,int *pEdgeInfo,int &iSkipNum,int& rows,
-				int &cols,int& channels,int iEdgeBegin,int iEdgeEnd)
+int FindSpotLocationPrepare(Mat * mPic,int Spec,int &iSkipNum,int iEdgeBegin,
+				int iRowsEnd,vector<sSpotInfo>& vSpot1,vector<sSpotInfo>& vSpot2)
 {
-	int irows = rows;
-	int icols = cols;
-	int ichannels = channels;
-	int iskipnum = iSkipNum;
-	int ispec = spec;
+	int irows;
+	int icols;
+	int ichannels;
+	int iskipnum;
+	int ispec = Spec;
 	uchar * ptr;
 	int i,j,iEnd;
-	int iDSum,iDSumBackup;
-	vector<int> vSpotRowsInfo;
-	vector<int> vSpotColsInfo;
-
-	vector<int> vSpotLength;
+	int iDTarget,iDBack,iCEnd,iTarget,iBack;
+	int state;
 
 	if(mPic == NULL || mPic->empty() || pEdgeInfo == NULL)
 	{
 		return 1;
 	}
-	iDSumBackup = 0;
-	for(i = 7;i < iEnd;i ++)
+
+	irows = mPic->rows;
+	icols = mPic->cols;
+	ichannels = mPic->ichannels();
+	iCEnd = (icols - iColsSkipLength) * ichannels;
+
+	iDBack = 0;
+	iDTarget = 0;
+	iTarget = 0;
+	iBack = 0;
+	for(i = irows - 1;i > iRowsEnd;i ++)
 	{
-		iDSum = 0;
-		for(j = iEdgeBegin;j < iEdgeEnd;j ++)
-		{
-			ptr = mPic->ptr<uchar>(pEdgeInfo[j] + i);
+		ptr = mPic->ptr<uchar>(i);
+		state = 0;
+		iDBack = 0;
+		iDTarget = 0;
+		iTarget = 0;
+		iBack = 0;
 
-			if(ptr[j] < iSpec)
+		for(j = 0;j < iCEnd;)
+		{
+			switch (state)
 			{
-				vSpotRowsInfo.pushback(pEdgeInfo[j] + i);
-				vSpotColsInfo.pushback(j);
-				iDSum ++;
-				
-			}else
-			{
-				vSpotLength.pushback(iDSum);
-				iDSum = 0;
+				case 0:
+					{
+						if(ptr[j] > iSpec1)
+						{
+							iTarget ++;
+							if(iTarget > 3)
+								iBack = 0;
+							if(iTarget > iTargetLength1)
+							{
+								state = 1;
+								iDBack = 0;
+								iDTarget = 0;
+								iTarget = 0;
+								iBack = 0;
+							}
+						}else
+						{
+							
+							iBack ++;
+							if(iBack > 3)
+								iTarget = 0;
+						}
+					}
+				case 1:
+					{
+						if(ptr[j] < iSpec2)
+						{
+							iTarget ++;
+							if(iTarget > 3)
+								iBack = 0;
+							if(iTarget > iTargetLength2)
+							{
+								state = 2;
+								iDBack = 0;
+								iDTarget = 0;
+								iTarget = 0;
+								iBack = 0;
+								j = j - ichannels;
+							}
+						}else
+						{
+							
+							iBack ++;
+							if(iBack > 3)
+								iTarget = 0;
+						}
+					}
+				case 2:
+					{
+						state =  FindSpotLocation(mPic,i,j/ichannels,ichannels,iSpec2,vSpot1);
+						if(state != 0||vSpot1.size() < iSpotMinSpecLength)
+						{
+								state = 1;
+								iDBack = 0;
+								iDTarget = 0;
+								iTarget = 0;
+								iBack = 0;
+							
+						}
+						sSpotInfo sTmp1,sTmp2;
+						int m,n,x,y;
+
+						FindRowsBottomSpot(vSpot1,sTmp1); //目标开口向右倾斜 定位到的时第一个点
+						FindColsLeftSpot(vSpot1,sTmp2);
+						iTarget = 0;
+						
+						for(m = sTmp1.rows;m < 60;m ++)
+						{
+							ptr = mPic->ptr<uchar>(m);
+							y = (sTmp2.cols + 2 + 70) * ichannels;
+							for(n = (sTmp2.cols + 2) * ichannels;n < y;)
+							{
+								if(ptr[n] < iSpec2)
+								{
+
+									goto NextSpotTarget;//找到目标2
+								}
+								n = n + ichannels;
+							}
+						}
+						
+						FindRowsTopSpot(vSpot1,sTmp1); //目标开口向左倾斜 定位到的时第二个点
+						FindColsRightSpot(vSpot1,sTmp2);
+						iTarget = 0;
+						
+						x = sTmp1.rows - 60;
+						for(m = sTmp1.rows;m > x;m --)
+						{
+							ptr = mPic->ptr<uchar>(m);
+
+							y = (sTmp2.cols - 2 - 70 ) * ichannels;
+							for(n = (sTmp2.cols + 2) * ichannels;n < y;)
+							{
+								if(ptr[n] < iSpec2)
+								{
+									vector<sSpotInfo> vtmp;
+									vtmp = vSpot2;
+									vSpot2 = vSpot1;
+									vSpot1 = vtmp;
+									goto NextSpotTarget;//找到目标2
+								}
+								n = n - ichannels;
+							}
+						}
+NextSpotTarget:
+						state =  FindSpotLocation(mPic,m,n/ichannels,ichannels,iSpec2,vSpot1);
+						if(state != 0||vSpot1.size() < iSpotMinSpecLength)
+						{
+								state = 1;
+								iDBack = 0;
+								iDTarget = 0;
+								iTarget = 0;
+								iBack = 0;
+							
+						}else
+						{
+							return 0;
+						}
+					}
 			}
+			j = j + ichannels;
 
 		}
-		if(iDsumBackup > 7)
-		{
-			break;//找到目标
-		}
-		
 	}
 
-	
-
 }
+
+int FixAngleStart(vector<sSpotInfo>& vSpot1,vector<sSpotInfo>& vSpot2,int iDirect,float& fAngleValue,int & rows)
+{
+	sSpotInfo sTmp1,sTmp2;
+
+	FindRowsTopSpot(vSpot1,sTmp1);
+	FindRowsTopSpot(vSpot2,sTmp2);
+	if(iDirect == 1) //向左
+	{
+		fAngleValue = 1.0*(sTmp2.rows - sTmp1.rows)/(sTmp2.cols - sTmp1.cols);
+		rows = sTmp1.rows;
+		return 0;
+	}
+	if(iDirect == 0)//向右
+	{
+		rows = sTmp2.rows;
+		fAngleValue = 1.0*(sTmp1.rows - sTmp2.rows)/(sTmp2.cols = sTmp1.cols);
+		return 0;
+	}
+	return 0;
+}
+
+
+int SkipBand1()
+{
+	
+}
+
+int FindAllSpotLocation()
+{
+	
+}
+
 int FindEdgeLocation(Mat * mPic,int * pEdgeInfo,int &iSkipNum,int& rows,int &cols,int& channels,int &spec)
 {
 	int irows = rows;
