@@ -173,6 +173,8 @@ typedef struct TestPicResult
 	int iSpotPosition;
 	vector<vector<int>> vFontInfo;
 
+	vector<sSpotInfo> vSpot1;
+	vector<sSpotInfo> vSpot2;
 } sTestPicResult,*pTestPicResult;
 int fLoadConfig(sTestPicConfig& TestConfig);
 int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
@@ -810,7 +812,7 @@ typedef struct SpotInfo
 	int rows;
 	int cols;
 }sSpotInfo,*pSpotInfo;
-int FindSpotLocation(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)
+int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)
 {
 	int irows = rows;
 	int icols = cols;
@@ -1025,169 +1027,86 @@ int FindColsLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sLeftOne)
 
 	return 0;
 }
-int FindSpotLocationPrepare(Mat * mPic,int Spec,int &iSkipNum,int iEdgeBegin,
-				int iRowsEnd,vector<sSpotInfo>& vSpot1,vector<sSpotInfo>& vSpot2)
+int FindSpotLocation(Mat * mPic,int iSpec2,int iCols,int iSpotMinSpecLength,
+				int iRows,vector<sSpotInfo>& vSpot1,vector<sSpotInfo>& vSpot2)
 {
 	int irows;
 	int icols;
 	int ichannels;
-	int iskipnum;
-	int ispec = Spec;
 	uchar * ptr;
 	int i,j,iEnd;
 	int iDTarget,iDBack,iCEnd,iTarget,iBack;
 	int state;
-
+	vector<int> vRowInfo;
 	if(mPic == NULL || mPic->empty() || pEdgeInfo == NULL)
 	{
 		return 1;
 	}
 
-	irows = mPic->rows;
-	icols = mPic->cols;
 	ichannels = mPic->ichannels();
-	iCEnd = (icols - iColsSkipLength) * ichannels;
 
 	iDBack = 0;
 	iDTarget = 0;
 	iTarget = 0;
 	iBack = 0;
-	for(i = irows - 1;i > iRowsEnd;i ++)
+	state =  FindSpotLocation(mPic,iRows,iCols/ichannels,ichannels,iSpec2,vSpot1);
+	if(state != 0||vSpot1.size() < iSpotMinSpecLength)
 	{
-		ptr = mPic->ptr<uchar>(i);
-		state = 0;
-		iDBack = 0;
-		iDTarget = 0;
-		iTarget = 0;
-		iBack = 0;
+		return 2;	
+	}
+	sSpotInfo sTmp1,sTmp2;
+	int m,n,x,y;
 
-		for(j = 0;j < iCEnd;)
+	//FindRowsBottomSpot(vSpot1,sTmp1); //目标开口向右倾斜 定位到的时第一个点
+	FindColsRightSpot(vSpot1,sTmp2);
+	iTarget = 0;
+	
+	x = sTmp2.rows - 60;
+	for(m = sTmp2.rows;m > x;m --)
+	{
+		ptr = mPic->ptr<uchar>(m);
+		y = (sTmp1.cols + 2 + 70) * ichannels;
+		for(n = (sTmp1.cols + 2) * ichannels;n < y;)
 		{
-			switch (state)
+			if(ptr[n] < iSpec2)
 			{
-				case 0:
-					{
-						if(ptr[j] > iSpec1)
-						{
-							iTarget ++;
-							if(iTarget > 3)
-								iBack = 0;
-							if(iTarget > iTargetLength1)
-							{
-								state = 1;
-								iDBack = 0;
-								iDTarget = 0;
-								iTarget = 0;
-								iBack = 0;
-							}
-						}else
-						{
-							
-							iBack ++;
-							if(iBack > 3)
-								iTarget = 0;
-						}
-					}
-				case 1:
-					{
-						if(ptr[j] < iSpec2)
-						{
-							iTarget ++;
-							if(iTarget > 3)
-								iBack = 0;
-							if(iTarget > iTargetLength2)
-							{
-								state = 2;
-								iDBack = 0;
-								iDTarget = 0;
-								iTarget = 0;
-								iBack = 0;
-								j = j - ichannels;
-							}
-						}else
-						{
-							
-							iBack ++;
-							if(iBack > 3)
-								iTarget = 0;
-						}
-					}
-				case 2:
-					{
-						state =  FindSpotLocation(mPic,i,j/ichannels,ichannels,iSpec2,vSpot1);
-						if(state != 0||vSpot1.size() < iSpotMinSpecLength)
-						{
-								state = 1;
-								iDBack = 0;
-								iDTarget = 0;
-								iTarget = 0;
-								iBack = 0;
-							
-						}
-						sSpotInfo sTmp1,sTmp2;
-						int m,n,x,y;
 
-						FindRowsBottomSpot(vSpot1,sTmp1); //目标开口向右倾斜 定位到的时第一个点
-						FindColsLeftSpot(vSpot1,sTmp2);
-						iTarget = 0;
-						
-						for(m = sTmp1.rows;m < 60;m ++)
-						{
-							ptr = mPic->ptr<uchar>(m);
-							y = (sTmp2.cols + 2 + 70) * ichannels;
-							for(n = (sTmp2.cols + 2) * ichannels;n < y;)
-							{
-								if(ptr[n] < iSpec2)
-								{
-
-									goto NextSpotTarget;//找到目标2
-								}
-								n = n + ichannels;
-							}
-						}
-						
-						FindRowsTopSpot(vSpot1,sTmp1); //目标开口向左倾斜 定位到的时第二个点
-						FindColsRightSpot(vSpot1,sTmp2);
-						iTarget = 0;
-						
-						x = sTmp1.rows - 60;
-						for(m = sTmp1.rows;m > x;m --)
-						{
-							ptr = mPic->ptr<uchar>(m);
-
-							y = (sTmp2.cols - 2 - 70 ) * ichannels;
-							for(n = (sTmp2.cols + 2) * ichannels;n < y;)
-							{
-								if(ptr[n] < iSpec2)
-								{
-									vector<sSpotInfo> vtmp;
-									vtmp = vSpot2;
-									vSpot2 = vSpot1;
-									vSpot1 = vtmp;
-									goto NextSpotTarget;//找到目标2
-								}
-								n = n - ichannels;
-							}
-						}
-NextSpotTarget:
-						state =  FindSpotLocation(mPic,m,n/ichannels,ichannels,iSpec2,vSpot1);
-						if(state != 0||vSpot1.size() < iSpotMinSpecLength)
-						{
-								state = 1;
-								iDBack = 0;
-								iDTarget = 0;
-								iTarget = 0;
-								iBack = 0;
-							
-						}else
-						{
-							return 0;
-						}
-					}
+				goto NextSpotTarget;//找到目标2
 			}
-			j = j + ichannels;
-
+			n = n + ichannels;
 		}
+	}
+	//FindRowsTopSpot(vSpot1,sTmp1); //目标开口向左倾斜 定位到的时第二个点
+	FindColsLeftSpot(vSpot1,sTmp1);
+	iTarget = 0;
+			
+	x = sTmp1.rows - 60;
+	for(m = sTmp1.rows;m > x;m --)
+	{
+		ptr = mPic->ptr<uchar>(m);
+
+		y = (sTmp1.cols - 2 - 70 ) * ichannels;
+		for(n = (sTmp1.cols + 2) * ichannels;n < y;)
+		{
+			if(ptr[n] < iSpec2)
+			{
+				vector<sSpotInfo> vtmp;
+				vtmp = vSpot2;
+				vSpot2 = vSpot1;
+				vSpot1 = vtmp;
+				goto NextSpotTarget;//找到目标2
+			}
+			n = n - ichannels;
+		}
+	}
+NextSpotTarget:
+	state =  FindSpotLocation(mPic,m,n/ichannels,ichannels,iSpec2,vSpot1);
+	if(state != 0||vSpot1.size() < iSpotMinSpecLength)
+	{
+		return 3
+	}else
+	{
+		return 0;
 	}
 
 }
@@ -1201,143 +1120,356 @@ int FixAngleStart(vector<sSpotInfo>& vSpot1,vector<sSpotInfo>& vSpot2,int iDirec
 	if(iDirect == 1) //向左
 	{
 		fAngleValue = 1.0*(sTmp2.rows - sTmp1.rows)/(sTmp2.cols - sTmp1.cols);
-		rows = sTmp1.rows;
+
+		rows = sTmp1.rows + 30;
 		return 0;
 	}
 	if(iDirect == 0)//向右
 	{
-		rows = sTmp2.rows;
 		fAngleValue = 1.0*(sTmp1.rows - sTmp2.rows)/(sTmp2.cols = sTmp1.cols);
+		FindColsLeftSpot(vSpot1,sTmp2);
+		rows = sTmp2.rows + 30;
+	
 		return 0;
 	}
 	return 0;
 }
-
-
-int SkipBand1()
+int SumFont()
 {
+	FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)；
+	if(iDirect == 1) //向左
+	{
+
+	}
+	if(iDirect == 0) //向右
+	{
 	
+	}
+	return 0;
+		
 }
-
-int FindAllSpotLocation()
+int FindConnectDomainEdge(Mat* mPic,int iDirect,int Spec,int rows,float angle,int cols,int BandLengthSpec,int iTargetLengthSpec)
 {
-	
-}
-
-int FindEdgeLocation(Mat * mPic,int * pEdgeInfo,int &iSkipNum,int& rows,int &cols,int& channels,int &spec)
-{
-	int irows = rows;
-	int icols = cols;
-	int ichannels = channels;
-	int iskipnum = iSkipNum;
-	int ispec = spec;
-
+	int irows;
+	int icols;
+	int ichannels;
+	int iskipnum;
+	int ispec = Spec;
+	uchar * ptr;
+	int i,j,irEnd;
+	int iDTarget,iDBack,iCEnd,iTarget,iBack;
+	int state;
 
 	if(mPic == NULL || mPic->empty() || pEdgeInfo == NULL)
 	{
 		return 1;
 	}
-	
-	uchar **ptr = NULL;
-	int j;
+	irows = rows;
 
-	ptr = new uchar * [iskipnum];
-	for(j = 0;j < iskipnum;j++)
+	irEnd = 70;
+	icEnd = cols * 3;
+	if(iDirect == 1)
 	{
-		ptr[j] =  NULL;
-	}
-	while(true)
-	{
-		for(j = iskipnum - 1;j > -1;j --)
+		for(i = irows;i > iEnd;i --)
 		{
-			ptr[j] = mPic->ptr<uchar>(irows + j);
-			if (ptr[j][icols] < ispec)
+			for(j = 0;j < iCEnd)
 			{
-				break;
-			}
-		}
-		if(j  == -1)
-		{
-			;//全白
-			irows = irows + iskipnum/2;
-			icols = icols;//向下
-			if(irows > mPic->rows)
-			{
-				return 2;
-			}
-
-		}else if(j == iSkipNum - 1)
-		{
-			;//全背景
-			irows = irows - iskipnum/2;
-			icols = icols;
-			if(irows > mPic->rows)
-			{
-				return 3;
-			}
-		}else
-		{
-			pEdge[icols] = pEdge[icols] < irows?pEdge[icols]:irows*;
-			irows = irows;
-			icols = icols + 1; //向右
-			if(icols > mPic->cols)
-			{
-				return 4;
+				irows = cvFlood(rows + j * angle);
+				ptr = mPic->ptr<uchar>(irows);
+				if(ptr[j] > Spec)
+				{
+					break;
+				}
 			}
 		}
 	}
+	if(iDirect == 0)
+	{
+		for(i = irows;i > iEnd;i --)
+		{
+			for(j = 0;j < iCEnd)
+			{
+				irows = cvFlood(rows - j * angle);
+				ptr = mPic->ptr<uchar>(irows);
+				if(ptr[j] > Spec)
+				{
+					break;
+				}
+			}
+		}
+	}
+
 }
-int FindEdgeLocation(Mat * mPic,int &iBoundary,
-				int &iSkipNum,int& rows,int &cols,int& channels,int &iSpec)
+int SkipBand(Mat * mPic,int iDirect,int Spec,int rows,float angle,int cols,int BandLengthSpec,int iTargetLengthSpec)
+{
+	int irows;
+	int icols;
+	int ichannels;
+	int iskipnum;
+	int ispec = Spec;
+	uchar * ptr;
+	int i,j,irEnd;
+	int iDTarget,iDBack,iCEnd,iTarget,iBack;
+	int state;
+
+	if(mPic == NULL || mPic->empty() || pEdgeInfo == NULL)
+	{
+		return 1;
+	}
+	irows = rows;
+
+	irEnd = 70;
+	icEnd = cols * 3;
+	if(iDirect == 1)
+	{
+		for(i = irows;i > iEnd;i --)
+		{
+			for(j = 0;j < iCEnd)
+			{
+				irows = cvFlood(rows + j * angle);
+				ptr = mPic->ptr<uchar>(irows);
+				if(ptr[j] < Spec)
+				{
+					break;
+				}
+			}
+		}
+	}
+	if(iDirect == 0)
+	{
+		for(i = irows;i > iEnd;i --)
+		{
+			for(j = 0;j < iCEnd)
+			{
+				irows = cvFlood(rows - j * angle);
+				ptr = mPic->ptr<uchar>(irows);
+				if(ptr[j] < Spec)
+				{
+					break;
+				}
+			}
+		}
+	}
+
+}
+
+int FindAllSpotLocation(Mat * mPic,
+					int& rows,
+					int& cols,
+					int& channels,
+					int& iTargetSpec,
+					int& iTargetTopBottomMinPlace,
+					int& iTargetSpec1,
+					int& iTargetDeviation,
+					int& iBackgroundDeviation,
+					int& iTargetMinLength,
+					int& iBandFirstMinWidth,
+					int& iEdgeLeftPosition,
+					int& iEdgeRightPosition,
+					int& )
 {
 	if (mPic == NULL || mPic->empty())
 	{
 		return 1;
 	}
 	
-//	uchar ** pFont = NULL;
 	uchar ** ptr = NULL;
-	int rows,cols,channels;
 	int i,j,k;
 	int iCheckNum;
-	
-	ptr = new uchar * [iSkipNum];
-	for(j = 0;j < iSkipNum;j++)
+	int iColsEnd;
+	vector<int> vRowInfo;
+	vector<int> vRowChange;
+	int iTargetPixNum = 0;
+	int iBackgroundPixNum = 0;
+	bool bTargetFind;
+	ULONG uTargetMeasureLength = 0;
+	ULONG uTargetMeasureNum = 0;
+	ULONG uTargetMeasureDNum = 0;
+
+	bTargetFind = false;
+	iColsEnd = cols * channels;
+
+	vRowChange.clear();
+	vRowInfo.clear();
+#if 1           //因为右边缘点在确认完点后已经足够大。所以无需再次扩展确认
+	for(j = TestResult.iEdgeRightPosition * 3; j < uSum;) //寻找右边缘点
 	{
-		ptr[j] =  NULL;
-	}
-	iCheckNum = iSkipNum/3;
-	for(i = rows;i > 0; )
-	{
-		for(k = iSkipNum - 1;k > -1;k --)
+		if(ptr[j + 2] < TestConfig.iBackgroundSpec)
 		{
-			ptr[k] = mPic->ptr<uchar>(i + k);
+			break;
 		}
-		uColsNum = ;
-		for (j = 0;j < uColsNum;)
+		j = j + 3;
+	}
+					TestResult.iEdgeRightPosition = j/3 - 10;
+#endif
+	for(j = TestResult.iEdgeLeftPosition * 3;j > 0;)      //寻找左边缘点
+	{
+		if(ptr[j + 2] < TestConfig.iBackgroundSpec)
 		{
-			for(k = 0;k < iSkipNum;k ++)
+			break;
+		}
+		j = j - 3;
+	}
+	TestResult.iEdgeLeftPosition = j/3 + 10;
+		
+	uSumSkip = TestResult.iEdgeRightPosition * 3;
+	iTargetPixNum = 0;
+	iBackgroundPixNum = 0;
+	for (j = TestResult.iEdgeLeftPosition * 3;j < uSumSkip; )
+	{
+		if ( ptr[j + 2] < TestConfig.iSpotSpec )    //点出现
+		{
+			iTargetPixNum ++;
+			iBackgroundPixNum = 0;
+			if(iTargetPixNum > TestConfig.iSpotDeviation)
 			{
-				if(ptr[i][k] < iSpec)
+				state = FindSpotLocation( mPic,TestConfig.iSpotSpec,j/3,TestConfig.iSpotMinLength,i,TestResult.vSpot1,TestResult.vSpot2);
+				if(state == 0)
 				{
-					break;
+					FixAngleStart(TestResult.vSpot1,TestResult.vSpot2,iDirect,fAngleValue,rows);
+					state = 2;
+				}else
+				{
+
 				}
 			}
-			if(k >= iSkipNum - 1)
+		}else
+		{
+			iBackgroundPixNum ++;
+			if(iBackgroundPixNum > TestConfig.iSpotDeviation)
 			{
-				rows = i;
-				cols = j;
-				iBoundary = k + i;
-				delete ptr;
-				return 1;
+				iTargetPixNum = 0;
 			}
-			j = j + channels;
 		}
-		i = i - iSkipNum + 1;
+		j =j + 3;
 	}
-	delete ptr;
-	return 0;
 }
+
+#if 1
+int FindEdgeLocation(Mat * mPic,
+					int& rows,
+					int& cols,
+					int& channels,
+					int& iTargetSpec,
+					int& iTargetTopBottomMinPlace,
+					int& iTargetSpec1,
+					int& iTargetDeviation,
+					int& iBackgroundDeviation,
+					int& iTargetMinLength,
+					int& iBandFirstMinWidth,
+					int& iEdgeLeftPosition,
+					int& iEdgeRightPosition,
+					int& iEdgePosition)
+{
+	if (mPic == NULL || mPic->empty())
+	{
+		return 1;
+	}
+	
+	uchar ** ptr = NULL;
+	int i,j,k;
+	int iCheckNum;
+	int iColsEnd;
+	vector<int> vRowInfo;
+	vector<int> vRowChange;
+	int iTargetPixNum = 0;
+	int iBackgroundPixNum = 0;
+	bool bTargetFind;
+	ULONG uTargetMeasureLength = 0;
+	ULONG uTargetMeasureNum = 0;
+	ULONG uTargetMeasureDNum = 0;
+
+	bTargetFind = false;
+	iColsEnd = cols * channels;
+	for(i = rows - 1;i > 0; i--)
+	{
+		vRowChange.clear();
+		vRowInfo.clear();
+
+		if(i > iTargetTopBottomMinPlace)
+		{
+			iTargetPixNum = 0;
+			iBackgroundPixNum = 0;
+			
+			for (j = 0;j < iColsEnd; )
+			{
+				if ( ptr[j + 2] > iTargetSpec )  //可能目标出现
+				{
+					iTargetPixNum ++;
+					iBackgroundPixNum = 0;
+					if(iTargetPixNum > iTargetDeviation)  //连续出现多少的目标点后认为OK
+					{
+						if (vRowInfo.size() == 0)
+						{
+							vRowInfo.push_back(1);
+							vRowChange.push_back(j/3);
+						}else if (vRowInfo.back() != 1)
+						{
+							vRowInfo.push_back(1);
+							vRowChange.push_back(j/3 - iTargetPixNum - 4); //前一个背景坐标
+							vRowChange.push_back(j/3 - iTargetPixNum - 1); //目标点坐标
+						}
+					}
+				}else
+				{
+					iBackgroundPixNum ++;
+					iTargetPixNum = 0;
+					if(iBackgroundPixNum > iBackgroundDeviation)
+					{
+						if (vRowInfo.size() == 0)
+						{
+							vRowInfo.push_back(0);
+							vRowChange.push_back(j/3);
+						}else if (vRowInfo.back() != 0)
+						{
+							vRowInfo.push_back(0);
+							vRowChange.push_back(j/3 - iBackgroundPixNum - 3);
+							vRowChange.push_back(j/3 - iBackgroundPixNum - 1);
+						}
+					}
+				}
+				j =j + channels;
+			}
+			vRowChange.push_back(j/channels);
+			if (vRowInfo.size() < 2)
+			{
+				goto ColsEnd;
+			}
+				
+			bTargetFind = false;
+			uTargetMeasureLength = 0;
+			for (j = 0;j < vRowInfo.size();j ++)
+			{
+				uTargetMeasureLength = vRowChange[j*2 + 1] - vRowChange[j*2];
+				if(vRowInfo[j] == 1 && uTargetMeasureLength > iTargetMinLength)
+				{
+					bTargetFind = true;
+					uTargetMeasureNum ++;
+					iEdgeLeftPosition = vRowChange[j*2];
+					iEdgeRightPosition = vRowChange[j*2 + 1];
+					if (uTargetMeasureNum > iBandFirstMinWidth)
+					{
+						iEdgePosition = i + uTargetMeasureNum - 1;
+						state = 1;
+						uTargetMeasureNum = 0;
+						uTargetMeasureDNum = 0;
+						return 0;
+					}
+				
+				}
+			}
+			if (!bTargetFind) //当出现有一行不是目标点则重新开始
+			{
+				uTargetMeasureNum = 0;
+			}
+		}
+ColsEnd:
+	}
+
+	
+	return 1;
+}
+#endif
 /*
 	0 OK
 	1 图片错误
@@ -1346,7 +1478,7 @@ int FindEdgeLocation(Mat * mPic,int &iBoundary,
 	4 没有完整的目标
 */
 
-int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
+int CheckPic(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 {
 
 	if (mPic == NULL || mPic->empty())
@@ -1377,8 +1509,6 @@ int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicCo
 	int iBackgroundPixNum = 0;
 	int iTargetMaxPlace = 90;
 	int iTargetTopBottomMinPlace;
-	rows = mPic->rows;
-	cols = mPic->cols;
 	channels = mPic->channels();
 	vector<int> vRowInfo;
 	vector<int> vRowChange;
@@ -1391,8 +1521,8 @@ int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicCo
 //	AutoBuffer<uchar> buffer;
 
 	state = 0;
-	uSum = cols * channels;
-	uSumSkip = (cols) * channels;
+	rows = mPic->rows;
+	cols = mPic->cols;
 	uTargetMeasureNum = 0;
 	iTargetTopBottomMinPlace = rows - TestConfig.iTargetTopBottomMinPlace;
 	for(i = rows - 1;i > 0; i--)
@@ -1406,90 +1536,27 @@ SwitchRestart:
 		{
 			case 0:   //初始状态寻找边界白条
 				{
-					vRowChange.clear();
-					vRowInfo.clear();
 
 					if(i > TestConfig.iTargetTopBottomMinPlace)
 					{
-						iTargetPixNum = 0;
-						iBackgroundPixNum = 0;
-						
-						for (j = 0;j < uSumSkip; )
-						{							 
-							if ( ptr[j + 2] > TestConfig.iTargetSpec1 )  //可能目标出现
-							{
-								iTargetPixNum ++;
-								iBackgroundPixNum = 0;
-								if(iTargetPixNum > TestConfig.iTargetDeviation)  //连续出现多少的目标点后认为OK
-								{
-									if (vRowInfo.size() == 0)
-									{
-										vRowInfo.push_back(1);
-										vRowChange.push_back(j/3);
-									}else if (vRowInfo.back() != 1)
-									{
-										vRowInfo.push_back(1);
-										vRowChange.push_back(j/3 - iTargetPixNum - 4); //前一个背景坐标
-										vRowChange.push_back(j/3 - iTargetPixNum - 1); //目标点坐标
-									}
-								}
-							}else
-							{
-								iBackgroundPixNum ++;
-								iTargetPixNum = 0;
-								if(iBackgroundPixNum > TestConfig.iBackgroundDeviation)
-								{
-									if (vRowInfo.size() == 0)
-									{
-										vRowInfo.push_back(0);
-										vRowChange.push_back(j/3);
-									}else if (vRowInfo.back() != 0)
-									{
-										vRowInfo.push_back(0);
-										vRowChange.push_back(j/3 - iBackgroundPixNum - 3);
-										vRowChange.push_back(j/3 - iBackgroundPixNum - 1);
-									}
-								}
-							}
-							j =j + 3;
-						}
-						vRowChange.push_back(j/3);
-						if (vRowInfo.size() < 2)
-						{
+						state = FindEdgeLocation(mPic,
+								i,
+								cols,
+								channels,
+								TestConfig.iTargetSpec1,
+								TestConfig.iTargetTopBottomMinPlace,
+								TestConfig.iTargetSpec1,
+								TestConfig.iTargetDeviation,
+								TestConfig.iBackgroundDeviation,
+								TestConfig.iTargetMinLength,
+								TestConfig.iBandFirstMinWidth,
+								TestConfig.iEdgeLeftPosition,
+								TestConfig.iEdgeRightPosition,
+								TestConfig.iEdgePosition);
+						if(state == 0)
+							state = 1;
+						else
 							state = 0;
-							goto SwitchEnd;
-						}
-						
-						bTargetFind = false;
-						uTargetMeasureLength = 0;
-						for (j = 0;j < vRowInfo.size();j ++)
-						{
-							uTargetMeasureLength = vRowChange[j*2 + 1] - vRowChange[j*2];
-							if(vRowInfo[j] == 1 && uTargetMeasureLength > TestConfig.iTargetMinLength)
-							{
-								bTargetFind = true;
-								uTargetMeasureNum ++;
-								TestResult.iEdgeLeftPosition = vRowChange[j*2];
-								TestResult.iEdgeRightPosition = vRowChange[j*2 + 1];
-								TestResult.iEdgeLength = uTargetMeasureLength;
-								if (uTargetMeasureNum > TestConfig.iBandFirstMinWidth)
-								{
-									TestResult.iEdgePosition = i + uTargetMeasureNum - 1;
-									state = 1;
-									uTargetMeasureNum = 0;
-									uTargetMeasureDNum = 0;
-									goto SwitchEnd;
-								}
-								
-							}
-						}
-						if (!bTargetFind) //当出现有一行不是目标点则重新开始
-						{
-							uTargetMeasureNum = 0;
-						}
-						state = 0;
-						goto SwitchEnd;
-						
 					}else
 					{
 						return 3;
@@ -1532,763 +1599,65 @@ SwitchRestart:
 							iBackgroundPixNum = 0;
 							if(iTargetPixNum > TestConfig.iSpotDeviation)
 							{
-								if (vRowInfo.size() == 0)
+								state = FindSpotLocation( mPic,TestConfig.iSpotSpec,j/3,TestConfig.iSpotMinLength,i,TestResult.vSpot1,TestResult.vSpot2);
+								if(state == 0)
 								{
-									vRowInfo.push_back(1);
-									vRowChange.push_back(j/3);
-								}else if (vRowInfo.back() != 1)
+									FixAngleStart(TestResult.vSpot1,TestResult.vSpot2,iDirect,fAngleValue,rows);
+									state = 2;
+								}else
 								{
-									vRowInfo.push_back(1);
-									vRowChange.push_back(j/3 - iTargetPixNum - 3);
-									vRowChange.push_back(j/3 - iTargetPixNum - 1);
+
 								}
 							}
 						}else
 						{
 							iBackgroundPixNum ++;
-							iTargetPixNum = 0;
 							if(iBackgroundPixNum > TestConfig.iSpotDeviation)
 							{
-								if (vRowInfo.size() == 0)
-								{
-									vRowInfo.push_back(0);
-									vRowChange.push_back(j/3);
-								}else if (vRowInfo.back() != 0)
-								{
-									vRowInfo.push_back(0);
-									vRowChange.push_back(j/3 - iBackgroundPixNum - 3);
-									vRowChange.push_back(j/3 - iBackgroundPixNum - 1);
-								}
+								iTargetPixNum = 0;
 							}
 						}
 						j =j + 3;
 					}
-					vRowChange.push_back(TestResult.iEdgeRightPosition);
-
-					if (vRowInfo.size() < 2)
-					{
-						state = 1;
-						goto SwitchEnd;
-					}
-
-					uTargetMeasureLength = 0;
-					bTargetFind = false;
-					bool bTargetFind2 = false;
-					for (j = 0;j < vRowInfo.size();j ++)
-					{
-						uTargetMeasureLength = vRowChange[j*2 + 1] - vRowChange[j*2];
-						if(!bTargetFind && vRowInfo[j] == 1 && uTargetMeasureLength > TestConfig.iSpotMinLength)
-						{
-							bTargetFind = true;
-							
-							TestResult.iSpotFirstLeftPosition = TestResult.iSpotFirstLeftPosition < vRowChange[j*2]? TestResult.iSpotFirstLeftPosition:vRowChange[j*2];
-							TestResult.iSpotFirstRightPosition = TestResult.iSpotFirstRightPosition > vRowChange[j*2 + 1]? TestResult.iSpotFirstRightPosition:vRowChange[j*2+1];
-							continue;
-						}
-						if (bTargetFind&&!bTargetFind2 && vRowInfo[j] == 1 && uTargetMeasureLength > TestConfig.iSpotMinLength)
-						{
-							 bTargetFind2 = true;
-							 TestResult.iSpotSecondLeftPosition = TestResult.iSpotSecondLeftPosition < vRowChange[j*2]? TestResult.iSpotSecondLeftPosition:vRowChange[j*2];
-							 TestResult.iSpotSecondRightPosition = TestResult.iSpotSecondRightPosition > vRowChange[j*2 + 1]? TestResult.iSpotSecondRightPosition:vRowChange[j*2+1];
-							 continue;
-						}
-		
-					}
-					if (bTargetFind&&bTargetFind2)
-					{
-						uTargetMeasureNum ++;
-						uTargetMeasureDNum = 0;
-						if (uTargetMeasureNum > TestConfig.iSpotMinWidth)
-						{
-							bTargetFind =false;
-							TestResult.iSpotPosition = i + uTargetMeasureNum;
-							uTargetMeasureNum = 0;
-							uTargetMeasureDNum = 0;
-							state = 2;
-							goto SwitchEnd;
-						}
-					}else
-					{
-						uTargetMeasureDNum ++;
-						if (uTargetMeasureDNum > TestConfig.iSpotDeviation)
-						{
-							uTargetMeasureNum = 0;
-						}
-						
-					}
 					state = 1;
 					goto SwitchEnd;
 				}
-			case 2://寻找字1下边缘
+			case 2://跳过字1下边缘找到字1
 				{
-
-					uTargetMeasureLength = 0;
-					
-					for(j = TestResult.iEdgeLeftPosition * 3;j > 0;)      //寻找左边缘点
-					{
-						if(ptr[j + 2] < TestConfig.iBackgroundSpec)
-						{
-							break;
-						}
-						j = j - 3;
-					}
-					TestResult.iEdgeLeftPosition = j/3 + 5;
-
-					uSumSkip = TestResult.iEdgeRightPosition * 3;
-					for ( ;j < uSumSkip; )
-					{
-						if(ptr[j + 2] > TestConfig.iFont1Spec)
-						{
-							uTargetMeasureLength ++;
-						}
-						j = j + 3;
-					}
-					if(uTargetMeasureLength > TestResult.iEdgeRightPosition - TestResult.iEdgeLeftPosition - 30)
-					{
-						uTargetMeasureDNum = 0;
-						uTargetMeasureNum ++;
-						if (uTargetMeasureNum > TestConfig.iBandSecondMinWidth)
-						{
-							TestResult.iFont1BottomPosition = i;
-							uTargetMeasureNum = 0;
-							uTargetMeasureDNum = 0;
-							state = 3;
-							goto SwitchEnd;
-
-						}
-					}else
-					{
-						uTargetMeasureDNum ++;
-						if (uTargetMeasureDNum > 3)
-						{
-							uTargetMeasureNum = 0;
-						}
-						
-					}
+					SkipBand(mPic,iDirect,Spec,rows,angle,cols,BandLengthSpec,iTargetLengthSpec);
 					
 					state = 2;
 					goto SwitchEnd;
 
 				}
-			case 3: //寻找字1区域
+			case 3: //检查字1区域
 				{
-					uTargetMeasureLength = 0;
-					uSumSkip = TestResult.iEdgeRightPosition * 3;
-					for ( j = TestResult.iEdgeLeftPosition * 3;j < uSumSkip; )
+					state = SumFont();
+					if(state == 1) //向左
 					{
-						if(ptr[j + 2] < TestConfig.iFont1Spec)
-						{
-							uTargetMeasureLength ++;
-						}
-						j = j + 3;
-					}
-					if(uTargetMeasureLength  > 10)
-					{
-
-						uTargetMeasureNum ++;
-						uTargetMeasureDNum = 0;
-						if (uTargetMeasureNum > TestConfig.iFont1MinWidth)
-						{
-							uTargetMeasureNum = 0;
-							uTargetMeasureDNum = 0;
-							state = 4;
-							goto SwitchEnd;
-						}
-
-					}else
-					{
-						uTargetMeasureDNum ++;
-						if (uTargetMeasureDNum > TestConfig.iFont1Deviation)
-						{
-							uTargetMeasureNum = 0;
-						}
+			
 					}
 					state = 3;
 					goto SwitchEnd;
 				}
-			case 4:  //定位字1上边缘
+			case 4:  //跳过字2下边缘找到字2
 				{
-					for(j = TestResult.iEdgeLeftPosition * 3;j > 0;)      //寻找左边缘点
-					{
-						if(ptr[j + 2] < TestConfig.iBackgroundSpec)
-						{
-							break;
-						}
-						j = j - 3;
-					}
-					TestResult.iEdgeLeftPosition = j/3 + 5;
-
-					TestResult.iEdgeRightPosition = TestResult.iSpotSecondRightPosition;
-
-					j = TestResult.iEdgeLeftPosition * 3;
-					for ( ;j < uSumSkip; )
-					{
-						if(ptr[j + 2] < TestConfig.iFont1Spec)
-						{
-							uTargetMeasureLength ++;
-						}
-						j = j + 3;
-					}
-					if(uTargetMeasureLength > TestResult.iEdgeRightPosition - TestResult.iEdgeLeftPosition - 30)
-					{
-						uTargetMeasureDNum = 0;
-						uTargetMeasureNum ++;
-						if (uTargetMeasureNum > TestConfig.iBandThirdMinWidth)
-						{
-							TestResult.iFont1TopPosition = i;
-							uTargetMeasureNum = 0;
-							uTargetMeasureDNum = 0;
-							state = 5;
-							goto SwitchEnd;
-						}
-						
-					}else
-					{
-						uTargetMeasureDNum ++;
-						if (uTargetMeasureDNum > 3)
-						{
-							uTargetMeasureNum = 0;
-						}
-					}
-
-					state = 4;
+					
+					SkipBand(mPic,iDirect,Spec,rows,angle,cols,BandLengthSpec,iTargetLengthSpec);
+					
+					state = 2;
 					goto SwitchEnd;
-					
 
 				}
-			case 5:   //确定字1区间
+			case 5:   //检查字2区域
 				{
-					int k = 0;
-					uchar * ptr1 = NULL;
-					bool bT,bB;
-					uTargetMeasureLength = 0;
-					k = TestResult.iFont1BottomPosition;
-					bT = false;
-					bB = false;
-					for (;k > TestResult.iFont1TopPosition;k --)
+					state = SumFont();
+					if(state == 1) //向左
 					{
-						uTargetMeasureLength = 0;
-						ptr1 = mPic->ptr<uchar>(k);
-						for ( j = TestResult.iEdgeLeftPosition * 3;j < uSumSkip; )
-						{
-							if(ptr1[j + 2] < TestConfig.iFont1Spec)
-							{
-								uTargetMeasureLength ++;
-							}
-							j = j + 3;
-						}
-						if(uTargetMeasureLength  > 8)
-						{
-							uTargetMeasureNum ++;
-							uTargetMeasureDNum = 0;
-							if (uTargetMeasureNum > TestConfig.iFont1SkipMaxWidth/3)
-							{
-								uTargetMeasureNum = 0;
-								bB = true;
-								TestResult.iFont1BottomPosition = k + uTargetMeasureNum;
-								break;
-							}
-						}else
-						{
-							uTargetMeasureDNum ++;
-						}
-						
-						if (uTargetMeasureDNum > TestConfig.iFont1Deviation)
-						{
-							uTargetMeasureNum = 0;
-						}
+			
 					}
-
-					if (!bB)
-					{
-						return 9;
-					}
-					uTargetMeasureLength = 0;
-					k = TestResult.iFont1TopPosition;
-					for (;k < TestResult.iFont1BottomPosition;k ++)
-					{
-						uTargetMeasureLength = 0;
-						ptr1 = mPic->ptr<uchar>(k);
-						for ( j = TestResult.iEdgeLeftPosition * 3;j < uSumSkip; )
-						{
-							if(ptr1[j + 2] < TestConfig.iFont1Spec)
-							{
-								uTargetMeasureLength ++;
-							}
-							j = j + 3;
-						}
-						if(uTargetMeasureLength  > 8)
-						{
-							uTargetMeasureNum ++;
-							uTargetMeasureDNum = 0;
-							if (uTargetMeasureNum > TestConfig.iFont1SkipMaxWidth/3)
-							{
-								uTargetMeasureNum = 0;
-								bT = true;
-								TestResult.iFont1TopPosition = k - uTargetMeasureNum;
-								break;
-							}
-						}else
-						{
-							uTargetMeasureDNum ++;
-						}
-
-						if (uTargetMeasureDNum > TestConfig.iFont1Deviation)
-						{
-							uTargetMeasureNum = 0;
-						}
-					}
-					
-					if (bT)
-					{
-						state = 6;
-						goto SwitchEnd;
-					}else
-					{
-						return 9;
-					}
-					
-
-				}
-			case 6:   //寻找字2下边缘2
-				{
-					uTargetMeasureLength = 0;
-					for(j = TestResult.iEdgeLeftPosition * 3;j > 0;)      //寻找左边缘点
-					{
-						if(ptr[j + 2] < TestConfig.iBackgroundSpec)
-						{
-							break;
-						}
-						j = j - 3;
-					}
-					TestResult.iEdgeLeftPosition = j/3 + 5;
-
-					j = TestResult.iEdgeLeftPosition * 3;
-					uSumSkip = TestResult.iEdgeRightPosition * 3;
-					for ( ;j < uSumSkip; )
-					{
-						if(ptr[j + 2] > TestConfig.iFont2Spec)
-						{
-							uTargetMeasureLength ++;
-						}
-						j = j + 3;
-					}
-
-					if(uTargetMeasureLength >TestResult.iEdgeRightPosition - TestResult.iEdgeLeftPosition - 10)
-					{
-						uTargetMeasureDNum = 0;
-						uTargetMeasureNum ++;
-						if (uTargetMeasureNum > TestConfig.iBandThirdMinWidth/3)
-						{
-							uTargetMeasureNum = 0;
-							uTargetMeasureDNum = 0;
-							state = 7;
-							goto SwitchEnd;
-
-						}
-					}else
-					{
-						uTargetMeasureDNum ++;
-						if (uTargetMeasureDNum > 3)
-						{
-							uTargetMeasureNum = 0;
-						}
-					}
-
-					state = 6;
+					state = 3;
 					goto SwitchEnd;
-				}
-			case 7:   //寻找字2区间
-				{
-					uTargetMeasureLength = 0;
-					uSumSkip = TestResult.iEdgeRightPosition * 3;
-					for ( j = TestResult.iEdgeLeftPosition * 3;j < uSumSkip; )
-					{
-						if(ptr[j + 2] < TestConfig.iFont2Spec)
-						{
-							uTargetMeasureLength ++;
-						}
-						j = j + 3;
-					}
- 					if(uTargetMeasureLength  > 10)
-					{
-						uTargetMeasureNum ++;
-						uTargetMeasureDNum = 0;
-						if (uTargetMeasureNum > TestConfig.iFont2MinWidth)
-						{
-							uTargetMeasureNum = 0;
-							uTargetMeasureDNum = 0;
-							state = 8;
-							goto SwitchEnd;
-						}
-
-					}else
-					{
-						uTargetMeasureDNum ++;
-						if (uTargetMeasureDNum > TestConfig.iFont2Deviation)
-						{
-							uTargetMeasureNum = 0;
-						}
-					}
-					state = 7;
-					goto SwitchEnd;
-				}
-			case 8:   //寻找字上边缘2
-				{
-					
-					uSumSkip = TestResult.iEdgeRightPosition * 3;
-					for ( j = TestResult.iEdgeLeftPosition * 3;j < uSumSkip; )
-					{
-						if(ptr[j + 2] > TestConfig.iFont2Spec)
-						{
-							uTargetMeasureLength ++;
-						}
-						j = j + 3;
-					}
-					if(uTargetMeasureLength > TestResult.iEdgeRightPosition - TestResult.iEdgeLeftPosition - 10)
-					{
-						uTargetMeasureNum ++;
-						uTargetMeasureDNum = 0;
-						if (uTargetMeasureNum > 6)
-						{
-							TestResult.iFont2TopPosition = i + 2;
-							state = 9;
-							goto SwitchEnd;
-						}
-						
-					}else
-					{
-						uTargetMeasureDNum ++;
-						if (uTargetMeasureDNum > 3 )
-						{
-							uTargetMeasureDNum = 0;
-						}
-						state = 8;
-						goto SwitchEnd;
-					}
-
-				}
-			case 9:   //处理字
-				{
-					int iCheckNum;
-					int iFontSkip;
-					uchar ** pFont1 = NULL,**pFont2 = NULL;
-					int k,iFontPix;
-					int iBandwidth = 5,iBandWidthTmp = 0;
-					ULONG uEndPosition;
-
-					iFontSkip = TestResult.iFont1BottomPosition - TestResult.iFont1TopPosition;
-
-					pFont1 = new uchar *[iFontSkip];
-					for(j = 0;j < iFontSkip;j++)
-					{
-						pFont1[j] =  mPic->ptr<uchar>(TestResult.iFont1TopPosition + j);
-					}
-				
-					//查找字前白色区间的位置
-					uTargetMeasureLength = 0;
-					uTargetMeasureNum = 0;
-					uEndPosition = (TestResult.iEdgeRightPosition - 30) * 3;
-					for(k = (TestResult.iEdgeLeftPosition + 30)*3;k< uEndPosition;)
-					{
-						uTargetMeasureLength = 0;
-						for(j = 0;j < iFontSkip;j++)
-						{
-							if(pFont1[j][k] < TestConfig.iFont1Spec)
-							{
-								uTargetMeasureLength ++;
-							}
-						}
-						if(uTargetMeasureLength > 4)
-						{
-							uTargetMeasureNum ++;
-							if (uTargetMeasureNum > TestConfig.iFont1MinLength/3)
-							{
-								TestResult.iFont1BeginPosition = k/3 ;
-								break; 
-							}
-							     //找到开始位置
-						}else
-						{
-							uTargetMeasureNum = 0;
-						}
-						k = k + 3;
-					}
-
-					//查找字的结束位置
-					uTargetMeasureLength = 0;
-					uTargetMeasureNum = 0;
-					uEndPosition = TestResult.iFont1BeginPosition*3;
-					for(k = (TestResult.iEdgeRightPosition - 30) * 3;k > uEndPosition;)
-					{
-						uTargetMeasureLength = 0;
-						for(j = 0;j < iFontSkip;j++)
-						{
-							if(pFont1[j][k] < TestConfig.iFont1Spec)
-							{
-								uTargetMeasureLength ++;
-							}
-						}
-						if(uTargetMeasureLength > 4)
-						{
-							uTargetMeasureNum ++;
-							if (uTargetMeasureNum > TestConfig.iFont1MinLength/3)
-							{
-								TestResult.iFont1EndPosition = k/3 ;
-								break; 
-							}
-							     //找到结束位置
-						}else
-						{
-							uTargetMeasureNum = 0;
-						}
-						k = k - 3;
-					}
-
-
-					uTargetMeasureNum = 0;
-					uTargetMeasureDNum = 0;
-					iCheckNum = 0;
-					bTargetFind = FALSE;
-					uEndPosition = TestResult.iFont1EndPosition * 3;
-					for (k = TestResult.iFont1BeginPosition * 3;k < uEndPosition;)
-					{
-						uTargetMeasureLength = 0;
-						for(j = 0;j < iFontSkip;j++)
-						{
-							if(pFont1[j][k] > TestConfig.iFont1Spec)
-							{
-								uTargetMeasureLength ++;
-							}
-						}
-						if (bTargetFind)//uTargetMeasureLength 白色个数
-						{
-							if (uTargetMeasureLength > iFontSkip - 2)
-							{
-								uTargetMeasureNum ++;
-								uTargetMeasureDNum = 0;
-								if (uTargetMeasureNum > TestConfig.iFont1BandMinWidth/2)
-								{
-									bTargetFind = true;
-									uTargetMeasureNum = 0;
-									iCheckNum ++;
-
-								}
-							}else
-							{
-								uTargetMeasureDNum ++;
-								if (uTargetMeasureDNum > 2)
-								{
-									uTargetMeasureNum = 0;
-								}
-							}
-						}else
-						{
-							if (uTargetMeasureLength < iFontSkip - 2)
-							{
-								uTargetMeasureNum ++;
-								uTargetMeasureDNum = 0;
-								if (uTargetMeasureNum > TestConfig.iFont1MinLength/3)
-								{
-									bTargetFind = TRUE;
-									uTargetMeasureNum = 0;
-
-								}
-							}
-							else
-							{
-								uTargetMeasureDNum ++;
-								if (uTargetMeasureDNum > 2)
-								{
-									uTargetMeasureNum = 0;
-								}
-							}
-						}
-						
-						k = k + 3;
-					}
-					if (iCheckNum != 7)
-					{
-						return 9;
-					}
-					delete pFont1;
-					pFont1 = NULL;
-
-
-					
-					iFontSkip = TestResult.iFont2BottomPosition - TestResult.iFont2TopPosition;
-					pFont2 = new uchar *[iFontSkip];
-					for(j = 0;j < iFontSkip;j++)
-					{
-						pFont2[j] =  mPic->ptr<uchar>(TestResult.iFont2TopPosition + j);
-					}
-
-					//查找字前白色区间的位置
-					uTargetMeasureLength = 0;
-					uTargetMeasureNum = 0;
-					uEndPosition = (TestResult.iEdgeRightPosition - 30) * 3;
-					for(k = (TestResult.iEdgeLeftPosition + 30)*3;k< uEndPosition;)
-					{
-						uTargetMeasureLength = 0;
-						for(j = 0;j < iFontSkip;j++)
-						{
-							if(pFont2[j][k] < TestConfig.iFont2Spec)
-							{
-								uTargetMeasureLength ++;
-							}
-						}
-						if(uTargetMeasureLength > 4)
-						{
-							uTargetMeasureNum ++;
-							if (uTargetMeasureNum > TestConfig.iFont2MinLength/3)
-							{
-								TestResult.iFont2BeginPosition = k/3 ;
-								break; 
-							}
-							     //找到开始位置
-						}else
-						{
-							uTargetMeasureNum = 0;
-						}
-						k = k + 3;
-					}
-
-					//查找字的结束位置
-					uTargetMeasureLength = 0;
-					uTargetMeasureNum = 0;
-					uEndPosition = TestResult.iFont1BeginPosition*3;
-					for(k = (TestResult.iEdgeRightPosition - 30) * 3;k > uEndPosition;)
-					{
-						uTargetMeasureLength = 0;
-						for(j = 0;j < iFontSkip;j++)
-						{
-							if(pFont2[j][k] < TestConfig.iFont2Spec)
-							{
-								uTargetMeasureLength ++;
-							}
-						}
-						if(uTargetMeasureLength > 4)
-						{
-							uTargetMeasureNum ++;
-							if (uTargetMeasureNum > TestConfig.iFont2MinLength/3)
-							{
-								TestResult.iFont2EndPosition = k/3 ;
-								break; 
-							}
-							     //找到结束位置
-						}else
-						{
-							uTargetMeasureNum = 0;
-						}
-						k = k - 3;
-					}
-
-					uTargetMeasureNum = 0;
-					uTargetMeasureDNum = 0;
-					iCheckNum = 0;
-					bTargetFind = FALSE;
-					uEndPosition = TestResult.iFont2EndPosition * 3;
-					for (k = TestResult.iFont2BeginPosition * 3;k < uEndPosition;)
-					{
-						uTargetMeasureLength = 0;
-						for(j = 0;j < iFontSkip;j++)
-						{
-							if(pFont2[j][k] > TestConfig.iFont2Spec)
-							{
-								uTargetMeasureLength ++;
-							}
-						}
-						if (bTargetFind)//uTargetMeasureLength 白色个数
-						{
-							if (uTargetMeasureLength > iFontSkip - 2)
-							{
-								uTargetMeasureNum ++;
-								uTargetMeasureDNum = 0;
-								if (uTargetMeasureNum > TestConfig.iFont2BandMinWidth/2)
-								{
-									bTargetFind = true;
-									uTargetMeasureNum = 0;
-									iCheckNum ++;
-
-								}
-							}else
-							{
-								uTargetMeasureDNum ++;
-								if (uTargetMeasureDNum > 2)
-								{
-									uTargetMeasureNum = 0;
-								}
-							}
-						}else
-						{
-							if (uTargetMeasureLength < iFontSkip - 2)
-							{
-								uTargetMeasureNum ++;
-								uTargetMeasureDNum = 0;
-								if (uTargetMeasureNum > TestConfig.iFont2MinLength/3)
-								{
-									bTargetFind = TRUE;
-									uTargetMeasureNum = 0;
-
-								}
-							}
-							else
-							{
-								uTargetMeasureDNum ++;
-								if (uTargetMeasureDNum > 2)
-								{
-									uTargetMeasureNum = 0;
-								}
-							}
-						}
-						
-						k = k + 3;
-					}
-
-					delete pFont2;
-					pFont2 = NULL;
-					if (iCheckNum != 4)
-					{
-						return 10;
-					}else
-					{
-						return 0;
-					}
-
-#if 0
-					k = k - 4 * 3;
-					int result = 1;
-					//check A1
-					result = checkA1(pFont,iFontSkip,k,TestResult,TestConfig);
-					if(result != 0)
-					{
-						return result;
-					}
-					//check R
-					result = checkR(pFont,iFontSkip,k,TestResult,TestConfig);
-					if(result != 0)
-					{
-						return result;
-					}
-					//check U
-					result = checkU(pFont,iFontSkip,k,TestResult,TestConfig);
-					if(result != 0)
-					{
-						return result;
-					}
-					//check B
-					result = checkB(pFont,iFontSkip,k,TestResult,TestConfig);
-					if(result != 0)
-					{
-						return result;
-					}
-					//check A2
-					result = checkA2(pFont,iFontSkip,k,TestResult,TestConfig);
-					if(result != 0)
-					{
-						return result;
-					}
-#endif
 				}
 			default:
 				{
