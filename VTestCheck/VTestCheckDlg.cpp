@@ -1259,7 +1259,7 @@ int FindAllSpotLocation(Mat * mPic,
 					int& channels,
 					int& iTargetSpec,
 					int& iTargetTopBottomMinPlace,
-					int& iTargetSpec1,
+					int& iBackgroundSpec,
 					int& iTargetDeviation,
 					int& iBackgroundDeviation,
 					int& iTargetMinLength,
@@ -1292,56 +1292,59 @@ int FindAllSpotLocation(Mat * mPic,
 	vRowChange.clear();
 	vRowInfo.clear();
 #if 1           //因为右边缘点在确认完点后已经足够大。所以无需再次扩展确认
-	for(j = TestResult.iEdgeRightPosition * 3; j < uSum;) //寻找右边缘点
+	for(j = iEdgeRightPosition * 3; j < uSum;) //寻找右边缘点
 	{
-		if(ptr[j + 2] < TestConfig.iBackgroundSpec)
+		if(ptr[j + 2] < iBackgroundSpec)
 		{
 			break;
 		}
 		j = j + 3;
 	}
-					TestResult.iEdgeRightPosition = j/3 - 10;
+	iEdgeRightPosition = j/3 - 10;
 #endif
-	for(j = TestResult.iEdgeLeftPosition * 3;j > 0;)      //寻找左边缘点
+	for(j = iEdgeLeftPosition * 3;j > 0;)      //寻找左边缘点
 	{
-		if(ptr[j + 2] < TestConfig.iBackgroundSpec)
+		if(ptr[j + 2] < iBackgroundSpec)
 		{
 			break;
 		}
 		j = j - 3;
 	}
-	TestResult.iEdgeLeftPosition = j/3 + 10;
+	iEdgeLeftPosition = j/3 + 10;
 		
-	uSumSkip = TestResult.iEdgeRightPosition * 3;
+	uSumSkip = iEdgeRightPosition * 3;
 	iTargetPixNum = 0;
 	iBackgroundPixNum = 0;
-	for (j = TestResult.iEdgeLeftPosition * 3;j < uSumSkip; )
+	for()
 	{
-		if ( ptr[j + 2] < TestConfig.iSpotSpec )    //点出现
+		for (j = iEdgeLeftPosition * 3;j < uSumSkip; )
 		{
-			iTargetPixNum ++;
-			iBackgroundPixNum = 0;
-			if(iTargetPixNum > TestConfig.iSpotDeviation)
+			if ( ptr[j + 2] < TestConfig.iSpotSpec )    //点出现
 			{
-				state = FindSpotLocation( mPic,TestConfig.iSpotSpec,j/3,TestConfig.iSpotMinLength,i,TestResult.vSpot1,TestResult.vSpot2);
-				if(state == 0)
+				iTargetPixNum ++;
+				iBackgroundPixNum = 0;
+				if(iTargetPixNum > TestConfig.iSpotDeviation)
 				{
-					FixAngleStart(TestResult.vSpot1,TestResult.vSpot2,iDirect,fAngleValue,rows);
-					state = 2;
-				}else
-				{
+					state = FindSpotLocation( mPic,TestConfig.iSpotSpec,j/3,TestConfig.iSpotMinLength,i,TestResult.vSpot1,TestResult.vSpot2);
+					if(state == 0)
+					{
+						FixAngleStart(TestResult.vSpot1,TestResult.vSpot2,iDirect,fAngleValue,rows);
+						state = 2;
+					}else
+					{
 
+					}
+				}
+			}else
+			{
+				iBackgroundPixNum ++;
+				if(iBackgroundPixNum > TestConfig.iSpotDeviation)
+				{
+					iTargetPixNum = 0;
 				}
 			}
-		}else
-		{
-			iBackgroundPixNum ++;
-			if(iBackgroundPixNum > TestConfig.iSpotDeviation)
-			{
-				iTargetPixNum = 0;
-			}
+			j =j + 3;
 		}
-		j =j + 3;
 	}
 }
 
