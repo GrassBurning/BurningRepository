@@ -14,10 +14,12 @@
 #include "tisudshl.h"
 #include "General.h"
 #include<vector>
+#include <mmsystem.h>
 //#include "CmdHelper.h"//这两个头文件是需要包含的，这样才能进行文件的生成
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+#pragma comment(lib, "winmm")  
 // #ifdef _DEBUG
 // #pragma comment (lib, "opencv_calib3d231d.lib")
 // #pragma comment (lib, "opencv_contrib231d.lib")
@@ -73,6 +75,13 @@ DShowLib::Grabber* m_pGrabber;
 tFrameHandlerSinkPtr pSink;
 void onMouse(int Event,int x,int y, int flags,void * param);
 UINT TestEntry(LPVOID pParam);
+CString strMusicPathOK;
+CString strMusicPathNG;
+typedef struct SpotInfo
+{
+	int rows;
+	int cols;
+}sSpotInfo,*pSpotInfo;
 
 typedef struct PicChangeInfo
 {
@@ -177,7 +186,7 @@ typedef struct TestPicResult
 	vector<sSpotInfo> vSpot2;
 } sTestPicResult,*pTestPicResult;
 int fLoadConfig(sTestPicConfig& TestConfig);
-int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
+int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
 int splitcharacter(uchar**pFont,int iFontSkip,int &k,vector<vector<int>>& iFontChange,sTestPicConfig& TestConfig,int & iEdgeRightPosition);
 int checkA1(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
 int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
@@ -251,10 +260,10 @@ BOOL CVTestCheckDlg::OnInitDialog()
 	atexit( ExitLibrary );
 	m_pGrabber = new DShowLib::Grabber();
 	ASSERT( m_pGrabber );
-	//if( !m_pGrabber->loadDeviceStateFromFile( "lastSelectedDeviceState.xml" ) )
+	if( !m_pGrabber->loadDeviceStateFromFile( "lastSelectedDeviceState.xml" ) )
 	{
 		//std::cout << "Device opened from: <" << "lastSelectedDeviceState.xml" << ">." << std::endl;
-			if( !m_pGrabber->showDevicePage() || !m_pGrabber->isDevValid() )
+		if( !m_pGrabber->showDevicePage() || !m_pGrabber->isDevValid() )
 		{
 			return false;
 		}
@@ -313,6 +322,13 @@ BOOL CVTestCheckDlg::OnInitDialog()
 	}
 	m_pGrabber->closeDev();
 #endif
+	char cMusicPath[100];
+	CString strMusicPath;
+	GetCurrentDirectory(1000,cMusicPath);
+	strMusicPath.Format("%s",cMusicPath);
+	strMusicPathOK.Format("%s//OK.wav",strMusicPath);
+	strMusicPathNG.Format("%s//NG.wav",strMusicPath);
+
 	UpdateWindow();
 	ex = this;
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -337,17 +353,7 @@ void CVTestCheckDlg::OnPaint()
 		GetClientRect(&rect);
 		int x = (rect.Width() - cxIcon + 1) / 2;
 		int y = (rect.Height() - cyIcon + 1) / 2;
-		CRect rect1;
-		m_pGrabber->setDefaultWindowPosition(true);
-		m_pGrabber->stopLive();
-//		m_pGrabber->closeDev();
-//		GetDlgItem(IDC_STATICVIDEO)->GetWindowRect(&rect1);
-		m_cStaticVideoWindow.GetWindowRect(&rect1);
-//		m_pGrabber->openDev();
-		m_pGrabber->setDefaultWindowPosition(false);
-		m_pGrabber->setWindowSize(rect1.Width(),rect1.Height());
-		m_pGrabber->setHWND( GetDlgItem( IDC_STATICVIDEO )->m_hWnd );
-		m_pGrabber->startLive();
+
 	
 		// 绘制图标
 		dc.DrawIcon(x, y, m_hIcon);
@@ -362,7 +368,28 @@ void CVTestCheckDlg::OnPaint()
 	}
 	else
 	{
-		CDialogEx::OnPaint();
+		CDialogEx::OnPaint();	
+// 		m_pGrabber->setDefaultWindowPosition(TRUE);
+// 		m_pGrabber->stopLive();
+// 		CRect rect1;
+// 		GetDlgItem( IDC_Picture )->GetWindowRect(&rect1);
+// 		m_pGrabber->setDefaultWindowPosition(false);
+// 
+// 		m_pGrabber->setWindowSize(rect1.Width(),rect1.Height());
+// 		m_pGrabber->setHWND( GetDlgItem( IDC_Picture )->m_hWnd );
+// 		m_pGrabber->startLive();
+
+		CRect rect1;
+		m_pGrabber->setDefaultWindowPosition(true);
+		m_pGrabber->stopLive();
+		
+		m_cStaticVideoWindow.GetWindowRect(&rect1);
+		
+		m_pGrabber->setDefaultWindowPosition(false);
+		m_pGrabber->setWindowSize(rect1.Width(),rect1.Height());
+		m_pGrabber->setHWND( GetDlgItem( IDC_STATICVIDEO )->m_hWnd );
+		m_pGrabber->startLive();
+		
 	}
 }
 
@@ -378,15 +405,16 @@ int ii = 0;
 void CVTestCheckDlg::OnBnClickedOk()
 {
 #if 1
-//	Mat srcImage1 = imread("D:\\Work\\opencv\\Desktop\\5.bmp",1);
-	Mat srcImage1 = imread("D:\\tt\\12345.bmp",1);
+	Mat srcImage1 = imread("E:\\Work\\opencv\\tt\\12345.bmp",1);
+//	Mat srcImage1 = imread("D:\\tt\\12345.bmp",1);
 	sTestPicConfig TestConfig;
 	sTestPicResult TestResult;
 	fLoadConfig(TestConfig);
-	fTargetLocation(&srcImage1,2,TestResult,TestConfig);
+	CheckPic(&srcImage1,TestResult,TestConfig);
 	//	imshow("Example1",srcImage1);
 	//	cvWaitKey();
 	return ;
+
 #endif
 
 #if 0
@@ -419,7 +447,16 @@ void CVTestCheckDlg::OnBnClickedOk()
 
 }
 
-
+void CVTestCheckDlg::ShowPass()
+{
+	m_Picture_PF.SetBitmap(BitmapPass);
+	PlaySound(strMusicPathOK,NULL,SND_ASYNC|SND_NODEFAULT );
+}
+void CVTestCheckDlg::ShowError()
+{
+	m_Picture_PF.SetBitmap(BitmapFail);
+	PlaySound(strMusicPathNG,NULL,SND_ASYNC|SND_NODEFAULT );
+}
 UINT Test(LPVOID pParam)
 {
 	long height,width;
@@ -562,6 +599,16 @@ void CVTestCheckDlg::OnBnClickedConfig()
 	{
 
 	}
+	CRect rect1;
+	m_pGrabber->setDefaultWindowPosition(true);
+	m_pGrabber->stopLive();
+
+	m_cStaticVideoWindow.GetWindowRect(&rect1);
+
+	m_pGrabber->setDefaultWindowPosition(false);
+	m_pGrabber->setWindowSize(rect1.Width(),rect1.Height());
+	m_pGrabber->setHWND( GetDlgItem( IDC_STATICVIDEO )->m_hWnd );
+	m_pGrabber->startLive();
 }
 
 typedef struct TestThreadInfo
@@ -807,11 +854,7 @@ int fLoadConfig(sTestPicConfig& TestConfig)
 	TestConfig.iTargetLeftRightMinPlace=GetPrivateProfileInt("Basic Info","TargetLeftRightMinPlace",0,Configfile);
 	return 0;
 }
-typedef struct SpotInfo
-{
-	int rows;
-	int cols;
-}sSpotInfo,*pSpotInfo;
+
 int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpotInfo>& vSpot)
 {
 	int irows = rows;
@@ -823,7 +866,7 @@ int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vecto
 	vector<sSpotInfo> vSpot1;
 	vector<sSpotInfo> vSpot2;
 	sSpotInfo sSpot1,sSpot2;
-
+	bool a,b,c;
 
 	if(mPic == NULL || mPic->empty())
 	{
@@ -832,109 +875,204 @@ int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vecto
 	sSpot1.rows = irows;
 	sSpot1.cols = icols;
 	vSpot1.push_back(sSpot1);
-
+	vSpot.clear();
+	c = false;
 	while(vSpot1.size() > 0)
 	{
-		sSpot1 = vSpot1.front();
-		ptr = mPic->ptr<uchar>(sSpot.rows);
-		vSpot1.pop_front();
-		vSpot2.push_back(sSpot1);
-		if(ptr[sSpot1.cols*3 + 2] < ispec)
+		sSpot1 = vSpot1.back();
+		for(i = 0;i < vSpot.size();i ++)
 		{
+			if(vSpot[i].rows == sSpot1.rows&&vSpot[i].cols == sSpot1.cols)
+			{
+				if (vSpot1.empty())
+				{
+					return 0;
+				}
+				vSpot1.pop_back();
+				continue;
+			}
+		}
+		if (vSpot1.empty())
+		{
+			return 0;
+		}
+		ptr = mPic->ptr<uchar>(sSpot1.rows);
+		
+		vSpot1.pop_back();
+		if(ptr[sSpot1.cols*ichannels + 2] <= ispec||!c)
+		{
+			c = true;
 			vSpot2.push_back(sSpot1);
 			//右上
+			a = true;
+			b = true;
 			for(i = 0;i < vSpot2.size();i ++)
 			{
-				if(vSpot2[i].rows == sSpot1.rows - 1&&vSpot2.cols == sSpot1.cols + 1)
+				if(vSpot2[i].rows == sSpot1.rows - 1&&vSpot2[i].cols == sSpot1.cols + 1)
 				{
+					a = false;
 					break;
 				}
 			}
-			if(i >= vSpot2.size())
+			for(i = 0;i < vSpot1.size();i ++)
+			{
+				if(!a || (vSpot1[i].rows == sSpot1.rows - 1&&vSpot1[i].cols == sSpot1.cols + 1))
+				{
+					b = false;
+					break;
+				}
+			}
+			if(a&&b)
 			{
 				sSpot2.rows = sSpot1.rows - 1;
 				sSpot2.cols = sSpot1.cols + 1;
 				vSpot1.push_back(sSpot2);
 			}
 			//上
+			a = true;
+			b = true;
 			for(i = 0;i < vSpot2.size();i ++)
 			{
-				if(vSpot2[i].rows == sSpot1.rows - 1&&vSpot2.cols == sSpot1.cols)
+				if(vSpot2[i].rows == sSpot1.rows - 1&&vSpot2[i].cols == sSpot1.cols)
 				{
+					a = false;
 					break;
 				}
 			}
-			if(i >= vSpot2.size())
+			for(i = 0;i < vSpot1.size();i ++)
+			{
+				if(!a || (vSpot1[i].rows == sSpot1.rows - 1&&vSpot1[i].cols == sSpot1.cols))
+				{
+					b = false;
+					break;
+				}
+			}
+			if(a&&b)
 			{
 				sSpot2.rows = sSpot1.rows - 1;
 				sSpot2.cols = sSpot1.cols;
 				vSpot1.push_back(sSpot2);
 			}
 			//左上
+			a = true;
+			b = true;
 			for(i = 0;i < vSpot2.size();i ++)
 			{
-				if(vSpot2[i].rows == sSpot1.rows - 1&&vSpot2.cols == sSpot1.cols - 1)
+				if(vSpot2[i].rows == sSpot1.rows - 1&&vSpot2[i].cols == sSpot1.cols - 1)
 				{
+					a = false;
 					break;
 				}
 			}
-			if(i >= vSpot2.size())
+			for(i = 0;i < vSpot1.size();i ++)
+			{
+				if(!a || (vSpot1[i].rows == sSpot1.rows - 1&&vSpot1[i].cols == sSpot1.cols - 1))
+				{
+					b = false;
+					break;
+				}
+			}
+			if(a&&b)
 			{
 				sSpot2.rows = sSpot1.rows - 1;
 				sSpot2.cols = sSpot1.cols - 1;
 				vSpot1.push_back(sSpot2);
 			}
 			//左
+			a = true;
+			b = true;
 			for(i = 0;i < vSpot2.size();i ++)
 			{
-				if(vSpot2[i].rows == sSpot1.rows &&vSpot2.cols == sSpot1.cols - 1)
+				if(vSpot2[i].rows == sSpot1.rows &&vSpot2[i].cols == sSpot1.cols - 1)
 				{
+					a = false;
 					break;
 				}
 			}
-			if(i >= vSpot2.size())
+			for(i = 0;i < vSpot1.size();i ++)
+			{
+				if(!a || (vSpot1[i].rows == sSpot1.rows &&vSpot1[i].cols == sSpot1.cols - 1))
+				{
+					b = false;
+					break;
+				}
+			}
+			if(a&&b)
 			{
 				sSpot2.rows = sSpot1.rows;
 				sSpot2.cols = sSpot1.cols - 1;
 				vSpot1.push_back(sSpot2);
 			}
 			//左下
+			a = true;
+			b = true;
 			for(i = 0;i < vSpot2.size();i ++)
 			{
-				if(vSpot2[i].rows == sSpot1.rows + 1&&vSpot2.cols == sSpot1.cols - 1)
+				if(vSpot2[i].rows == sSpot1.rows + 1&&vSpot2[i].cols == sSpot1.cols - 1)
 				{
+					a = false;
 					break;
 				}
 			}
-			if(i >= vSpot2.size())
+			for(i = 0;i < vSpot1.size();i ++)
+			{
+				if(!a || (vSpot1[i].rows == sSpot1.rows + 1&&vSpot1[i].cols == sSpot1.cols - 1))
+				{
+					b = false;
+					break;
+				}
+			}
+			if(a&&b)
 			{
 				sSpot2.rows = sSpot1.rows + 1;
 				sSpot2.cols = sSpot1.cols - 1;
 				vSpot1.push_back(sSpot2);
 			}
 			//下
+			a = true;
+			b = true;
 			for(i = 0;i < vSpot2.size();i ++)
 			{
-				if(vSpot2[i].rows == sSpot1.rows + 1&&vSpot2.cols == sSpot1.cols)
+				if(vSpot2[i].rows == sSpot1.rows + 1&&vSpot2[i].cols == sSpot1.cols)
 				{
+					a = false;
 					break;
 				}
 			}
-			if(i >= vSpot2.size())
+			for(i = 0;i < vSpot1.size();i ++)
+			{
+				if(!a || (vSpot1[i].rows == sSpot1.rows + 1&&vSpot1[i].cols == sSpot1.cols))
+				{
+					b = false;
+					break;
+				}
+			}
+			if(a&&b)
 			{
 				sSpot2.rows = sSpot1.rows + 1;
 				sSpot2.cols = sSpot1.cols;
 				vSpot1.push_back(sSpot2);
 			}
 			//右下
+			a = true;
+			b = true;
 			for(i = 0;i < vSpot2.size();i ++)
 			{
-				if(vSpot2[i].rows == sSpot1.rows + 1&&vSpot2.cols == sSpot1.cols + 1)
+				if(vSpot2[i].rows == sSpot1.rows + 1&&vSpot2[i].cols == sSpot1.cols + 1)
 				{
+					a = false;
 					break;
 				}
 			}
-			if(i >= vSpot2.size())
+			for(i = 0;i < vSpot1.size();i ++)
+			{
+				if(!a || (vSpot1[i].rows == sSpot1.rows + 1&&vSpot1[i].cols == sSpot1.cols + 1))
+				{
+					b = false;
+					break;
+				}
+			}
+			if(a&&b)
 			{
 				sSpot2.rows = sSpot1.rows + 1;
 				sSpot2.cols = sSpot1.cols + 1;
@@ -944,6 +1082,7 @@ int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vecto
 		{
 			vSpot.push_back(sSpot1);
 		}
+		
 	}
 
 	return 0;
@@ -959,7 +1098,7 @@ int FindRowsBottomSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)
 
 	for(i = 1;i < vSpotInfo.size();i ++)
 	{
-		if(vSpotInfo[i].rows < sTargetOne.rows)
+		if(vSpotInfo[i].rows > sTargetOne.rows)
 		{
 			sTargetOne.cols = vSpotInfo[i].cols;
 			sTargetOne.rows = vSpotInfo[i].rows;
@@ -979,7 +1118,7 @@ int FindRowsTopSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)
 
 	for(i = 1;i < vSpotInfo.size();i ++)
 	{
-		if(vSpotInfo[i].rows > sTargetOne.rows)
+		if(vSpotInfo[i].rows < sTargetOne.rows)
 		{
 			sTargetOne.cols = vSpotInfo[i].cols;
 			sTargetOne.rows = vSpotInfo[i].rows;
@@ -1005,7 +1144,7 @@ int FindMidLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo& MidLeftOne)
 	MidLeftOne.cols = 0;
 	for(i = 0;i < vSpotInfo.size();i ++)
 	{
-		if(vSpotInfo[i].iRows == MidLeftOne.rows)
+		if(vSpotInfo[i].rows == MidLeftOne.rows)
 		{
 			MidLeftOne.cols = MidLeftOne.cols > vSpotInfo[i].cols?MidLeftOne.cols:vSpotInfo[i].cols;
 		}
@@ -1023,7 +1162,7 @@ int FindColsRightSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sRightOne)
 	
 	for(i = 1;i < vSpotInfo.size();i ++)
 	{
-		if(vSpotInfo[i].cols > sLeftOne.cols)
+		if(vSpotInfo[i].cols > sRightOne.cols)
 		{
 			sRightOne.cols = vSpotInfo[i].cols;
 			sRightOne.rows = vSpotInfo[i].rows;
@@ -1073,7 +1212,7 @@ int FindSpotLocation(Mat * mPic,
 		return 1;
 	}
 
-	ichannels = mPic->ichannels();
+	ichannels = mPic->channels();
 
 	state =  FindConnectDomain(mPic,iRows,iCols,ichannels,iSpotSpec,vSpot1);
 	if(state != 0||vSpot1.size() < 10)
@@ -1087,12 +1226,12 @@ int FindSpotLocation(Mat * mPic,
 	FindColsRightSpot(vSpot1,sTmp2);//最右边的那个点
 	
 	x = sTmp2.rows - 60;
-	y = (sTmp1.cols + 2 + 70) * ichannels;
+	y = (sTmp2.cols + 2 + 70) * ichannels;
 	for(m = sTmp2.rows;m > x;m --)
 	{
 		ptr = mPic->ptr<uchar>(m);
 		iTargetNum = 0;
-		for(n = (sTmp1.cols + 2) * ichannels;n < y;)
+		for(n = (sTmp2.cols + 2) * ichannels;n < y;)
 		{
 			if(ptr[n] < iSpotSpec)
 			{
@@ -1100,7 +1239,16 @@ int FindSpotLocation(Mat * mPic,
 				if(iTargetNum > 3)
 				{
 					iDirect = 0;
-					goto NextSpotTarget;//找到目标2
+					int tmp;
+					tmp = n/ichannels;
+					state =  FindConnectDomain(mPic,m,tmp,ichannels,iSpotSpec,vSpot2);
+					if(state != 0||vSpot2.size() < 10)
+					{
+						return 4;
+					}else
+					{
+						return 0;
+					}
 				}
 			}else
 			{
@@ -1119,17 +1267,25 @@ int FindSpotLocation(Mat * mPic,
 		iTargetNum = 0;
 		for(n = (sTmp1.cols + 2) * ichannels;n < y;)
 		{
-			if(ptr[n] < iSpec2)
+			if(ptr[n] < iSpotSpec)
 			{
 				iTargetNum ++;
 				if(iTargetNum > 3)
 				{
 					iDirect = 1;
-					vector<sSpotInfo> vtmp;
-					vtmp = vSpot2;
-					vSpot2 = vSpot1;
-					vSpot1 = vtmp;
-					goto NextSpotTarget;//找到目标2
+					int tmp;
+					vector<sSpotInfo> stmp;
+					stmp = vSpot1;
+					vSpot2 = stmp;
+					tmp = n/ichannels;
+					state =  FindConnectDomain(mPic,m,tmp,ichannels,iSpotSpec,vSpot1);
+					if(state != 0||vSpot1.size() < 10)
+					{
+						return 4;
+					}else
+					{
+						return 0;
+					}
 				}
 			}else
 			{
@@ -1139,15 +1295,6 @@ int FindSpotLocation(Mat * mPic,
 		}
 	}
 	return 3;
-NextSpotTarget:
-	state =  FindConnectDomain(mPic,m,n/ichannels,ichannels,iSpec2,vSpot1);
-	if(state != 0||vSpot1.size() < 10)
-	{
-		return 4;
-	}else
-	{
-		return 0;
-	}
 
 }
 
@@ -1155,7 +1302,8 @@ int FixAngleAndRowStart(vector<sSpotInfo>& vSpot1,
 				vector<sSpotInfo>& vSpot2,
 				int& iDirect,
 				float& fAngleValue,
-				int & rows)
+				int& rows,
+				int& iEdgeRightPosition)
 {
 	sSpotInfo sTmp1,sTmp2;
 
@@ -1166,14 +1314,18 @@ int FixAngleAndRowStart(vector<sSpotInfo>& vSpot1,
 		fAngleValue = 1.0*(sTmp2.rows - sTmp1.rows)/(sTmp2.cols - sTmp1.cols);
 
 		rows = sTmp1.rows ;
+		FindColsLeftSpot(vSpot2,sTmp2);
+		iEdgeRightPosition = sTmp2.cols;
 		return 0;
 	}
 	if(iDirect == 0)//向右
 	{
 		fAngleValue = 1.0*(sTmp1.rows - sTmp2.rows)/(sTmp2.cols = sTmp1.cols);
-		FindColsLeftSpot(vSpot1,sTmp2);
+		
 		rows = sTmp2.rows ;
-	
+
+		FindColsLeftSpot(vSpot2,sTmp2);
+		iEdgeRightPosition = sTmp2.cols;
 		return 0;
 	}
 	return 0;
@@ -1181,144 +1333,100 @@ int FixAngleAndRowStart(vector<sSpotInfo>& vSpot1,
 int CountFont(Mat* mPic,
 				int& rows,
 				int& cols,
-				int& channels;
+				int& channels,
 				int& iFontSpec,
 				int& iFontMinLength,
-				int& iFontNum;
+				int& iFontNum,
 				int& iEdgeRightPosition,
+				float& angle,
 				int iDirect,
-				vector<sTestPicResult>& Result)
+				sTestPicResult& Result)
 {
 	vector<sSpotInfo> vSpot;
 	sSpotInfo sTmp;
 	bool bCol;
-	int i,j,k,x,y,m,n;
+	int i,j,k,x[5],y,m[5],n;
 	int iTargetNum;
+	int state;
+	uchar * ptr[5];
+
+
 	bCol = true;
 	iTargetNum = 0;
 	iFontNum = 0;
+	state = 0;
+
 	do
 	{
-		state = FindConnectDomain(mPic,rows,cols,channels,spec,vSpot);
-		if(!state||vSpot.size() < 10)
+		state = FindConnectDomain(mPic,rows,cols,channels,iFontSpec,vSpot);
+		if(state||vSpot.size() < 10)
 		{
 			return 4;
 		}
 		iFontNum ++;
 		FindMidLeftSpot(vSpot,sTmp);  //取左面中间的点
-		x = sTmp.rows;
+		x[0] = sTmp.rows - 2;
+		x[1] = sTmp.rows - 1;
+		x[2] = sTmp.rows ;
+		x[3] = sTmp.rows + 1;
+		x[4] = sTmp.rows + 1;
 		y = sTmp.cols + 2;
 		k = y;
-
+		i = iEdgeRightPosition * channels;
 		iTargetNum = 0;
-		for(n = k * channels;n < iEdgeRightPosition;y ++)
+		for(n = k * channels;n < i;y ++)
 		{
-			if(!iDirect)//= 0,目标开口向右倾斜
-				m = cvFlood(x - (y - k) * angle);
-			else//=1,目标开口向左倾斜
-				m = cvFlood(x + (y - k) * angle);
-			ptr = mPic->ptr<uchar>(m);
-			if(ptr[n] < iFontSpec)
+			for(j = 0;j < 5;j++)
 			{
-				iTargetNum ++;
-				if(iTargetNum > 3)
+				if(!iDirect)//= 0,目标开口向右倾斜
+					m[j] = floor(x[j] - (y - k) * angle);
+				else//=1,目标开口向左倾斜
+					m[j] = floor(x[j] + (y - k) * angle);
+				ptr[j] = mPic->ptr<uchar>(m[j]);
+				if(ptr[j][n] < iFontSpec)
 				{
-					bCol = true;
-					rows = m;
-					cols = n/channels - 1;
-					break;//找到目标
+					iTargetNum ++;
+					if(iTargetNum > 3)
+					{
+						bCol = true;
+						rows = m[2];
+						cols = n/channels;
+						goto whileFindTarget;//找到目标
+					}
+				}else
+				{
+					iTargetNum = 0;
 				}
-			}else
-			{
-				iTargetNum = 0;
+				
 			}
-			n = n + ichannels;
-			
+			n = n + channels;
 		}
-		if(n >= iEdgeRightPosition)
+whileFindTarget:
+		if(n >= i)
 			return 0;
-	}while(bCol)
+	}while(bCol);
 
 	return 0;
 	
 }
-int FindConnectDomainEdge(Mat* mPic,
-						int iDirect,
-						int Spec,
-						int rows,
-						float angle,
-						int cols,
-						int BandLengthSpec,
-						int iTargetLengthSpec)
-{
-	int irows;
-	int icols;
-	int ichannels;
-	int iskipnum;
-	int ispec = Spec;
-	uchar * ptr;
-	int i,j,irEnd;
-	int iDTarget,iDBack,iCEnd,iTarget,iBack;
-	int state;
 
-	if(mPic == NULL || mPic->empty() || pEdgeInfo == NULL)
-	{
-		return 1;
-	}
-	irows = rows;
-
-	irEnd = 70;
-	icEnd = cols * 3;
-	if(iDirect == 1)
-	{
-		for(i = irows;i > iEnd;i --)
-		{
-			for(j = 0;j < iCEnd)
-			{
-				irows = cvFlood(rows + j * angle);
-				ptr = mPic->ptr<uchar>(irows);
-				if(ptr[j] > Spec)
-				{
-					break;
-				}
-			}
-		}
-	}
-	if(iDirect == 0)
-	{
-		for(i = irows;i > iEnd;i --)
-		{
-			for(j = 0;j < iCEnd)
-			{
-				irows = cvFlood(rows - j * angle);
-				ptr = mPic->ptr<uchar>(irows);
-				if(ptr[j] > Spec)
-				{
-					break;
-				}
-			}
-		}
-	}
-
-}
 int SkipBandFixFont(Mat* mPic,
 			int iDirect,
 			int iTargetSpec,
 			int iFontSpec,
-			int& iTargetTopBottomMinPlace;
+			int& iTargetTopBottomMinPlace,
 			int& rows,
-			int& cols;
+			int& cols,
 			float angle,
 			int& ColsEnd,
 			int& iEdgeLeftPosition,
 			int iBandWidthSpec,
-			int iSpotSpec,
 			int iTargetLengthSpec)
 {
 	int irows,ichannels,icols;
 	uchar * ptr;
 	int i,j,irEnd;
-	int iDTarget,iDBack,iCEnd,iTargetNUm,iTargetLength;
+	int iDTarget,iDBack,iCEnd,iTargetNum,iTargetLength;
 	int state;
 
 	if(mPic == NULL || mPic->empty())
@@ -1329,23 +1437,24 @@ int SkipBandFixFont(Mat* mPic,
 
 	irEnd = 70;
 	ichannels = mPic->channels();
-	icEnd = ColsEnd * ichannels;
+	iCEnd = ColsEnd * ichannels;
 	iTargetNum = 0;
+	state = 0;
 	for(i = irows;i > iTargetTopBottomMinPlace;i --)
 	{
 		switch (state)
 		{
 			case 0:
 			{
-				
-				for(icols = 0,j = cols * ichannels;j < iCEnd;icols ++)
+				iTargetLength = 0;
+				for(icols = 0,j = 0;j < iCEnd;icols ++)
 				{
 					if(iDirect == 1)
 					{
-						irows = cvFlood(rows - (ColsEnd - icols)*angle);
+						irows = floor(i - (ColsEnd - icols)*angle);
 					}else
 					{
-						irows = cvFlood(rows + (ColsEnd - icols)*angle);
+						irows = floor(i + (ColsEnd - icols)*angle);
 					}
 					ptr = mPic->ptr<uchar>(irows);
 					if(ptr[j + 2] > iTargetSpec)
@@ -1356,11 +1465,12 @@ int SkipBandFixFont(Mat* mPic,
 							iTargetNum ++;
 							if(iTargetNum > iBandWidthSpec)
 							{
-								cols = j/ichannels;
+								iEdgeLeftPosition = j/ichannels - iTargetLengthSpec;
 								iTargetNum = 0;
 								state = 1;
 								break;
 							}
+							break;
 						}
 					}else
 					{
@@ -1368,17 +1478,18 @@ int SkipBandFixFont(Mat* mPic,
 					}
 					j = j + ichannels;
 				}
+				break;
 			}
 			case 1:
 			{
-				for(j = cols * ichannels;j < iCEnd;)
+				for(icols = 0,j = iEdgeLeftPosition * 3;j < iCEnd;icols ++)
 				{
 					if(iDirect == 1)
 					{
-						irows = cvFlood(rows - (ColsEnd - icols)*angle);
+						irows = floor(i - (ColsEnd - icols)*angle);
 					}else
 					{
-						irows = cvFlood(rows + (ColsEnd - icols)*angle);
+						irows = floor(i + (ColsEnd - icols)*angle);
 					}
 					ptr = mPic->ptr<uchar>(irows);
 					if(ptr[j + 2] < iFontSpec)
@@ -1389,24 +1500,24 @@ int SkipBandFixFont(Mat* mPic,
 							iTargetNum ++;
 							if(iTargetNum > 2)
 							{
-								int tmp;
-								tmp = j/ichannels;
-								iEdgeLeftPosition = (cols + tmp)/2;
-								cols = tmp;
+								cols = j/3;
 								rows = i;
 								return 0;
 							}
+							break;
 						}
+						
 					}else
 					{
 						iTargetLength = 0;
 					}
 					j = j + ichannels;
 				}
+				break;
 			}
 		}
 	}
-	return 1;
+	return 2;
 }
 
 int FindAllSpotLocation(Mat * mPic,
@@ -1444,7 +1555,7 @@ int FindAllSpotLocation(Mat * mPic,
 	iTargetPixNum = 0;
 	i = rows;
 	iColsEnd = mPic->cols * channels;
-	for(i = rows;i < iTargetTopBottomMinPlace;i --)
+	for(i = rows;i > iTargetTopBottomMinPlace;i --)
 	{
 		ptr = mPic->ptr<uchar>(i);
 		state = 0;
@@ -1471,22 +1582,25 @@ int FindAllSpotLocation(Mat * mPic,
 					{
 						iTargetPixNum = 0;
 					}
+					break;
 				}
 				case 1:
 				{
 					if(ptr[j + 2] < iSpotSpec)//点出现
 					{
 						iTargetPixNum ++;
-						if(iTargetPixNum > 2)
+						if(iTargetPixNum > iSpotDeviation)
 						{
 							iTargetPixNum = 0;
 							bF2 = true;
+							k = j/3;
 							state = 2;
 						}
 					}else
 					{
 						iTargetPixNum = 0;
 					}
+					break;
 				}
 				case 2:
 				{
@@ -1495,26 +1609,29 @@ int FindAllSpotLocation(Mat * mPic,
 						iTargetPixNum ++;
 						if(iTargetPixNum > 8)
 						{
-							iTargetPixNum = 0;
+							
 							bF3 = true;
 							state = 3;
+							goto ForSwitchEnd;
 						}
 					}else
 					{
 						iTargetPixNum = 0;
 					}
+					break;
 				}
 				default:
 				{
+					break;
 				}
 			}
-				
+ForSwitchEnd:	
 			if(bF1 && bF2 && bF3)
 			{
-				state = FindSpotLocation( mPic,iSpotSpec,j/3,iSpotMinLength,i,iDirect,vSpot1,vSpot2);
+				state = FindSpotLocation( mPic,iSpotSpec,k,iSpotMinLength,i,iDirect,vSpot1,vSpot2);
 				if(state == 0)
 				{
-					FixAngleAndRowStart(vSpot1,vSpot2,iDirect,fAngleValue,rows);
+					FixAngleAndRowStart(vSpot1,vSpot2,iDirect,angle,rows,iEdgeRightPosition);
 					return 0;
 				}
 			}
@@ -1566,7 +1683,7 @@ int FindEdgeLocation(Mat * mPic,
 
 		iTargetPixNum = 0;
 		iBackgroundPixNum = 0;
-			
+		ptr = mPic->ptr<uchar>(i);
 		for (j = 0;j < iColsEnd; )
 		{
 			if ( ptr[j + 2] > iTargetSpec )  //可能目标出现
@@ -1640,9 +1757,9 @@ int FindEdgeLocation(Mat * mPic,
 			uTargetMeasureNum = 0;
 		}
 ColsEnd:
+	;
 	}
 
-	
 	return 1;
 }
 #endif
@@ -1674,11 +1791,13 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 	int iDirect;
 	int iTargetTopBottomMinPlace;
 	int iFontNum;
+
 	state = 0;
 	rows = mPic->rows;
 	cols = mPic->cols;
 	channels = mPic->channels();
 	iTargetTopBottomMinPlace = rows - TestConfig.iTargetTopBottomMinPlace;
+
 	   //初始状态寻找边界白条
 	rowsold = rows;
 	colsold = cols;
@@ -1695,7 +1814,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 								TestResult.iEdgeLeftPosition,
 								TestResult.iEdgeRightPosition,
 								TestResult.iEdgePosition);
-	if(!state)
+	if(state)
 		return 2;
 
 	//查找点
@@ -1719,7 +1838,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 					TestResult.vSpot2,
 					angle,
 					iDirect);
-	if(!state)
+	if(state)
 		return 3;
 	
 	//跳过字1下边缘找到字1
@@ -1728,18 +1847,17 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 	colsold = cols;
 	state = SkipBandFixFont(mPic,
 			iDirect,
-			iTargetSpec,
-			iFontSpec,
-			iTargetTopBottomMinPlace;
+			TestConfig.iTargetSpec1,
+			TestConfig.iFont1Spec,
+			iTargetTopBottomMinPlace,
 			rows,
-			cols;
+			cols,
 			angle,
-			ColsEnd,
-			iEdgeLeftPosition,
-			iBandWidthSpec,
-			iSpotSpec,
-			iTargetLengthSpec)
-	if(!state)
+			TestResult.iEdgeRightPosition,
+			TestResult.iEdgeLeftPosition,
+			TestConfig.iBandSecondMinWidth,
+			TestConfig.iTargetMinLength);
+	if(state)
 		return 4;
 	
 	//检查字1
@@ -1750,32 +1868,32 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 	state =  CountFont(mPic,
 				rows,
 				cols,
-				channels;
-				iFontSpec,
-				iFontMinLength,
-				iFontNum;
-				iEdgeRightPosition,
+				channels,
+				TestConfig.iFont1Spec,
+				TestConfig.iFont1MinLength,
+				iFontNum,
+				TestResult.iEdgeRightPosition,
+				angle,
 				iDirect,
 				TestResult);
-	if(!state || iFontNum != 8)
+	if(state || iFontNum != 8)
 		return 5;
   //跳过字2下边缘找到字2
 	rowsold = rows;
 	colsold = cols;
 	state = SkipBandFixFont(mPic,
 			iDirect,
-			iTargetSpec,
-			iFontSpec,
-			iTargetTopBottomMinPlace;
+			TestConfig.iTargetSpec1,
+			TestConfig.iFont2Spec,
+			iTargetTopBottomMinPlace,
 			rows,
-			cols;
+			cols,
 			angle,
-			ColsEnd,
-			iEdgeLeftPosition,
-			iBandWidthSpec,
-			iSpotSpec,
-			iTargetLengthSpec)
-	if(!state)
+			TestResult.iEdgeRightPosition,
+			TestResult.iEdgeLeftPosition,
+			TestConfig.iBandThirdMinWidth,
+			TestConfig.iTargetMinLength);
+	if(state)
 		return 4;
 	  //检查字2区域
 	rowsold = rows;
@@ -1785,14 +1903,15 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 	state =  CountFont(mPic,
 				rows,
 				cols,
-				channels;
-				iFontSpec,
-				iFontMinLength,
-				iFontNum;
-				iEdgeRightPosition,
+				channels,
+				TestConfig.iFont2Spec,
+				TestConfig.iFont2MinLength,
+				iFontNum,
+				TestResult.iEdgeRightPosition,
+				angle,
 				iDirect,
 				TestResult);
-	if(!state || iFontNum != 5)
+	if(state || iFontNum != 5)
 		return 7;
 
 //	imwrite("a.bmp",*mPic);
@@ -1906,6 +2025,7 @@ int checkA1(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPi
 						checkstate = 2;
 					}
 				}
+				break;
 			}
 			case 2:
 			{
@@ -1918,6 +2038,7 @@ int checkA1(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPi
 						checkstate = 3;
 					}
 				}
+				break;
 			}
 			case 3:
 			{
@@ -1930,6 +2051,7 @@ int checkA1(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPi
 						checkstate = 4;
 					}
 				}
+				break;
 			}
 			case 4:
 				{
@@ -1971,6 +2093,7 @@ int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 						checkstate = 2;
 					}
 				}
+				break;
 			}
 			case 2:
 			{
@@ -1983,6 +2106,7 @@ int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 						checkstate = 3;
 					}
 				}
+				break;
 			}
 			case 3:
 			{
@@ -1995,6 +2119,7 @@ int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 						checkstate = 4;
 					}
 				}
+				break;
 			}
 			case 4:
 			{
@@ -2007,6 +2132,7 @@ int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 						checkstate = 5;
 					}
 				}
+				break;
 			}
 			case 5:
 				{
@@ -2047,6 +2173,7 @@ int checkU(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 						checkstate = 2;
 					}
 				}
+				break;
 			}
 			case 2:
 			{
@@ -2059,6 +2186,7 @@ int checkU(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 						checkstate = 3;
 					}
 				}
+				break;
 			}
 			case 3:
 				{
@@ -2100,6 +2228,7 @@ int checkB(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 						checkstate = 2;
 					}
 				}
+				break;
 			}
 			case 2:
 			{
@@ -2112,6 +2241,7 @@ int checkB(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 						checkstate = 3;
 					}
 				}
+				break;
 			}
 			case 3:
 			{
@@ -2124,6 +2254,7 @@ int checkB(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 						checkstate = 4;
 					}
 				}
+				break;
 			}
 			case 4:
 				{
@@ -2164,6 +2295,7 @@ int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPi
 						checkstate = 2;
 					}
 				}
+				break;
 			}
 			case 2:
 			{
@@ -2176,6 +2308,7 @@ int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPi
 						checkstate = 3;
 					}
 				}
+				break;
 			}
 			case 3:
 			{
@@ -2188,6 +2321,7 @@ int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPi
 						checkstate = 4;
 					}
 				}
+				break;
 			}
 			case 4:
 				{

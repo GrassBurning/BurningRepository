@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>F:\opencv\opencv\build\include;F:\opencv\opencv\build\include\opencv;F:\opencv\opencv\build\include\opencv2;F:\opencv\IC Imaging Control 3.4\classlib\include;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\opencv\opencv\build\x86\vc10\lib;F:\opencv\IC Imaging Control 3.4\classlib\win32\debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\opencv\opencv\build\include;D:\opencv\opencv\build\include\opencv;D:\opencv\opencv\build\include\opencv2;D:\IC Imaging Control 3.4\classlib\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\opencv\opencv\build\x86\vc10\lib;D:\IC Imaging Control 3.4\classlib\win32\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

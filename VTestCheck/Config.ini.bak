@@ -2,10 +2,10 @@
 TargetPixMinLength=2
 BlackgroundMinLength=6
 BackgroundDeviation=3
-TargetMinLength=300
+TargetMinLength=800
 TargetDeviation=10
 
-Font1Spec=100
+Font1Spec=110
 Font1MinLength=40
 Font1MinWidth=10
 Font1BandMinWidth=10
@@ -20,18 +20,18 @@ Font2SkipMaxWidth=100
 Font2Deviation=5
 
 
-SpotSpec=50
+SpotSpec=80
 SpotMinLength=25
 SpotMinWidth=10
 SpotDeviation=5
 
 BandFirstMinWidth=10
-BandSecondMinWidth=100
+BandSecondMinWidth=300
 BandThirdMinWidth=10
 
 TargetSpec1=120
 TargetSpec2=100
 
 BackgroundSpec=60
-TargetTopBottomMinPlace=400
+TargetTopBottomMinPlace=800
 TargetLeftRightMinPlace=400

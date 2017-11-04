@@ -86,7 +86,7 @@ void Config::OnBnClickedCancel()
 
 void Config::OnClickedButtonconfigcanmera()
 {
-	setupDeviceFromFile(*m_pGrabber);
+	setupDeviceFromFile(*m_pGrabber,"lastSelectedDeviceState.xml");
 }
 
 bool	setupDeviceFromFile(Grabber& gr, 

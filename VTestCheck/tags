@@ -83,6 +83,7 @@ CVTestCheckDlg::m_Picture_PF	.\VTestCheckDlg.h	/^	CStatic m_Picture_PF;$/;"	m	cl
 CVTestCheckDlg::m_cStaticVideoWindow	.\VTestCheckDlg.h	/^	CStatic m_cStaticVideoWindow;$/;"	m	class:CVTestCheckDlg	access:public
 CVTestCheckDlg::m_hIcon	.\VTestCheckDlg.h	/^	HICON m_hIcon;$/;"	m	class:CVTestCheckDlg	access:protected
 CVVIMAGE_CLASS_DEF	.\CvvImage.h	7;"	d
+CheckPic	.\VTestCheckDlg.cpp	/^int CheckPic(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 Config	.\Config - 副本.cpp	/^Config::Config(CWnd* pParent \/*=NULL*\/)$/;"	f	class:Config	signature:(CWnd* pParent )
 Config	.\Config.cpp	/^Config::Config(CWnd* pParent \/*=NULL*\/)$/;"	f	class:Config	signature:(CWnd* pParent )
 Config	.\Config.h	/^	Config(CWnd* pParent = NULL);   \/\/ 标准构造函数$/;"	p	class:Config	access:public	signature:(CWnd* pParent = NULL)
@@ -190,16 +191,18 @@ ES_VCENTER	.\EasySize.h	42;"	d
 Fill	.\CvvImage.cpp	/^void CvvImage::Fill( int color )$/;"	f	class:CvvImage	signature:( int color )
 Fill	.\CvvImage.h	/^	virtual void Fill( int color );$/;"	p	class:CvvImage	access:public	signature:( int color )
 FillBitmapInfo	.\CvvImage.cpp	/^void FillBitmapInfo( BITMAPINFO* bmi, int width, int height, int bpp, int origin )$/;"	f	signature:( BITMAPINFO* bmi, int width, int height, int bpp, int origin )
+FindAllSpotLocation	.\VTestCheckDlg.cpp	/^int FindAllSpotLocation(Mat * mPic,$/;"	f	signature:(Mat * mPic, int& rows, int& cols, int& channels, int& iTargetSpec, int& iTargetTopBottomMinPlace, int& iBackgroundSpec, int& iTargetDeviation, int& iBackgroundDeviation, int& iTargetMinLength, int& iBandFirstMinWidth, int& iEdgeLeftPosition, int& iEdgeRightPosition, int& )
 FindColsLeftSpot	.\VTestCheckDlg.cpp	/^int FindColsLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sLeftOne)$/;"	f	signature:(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sLeftOne)
 FindColsRightSpot	.\VTestCheckDlg.cpp	/^int FindColsRightSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sRightOne)$/;"	f	signature:(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sRightOne)
+FindConnectDomain	.\VTestCheckDlg.cpp	/^int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)$/;"	f	signature:(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)
+FindConnectDomainEdge	.\VTestCheckDlg.cpp	/^int FindConnectDomainEdge(Mat* mPic,int iDirect,int Spec,int rows,float angle,int cols,int BandLengthSpec,int iTargetLengthSpec)$/;"	f	signature:(Mat* mPic,int iDirect,int Spec,int rows,float angle,int cols,int BandLengthSpec,int iTargetLengthSpec)
 FindEdgeLocation	.\VTestCheckDlg - 副本.cpp	/^int FindEdgeLocation(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
-FindEdgeLocation	.\VTestCheckDlg.cpp	/^int FindEdgeLocation(Mat * mPic,int &iBoundary,$/;"	f	signature:(Mat * mPic,int &iBoundary, int &iSkipNum,int& rows,int &cols,int& channels,int &iSpec)
-FindEdgeLocation	.\VTestCheckDlg.cpp	/^int FindEdgeLocation(Mat * mPic,int * pEdgeInfo,int &iSkipNum,int& rows,int &cols,int& channels,int &spec)$/;"	f	signature:(Mat * mPic,int * pEdgeInfo,int &iSkipNum,int& rows,int &cols,int& channels,int &spec)
+FindEdgeLocation	.\VTestCheckDlg.cpp	/^int FindEdgeLocation(Mat * mPic,$/;"	f	signature:(Mat * mPic, int& rows, int& cols, int& channels, int& iTargetSpec, int& iTargetTopBottomMinPlace, int& iTargetSpec1, int& iTargetDeviation, int& iBackgroundDeviation, int& iTargetMinLength, int& iBandFirstMinWidth, int& iEdgeLeftPosition, int& iEdgeRightPosition, int& iEdgePosition)
 FindPrepare	.\VTestCheckDlg - 副本.cpp	/^int FindPrepare(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
-FindPrepare	.\VTestCheckDlg.cpp	/^int FindPrepare(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
-FindRowsMidLeftSpot	.\VTestCheckDlg.cpp	/^int FindRowsMidLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)$/;"	f	signature:(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)
-FindSpotLocation	.\VTestCheckDlg.cpp	/^int FindSpotLocation(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)$/;"	f	signature:(Mat* mPic,int& rows,int& cols,int& channels,int spec,vector<sSpot>& vSpot)
-FindSpotLocationPrepare	.\VTestCheckDlg.cpp	/^int FindSpotLocationPrepare(Mat * mPic,int Spec,int &iSkipNum,int iEdgeBegin,int iRowsEnd,vector<sSpotInfo>vSpot1,vector<sSpotInfo>vSpot2)$/;"	f	signature:(Mat * mPic,int Spec,int &iSkipNum,int iEdgeBegin,int iRowsEnd,vector<sSpotInfo>vSpot1,vector<sSpotInfo>vSpot2)
+FindRowsBottomSpot	.\VTestCheckDlg.cpp	/^int FindRowsBottomSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)$/;"	f	signature:(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)
+FindRowsTopSpot	.\VTestCheckDlg.cpp	/^int FindRowsTopSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)$/;"	f	signature:(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)
+FindSpotLocation	.\VTestCheckDlg.cpp	/^int FindSpotLocation(Mat * mPic,int iSpec2,int iCols,int iSpotMinSpecLength,$/;"	f	signature:(Mat * mPic,int iSpec2,int iCols,int iSpotMinSpecLength, int iRows,vector<sSpotInfo>& vSpot1,vector<sSpotInfo>& vSpot2)
+FixAngleStart	.\VTestCheckDlg.cpp	/^int FixAngleStart(vector<sSpotInfo>& vSpot1,vector<sSpotInfo>& vSpot2,int iDirect,float& fAngleValue,int & rows)$/;"	f	signature:(vector<sSpotInfo>& vSpot1,vector<sSpotInfo>& vSpot2,int iDirect,float& fAngleValue,int & rows)
 GetImage	.\CvvImage.h	/^	IplImage* GetImage() { return m_img; };$/;"	f	class:CvvImage	access:public	signature:()
 GlobalTestInfo	.\VTestCheckDlg - 副本.cpp	/^vector<sTestThreadInfo> GlobalTestInfo;$/;"	v
 GlobalTestInfo	.\VTestCheckDlg.cpp	/^vector<sTestThreadInfo> GlobalTestInfo;$/;"	v
@@ -239,7 +242,7 @@ LoadRect	.\CvvImage.cpp	/^bool CvvImage::LoadRect( const char* filename,$/;"	f	c
 LoadRect	.\CvvImage.h	/^	virtual bool LoadRect( const char* filename,$/;"	f	class:CvvImage	access:public	signature:( const char* filename, int desired_color, RECT r )
 LoadRect	.\CvvImage.h	/^	virtual bool LoadRect( const char* filename,$/;"	p	class:CvvImage	access:public	signature:( const char* filename, int desired_color, CvRect r )
 MAX_LEN	.\VTestCheckDlg - 副本.cpp	755;"	d	file:
-MAX_LEN	.\VTestCheckDlg.cpp	755;"	d	file:
+MAX_LEN	.\VTestCheckDlg.cpp	757;"	d	file:
 NOT_AVAILABLE	.\Config.h	5;"	d
 NormalizeRect	.\CvvImage.cpp	/^CV_INLINE RECT NormalizeRect( RECT r )$/;"	f	signature:( RECT r )
 NormalizeRect	.\CvvImage.cpp	/^CV_INLINE RECT NormalizeRect( RECT r );$/;"	p	file:	signature:( RECT r )
@@ -320,9 +323,11 @@ Show	.\CvvImage.cpp	/^void CvvImage::Show( HDC dc, int x, int y, int w, int h, i
 Show	.\CvvImage.cpp	/^void CvvImage::Show( const char* window )$/;"	f	class:CvvImage	signature:( const char* window )
 Show	.\CvvImage.h	/^	virtual void Show( HDC dc, int x, int y, int width, int height,$/;"	p	class:CvvImage	access:public	signature:( HDC dc, int x, int y, int width, int height, int from_x = 0, int from_y = 0 )
 Show	.\CvvImage.h	/^	virtual void Show( const char* window );$/;"	p	class:CvvImage	access:public	signature:( const char* window )
+SkipBand	.\VTestCheckDlg.cpp	/^int SkipBand(Mat * mPic,int iDirect,int Spec,int rows,float angle,int cols,int BandLengthSpec,int iTargetLengthSpec)$/;"	f	signature:(Mat * mPic,int iDirect,int Spec,int rows,float angle,int cols,int BandLengthSpec,int iTargetLengthSpec)
 SpotInfo	.\VTestCheckDlg.cpp	/^typedef struct SpotInfo$/;"	s	file:
 SpotInfo::cols	.\VTestCheckDlg.cpp	/^	int cols;$/;"	m	struct:SpotInfo	file:	access:public
 SpotInfo::rows	.\VTestCheckDlg.cpp	/^	int rows;$/;"	m	struct:SpotInfo	file:	access:public
+SumFont	.\VTestCheckDlg.cpp	/^int SumFont()$/;"	f	signature:()
 Test	.\VTestCheckDlg - 副本.cpp	/^UINT Test(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
 Test	.\VTestCheckDlg.cpp	/^UINT Test(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
 TestBegin	.\VTestCheckDlg - 副本.cpp	/^UINT TestBegin(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
@@ -461,6 +466,8 @@ TestPicResult::iUFontChange	.\VTestCheckDlg - 副本.cpp	/^	vector<vector<int>> iU
 TestPicResult::iUFontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iUFontChange;$/;"	m	struct:TestPicResult	file:	access:public
 TestPicResult::vFontInfo	.\VTestCheckDlg - 副本.cpp	/^	vector<vector<int>> vFontInfo;$/;"	m	struct:TestPicResult	file:	access:public
 TestPicResult::vFontInfo	.\VTestCheckDlg.cpp	/^	vector<vector<int>> vFontInfo;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::vSpot1	.\VTestCheckDlg.cpp	/^	vector<sSpotInfo> vSpot1;$/;"	m	struct:TestPicResult	file:	access:public
+TestPicResult::vSpot2	.\VTestCheckDlg.cpp	/^	vector<sSpotInfo> vSpot2;$/;"	m	struct:TestPicResult	file:	access:public
 TestResultHandle	.\VTestCheckDlg - 副本.cpp	/^UINT TestResultHandle(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
 TestResultHandle	.\VTestCheckDlg.cpp	/^UINT TestResultHandle(LPVOID pParam)$/;"	f	signature:(LPVOID pParam)
 TestThreadInfo	.\VTestCheckDlg - 副本.cpp	/^typedef struct TestThreadInfo$/;"	s	file:
@@ -544,7 +551,6 @@ fLoadConfig	.\VTestCheckDlg.cpp	/^int fLoadConfig(sTestPicConfig& TestConfig)$/;
 fLoadConfig	.\VTestCheckDlg.cpp	/^int fLoadConfig(sTestPicConfig& TestConfig);$/;"	p	file:	signature:(sTestPicConfig& TestConfig)
 fTargetLocation	.\VTestCheckDlg - 副本.cpp	/^int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 fTargetLocation	.\VTestCheckDlg - 副本.cpp	/^int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
-fTargetLocation	.\VTestCheckDlg.cpp	/^int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)$/;"	f	signature:(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 fTargetLocation	.\VTestCheckDlg.cpp	/^int fTargetLocation(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig);$/;"	p	file:	signature:(Mat * mPic,int iBottom,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 iA1FontChange	.\VTestCheckDlg - 副本.cpp	/^	vector<vector<int>> iA1FontChange;$/;"	m	struct:TestPicResult	file:	access:public
 iA1FontChange	.\VTestCheckDlg.cpp	/^	vector<vector<int>> iA1FontChange;$/;"	m	struct:TestPicResult	file:	access:public
@@ -728,6 +734,8 @@ updateVideoFormats	.\Config - 副本.cpp	/^void Config::updateVideoFormats()$/;"	f
 updateVideoNorms	.\Config - 副本.cpp	/^void Config::updateVideoNorms()$/;"	f	class:Config	signature:()
 vFontInfo	.\VTestCheckDlg - 副本.cpp	/^	vector<vector<int>> vFontInfo;$/;"	m	struct:TestPicResult	file:	access:public
 vFontInfo	.\VTestCheckDlg.cpp	/^	vector<vector<int>> vFontInfo;$/;"	m	struct:TestPicResult	file:	access:public
+vSpot1	.\VTestCheckDlg.cpp	/^	vector<sSpotInfo> vSpot1;$/;"	m	struct:TestPicResult	file:	access:public
+vSpot2	.\VTestCheckDlg.cpp	/^	vector<sSpotInfo> vSpot2;$/;"	m	struct:TestPicResult	file:	access:public
 ~CPassword	.\Password.cpp	/^CPassword::~CPassword()$/;"	f	class:CPassword	signature:()
 ~CPassword	.\Password.h	/^	virtual ~CPassword();$/;"	p	class:CPassword	access:public	signature:()
 ~Config	.\Config - 副本.cpp	/^Config::~Config()$/;"	f	class:Config	signature:()

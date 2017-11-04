@@ -43,5 +43,7 @@ public:
 	CListBox m_ListBox;
 	afx_msg void OnBnClickedConfig();
 	CStatic m_cStaticVideoWindow;
-	
+
+	void ShowError();
+	void ShowPass();
 };
