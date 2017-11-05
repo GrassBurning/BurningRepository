@@ -1,66 +1,69 @@
-﻿生成启动时间为 2017/11/5 5:45:49。
-     1>项目“e:\Work\opencv\New\VTestCheck\VTestCheck.vcxproj”在节点 2 上(build 个目标)。
+﻿生成启动时间为 2017/11/5 16:07:19。
+     1>项目“E:\Work\opencv\New\VTestCheck\VTestCheck.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
-         正在创建“Debug\VTestCheck.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+         正在对“Debug\VTestCheck.unsuccessfulbuild”执行 Touch 任务。
        ClCompile:
          所有输出均为最新。
          D:\MicrosoftVisualStudio10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\VTestCheck.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt VTestCheckDlg.cpp
          VTestCheckDlg.cpp
      1>d:\opencv\opencv\build\include\opencv2\flann\logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  d:\microsoftvisualstudio10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(555): warning C4995: “sprintf”: 名称被标记为 #pragma deprecated
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(555): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(432): warning C4996: 'DShowLib::MemBuffer::save': was declared deprecated. Instead, use the saveToFileBMP() function.
+                 d:\ic imaging control 3.4\classlib\include\membuffer.h(92) : 参见“DShowLib::MemBuffer::save”的声明
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(422): warning C4101: “a”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(579): warning C4995: “sprintf”: 名称被标记为 #pragma deprecated
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(579): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  d:\microsoftvisualstudio10.0\vc\include\stdio.h(371) : 参见“sprintf”的声明
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(573): warning C4995: “sprintf”: 名称被标记为 #pragma deprecated
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(573): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(597): warning C4995: “sprintf”: 名称被标记为 #pragma deprecated
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(597): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  d:\microsoftvisualstudio10.0\vc\include\stdio.h(371) : 参见“sprintf”的声明
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(704): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(883): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(909): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(917): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(934): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(728): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
      1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(942): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(959): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(950): warning C4018: “<”: 有符号/无符号不匹配
      1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(967): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(984): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(975): warning C4018: “<”: 有符号/无符号不匹配
      1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(992): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1009): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1000): warning C4018: “<”: 有符号/无符号不匹配
      1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1017): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1034): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1025): warning C4018: “<”: 有符号/无符号不匹配
      1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1042): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1059): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1050): warning C4018: “<”: 有符号/无符号不匹配
      1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1067): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(864): warning C4101: “k”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(864): warning C4101: “j”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1099): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1119): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1145): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1163): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1182): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1207): warning C4101: “iCEnd”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1207): warning C4101: “iDTarget”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1206): warning C4101: “i”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1202): warning C4101: “irows”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1207): warning C4101: “iDBack”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1206): warning C4101: “iEnd”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1203): warning C4101: “icols”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1207): warning C4101: “iBack”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1206): warning C4101: “j”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1314): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1323): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1382): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1384): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1454): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1457): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1489): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1492): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1429): warning C4101: “iDTarget”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1429): warning C4101: “iDBack”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1734): warning C4018: “<”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1737): warning C4018: “>”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1743): warning C4018: “>”: 有符号/无符号不匹配
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1665): warning C4101: “k”: 未引用的局部变量
-     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1666): warning C4101: “iCheckNum”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1075): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1092): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1100): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(888): warning C4101: “k”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(888): warning C4101: “j”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1132): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1152): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1172): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1191): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1242): warning C4101: “iCEnd”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1242): warning C4101: “iDTarget”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1241): warning C4101: “i”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1237): warning C4101: “irows”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1242): warning C4101: “iDBack”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1241): warning C4101: “iEnd”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1238): warning C4101: “icols”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1242): warning C4101: “iBack”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1241): warning C4101: “j”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1349): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1358): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1418): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1420): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1383): warning C4101: “z”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1383): warning C4101: “j”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1500): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1503): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1543): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1546): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1475): warning C4101: “iDTarget”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1475): warning C4101: “iDBack”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1797): warning C4018: “<”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1800): warning C4018: “>”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1806): warning C4018: “>”: 有符号/无符号不匹配
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1728): warning C4101: “k”: 未引用的局部变量
+     1>e:\work\opencv\new\vtestcheck\vtestcheckdlg.cpp(1729): warning C4101: “iCheckNum”: 未引用的局部变量
        ResourceCompile:
          所有输出均为最新。
        ManifestResourceCompile:
@@ -83,8 +86,8 @@
        FinalizeBuildStatus:
          正在删除文件“Debug\VTestCheck.unsuccessfulbuild”。
          正在对“Debug\VTestCheck.lastbuildstate”执行 Touch 任务。
-     1>已完成生成项目“e:\Work\opencv\New\VTestCheck\VTestCheck.vcxproj”(build 个目标)的操作。
+     1>已完成生成项目“E:\Work\opencv\New\VTestCheck\VTestCheck.vcxproj”(build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:04.54
+已用时间 00:00:04.65

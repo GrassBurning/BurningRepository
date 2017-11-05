@@ -404,7 +404,7 @@ int ii = 0;
 
 void CVTestCheckDlg::OnBnClickedOk()
 {
-#if 1
+#if 0
 	Mat srcImage1 = imread("E:\\Work\\opencv\\tt\\12345.bmp",1);
 //	Mat srcImage1 = imread("D:\\tt\\12345.bmp",1);
 	sTestPicConfig TestConfig;
@@ -417,9 +417,10 @@ void CVTestCheckDlg::OnBnClickedOk()
 
 #endif
 
-#if 0
+#if 1
 	long height,width;
 	Mat *a;
+	int c;
 //	width = m_pGrabber->getAcqSizeMaxX();
 //	height = m_pGrabber->getAcqSizeMaxY();
 //	pSink->setSnapMode( false );
@@ -428,21 +429,44 @@ void CVTestCheckDlg::OnBnClickedOk()
 	smart_ptr<MemBuffer> pBuffer = pSink->getLastAcqMemBuffer();
 	width = pBuffer->getSize().cx;
 	height = pBuffer->getSize().cy;
-//	
+	pBuffer->save("zz.bmp");
 //	m_pGrabber->stopLive();
-	a = new Mat(height,width,CV_8UC3,(uchar*)pBuffer->getPtr());
+
+//	a = new Mat(height,width,CV_8UC3,(uchar*)pBuffer->getPtr());
+
 //	pSink->setSnapMode( false );
 //	m_pGrabber->startLive(true);
 	Mat b;
-	a->copyTo(b);
-	CString ab;
-	ii ++;
-	ab.Format("%d.bmp",ii);
-	imwrite(ab.GetBuffer(ab.GetLength()),b);
+//	a->copyTo(b);
+
+//	CString ab;
+//	ii ++;
+//	ab.Format("%d.bmp",ii);
+//	imwrite(ab.GetBuffer(ab.GetLength()),b);
 //	m_pGrabber->startLive(true);
 //	namedWindow("img");
+//	imshow("img", *a);
+//	waitKey(0);
+//	Mat b(height,width,CV_8UC3,(uchar*)pBuffer->getPtr());
+//	imwrite("cc.bmp",b);
+	b = imread("zz.bmp");
 //	imshow("img", b);
 //	waitKey(0);
+	sTestPicConfig TestConfig;
+	sTestPicResult TestResult;
+	fLoadConfig(TestConfig);
+	c = CheckPic(&b,TestResult,TestConfig);
+	if(!c)
+	{
+		ShowPass();
+	}
+	else
+	{
+		CString dd;
+		dd.Format("%d",c);
+		AfxMessageBox(dd);
+		ShowError();
+	}
 #endif
 
 }
@@ -867,6 +891,10 @@ int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vecto
 	vector<sSpotInfo> vSpot2;
 	sSpotInfo sSpot1,sSpot2;
 	bool a,b,c;
+	int irowsend,icolsend;
+
+	irowsend = mPic->rows - 1;
+	icolsend = mPic->cols - 1;
 
 	if(mPic == NULL || mPic->empty())
 	{
@@ -880,21 +908,26 @@ int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vecto
 	while(vSpot1.size() > 0)
 	{
 		sSpot1 = vSpot1.back();
-		for(i = 0;i < vSpot.size();i ++)
-		{
-			if(vSpot[i].rows == sSpot1.rows&&vSpot[i].cols == sSpot1.cols)
-			{
-				if (vSpot1.empty())
-				{
-					return 0;
-				}
-				vSpot1.pop_back();
-				continue;
-			}
-		}
+// 		for(i = 0;i < vSpot.size();i ++)
+// 		{
+// 			if(vSpot[i].rows == sSpot1.rows&&vSpot[i].cols == sSpot1.cols)
+// 			{
+// 				if (vSpot1.empty())
+// 				{
+// 					return 0;
+// 				}
+// 				vSpot1.pop_back();
+// 				continue;
+// 			}
+// 		}
 		if (vSpot1.empty())
 		{
 			return 0;
+		}
+		if (sSpot1.rows > irowsend || sSpot1.rows < 1 || sSpot1.cols > icolsend || sSpot1.cols < 1)
+		{
+			vSpot1.pop_back();
+			continue;
 		}
 		ptr = mPic->ptr<uchar>(sSpot1.rows);
 		
@@ -902,7 +935,7 @@ int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vecto
 		if(ptr[sSpot1.cols*ichannels + 2] <= ispec||!c)
 		{
 			c = true;
-			vSpot2.push_back(sSpot1);
+//			vSpot2.push_back(sSpot1);
 			//右上
 			a = true;
 			b = true;
@@ -1082,7 +1115,7 @@ int FindConnectDomain(Mat* mPic,int& rows,int& cols,int& channels,int spec,vecto
 		{
 			vSpot.push_back(sSpot1);
 		}
-		
+		vSpot2.push_back(sSpot1);
 	}
 
 	return 0;
@@ -1127,30 +1160,6 @@ int FindRowsTopSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sTargetOne)
 
 	return 0;
 }
-int FindMidLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo& MidLeftOne)
-{
-	if(vSpotInfo.size() < 1)
-		return 1;
-
-	int i,j;
-
-	FindRowsBottomSpot(vSpotInfo,MidLeftOne);
-	i = MidLeftOne.rows;
-	FindRowsTopSpot(vSpotInfo,MidLeftOne);
-	j = MidLeftOne.rows;
-
-
-	MidLeftOne.rows  = (i + j)/2;
-	MidLeftOne.cols = 0;
-	for(i = 0;i < vSpotInfo.size();i ++)
-	{
-		if(vSpotInfo[i].rows == MidLeftOne.rows)
-		{
-			MidLeftOne.cols = MidLeftOne.cols > vSpotInfo[i].cols?MidLeftOne.cols:vSpotInfo[i].cols;
-		}
-	}
-	return 0;
-}
 int FindColsRightSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sRightOne)
 {
 	if(vSpotInfo.size() < 1)
@@ -1159,7 +1168,7 @@ int FindColsRightSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sRightOne)
 	int i;
 
 	sRightOne = vSpotInfo.front();
-	
+
 	for(i = 1;i < vSpotInfo.size();i ++)
 	{
 		if(vSpotInfo[i].cols > sRightOne.cols)
@@ -1178,7 +1187,7 @@ int FindColsLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sLeftOne)
 	int i;
 
 	sLeftOne = vSpotInfo.front();
-	
+
 	for(i = 1;i < vSpotInfo.size();i ++)
 	{
 		if(vSpotInfo[i].cols > sLeftOne.cols)
@@ -1190,6 +1199,32 @@ int FindColsLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo & sLeftOne)
 
 	return 0;
 }
+int FindMidLeftSpot(vector<sSpotInfo>& vSpotInfo,sSpotInfo& MidLeftOne)
+{
+	if(vSpotInfo.size() < 1)
+		return 1;
+
+	int i,j;
+
+	FindRowsBottomSpot(vSpotInfo,MidLeftOne);
+	i = MidLeftOne.rows;
+	FindRowsTopSpot(vSpotInfo,MidLeftOne);
+	j = MidLeftOne.rows;
+
+	i = (i + j)/2;
+	FindColsLeftSpot(vSpotInfo,MidLeftOne);
+	MidLeftOne.rows  = i;
+//	MidLeftOne.cols = 0;
+// 	for(i = 0;i < vSpotInfo.size();i ++)
+// 	{
+// 		if(vSpotInfo[i].rows == MidLeftOne.rows)
+// 		{
+// 			MidLeftOne.cols = MidLeftOne.cols > vSpotInfo[i].cols?MidLeftOne.cols:vSpotInfo[i].cols;
+// 		}
+// 	}
+	return 0;
+}
+
 int FindSpotLocation(Mat * mPic,
 				int iSpotSpec,
 				int iCols,
@@ -1225,8 +1260,8 @@ int FindSpotLocation(Mat * mPic,
 	//FindRowsBottomSpot(vSpot1,sTmp1); //目标开口向右倾斜 定位到的时第一个点
 	FindColsRightSpot(vSpot1,sTmp2);//最右边的那个点
 	
-	x = sTmp2.rows - 60;
-	y = (sTmp2.cols + 2 + 70) * ichannels;
+	x = sTmp2.rows - 30;
+	y = (sTmp2.cols + 2 + 30) * ichannels;
 	for(m = sTmp2.rows;m > x;m --)
 	{
 		ptr = mPic->ptr<uchar>(m);
@@ -1259,8 +1294,8 @@ int FindSpotLocation(Mat * mPic,
 	}
 	//FindRowsTopSpot(vSpot1,sTmp1); //目标开口向左倾斜 定位到的时第二个点
 	FindColsLeftSpot(vSpot1,sTmp1);  //取最左面的点
-	x = sTmp1.rows - 60;
-	y = (sTmp1.cols - 2 - 70 ) * ichannels;
+	x = sTmp1.rows - 30;
+	y = (sTmp1.cols - 2 - 30 ) * ichannels;
 	for(m = sTmp1.rows;m > x;m --)
 	{
 		ptr = mPic->ptr<uchar>(m);
@@ -1345,10 +1380,11 @@ int CountFont(Mat* mPic,
 	vector<sSpotInfo> vSpot;
 	sSpotInfo sTmp;
 	bool bCol;
-	int i,j,k,x[5],y,m[5],n;
+	int i,j,k,x,y,m,n,z;
 	int iTargetNum;
 	int state;
-	uchar * ptr[5];
+	uchar * ptr;
+	bool bA1,bA2;
 
 
 	bCol = true;
@@ -1365,31 +1401,43 @@ int CountFont(Mat* mPic,
 		}
 		iFontNum ++;
 		FindMidLeftSpot(vSpot,sTmp);  //取左面中间的点
-		x[0] = sTmp.rows - 2;
-		x[1] = sTmp.rows - 1;
-		x[2] = sTmp.rows ;
-		x[3] = sTmp.rows + 1;
-		x[4] = sTmp.rows + 1;
-		y = sTmp.cols + 2;
+
+		x = sTmp.rows ;
+
+		y = sTmp.cols + 3;
 		k = y;
 		i = iEdgeRightPosition * channels;
 		iTargetNum = 0;
-		for(n = k * channels;n < i;y ++)
+		bA1 = false;
+		bA2 = false;
+
+		for(n = k * channels;n < i;y ++,n = n + channels)
 		{
-			for(j = 0;j < 5;j++)
-			{
+			
 				if(!iDirect)//= 0,目标开口向右倾斜
-					m[j] = floor(x[j] - (y - k) * angle);
+					m = floor(x - (y - k) * angle);
 				else//=1,目标开口向左倾斜
-					m[j] = floor(x[j] + (y - k) * angle);
-				ptr[j] = mPic->ptr<uchar>(m[j]);
-				if(ptr[j][n] < iFontSpec)
+					m = floor(x + (y - k) * angle);
+				ptr = mPic->ptr<uchar>(m);
+				if(!bA1 && ptr[n] > iFontSpec)
 				{
 					iTargetNum ++;
-					if(iTargetNum > 3)
+					if (iTargetNum > 5)
+					{
+						iTargetNum = 0;
+						bA1 = true;
+					}
+					
+					continue;
+				}
+				if(ptr[n] < iFontSpec)
+				{
+				
+					iTargetNum ++;
+					if(iTargetNum > 2)
 					{
 						bCol = true;
-						rows = m[2];
+						rows = m;
 						cols = n/channels;
 						goto whileFindTarget;//找到目标
 					}
@@ -1397,9 +1445,7 @@ int CountFont(Mat* mPic,
 				{
 					iTargetNum = 0;
 				}
-				
-			}
-			n = n + channels;
+
 		}
 whileFindTarget:
 		if(n >= i)
@@ -1457,7 +1503,7 @@ int SkipBandFixFont(Mat* mPic,
 						irows = floor(i + (ColsEnd - icols)*angle);
 					}
 					ptr = mPic->ptr<uchar>(irows);
-					if(ptr[j + 2] > iTargetSpec)
+					if(ptr[j + 2] > iTargetSpec - 10)
 					{
 						iTargetLength ++;
 						if(iTargetLength > iTargetLengthSpec)
@@ -1465,12 +1511,20 @@ int SkipBandFixFont(Mat* mPic,
 							iTargetNum ++;
 							if(iTargetNum > iBandWidthSpec)
 							{
-								iEdgeLeftPosition = j/ichannels - iTargetLengthSpec;
+								iEdgeLeftPosition = j/ichannels - iTargetLengthSpec + 10;
 								iTargetNum = 0;
 								state = 1;
-								break;
+								for (;j >10 * ichannels;)
+								{
+									if(ptr[j] <iTargetSpec)
+									{
+										iEdgeLeftPosition = j/ichannels;
+									}
+									j = j - ichannels;
+								}
+								goto EndFor;
 							}
-							break;
+							goto EndFor;
 						}
 					}else
 					{
@@ -1492,7 +1546,7 @@ int SkipBandFixFont(Mat* mPic,
 						irows = floor(i + (ColsEnd - icols)*angle);
 					}
 					ptr = mPic->ptr<uchar>(irows);
-					if(ptr[j + 2] < iFontSpec)
+					if(ptr[j] < iFontSpec)
 					{
 						iTargetLength ++;
 						if(iTargetLength > 2)
@@ -1502,6 +1556,7 @@ int SkipBandFixFont(Mat* mPic,
 							{
 								cols = j/3;
 								rows = i;
+								
 								return 0;
 							}
 							break;
@@ -1513,9 +1568,12 @@ int SkipBandFixFont(Mat* mPic,
 					}
 					j = j + ichannels;
 				}
+				
 				break;
 			}
 		}
+EndFor:
+		;
 	}
 	return 2;
 }
@@ -1633,7 +1691,12 @@ ForSwitchEnd:
 				{
 					FixAngleAndRowStart(vSpot1,vSpot2,iDirect,angle,rows,iEdgeRightPosition);
 					return 0;
+				}else
+				{
+					break;
+					state = 0;
 				}
+
 			}
 			j =j + 3;
 		}
@@ -1876,8 +1939,13 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 				angle,
 				iDirect,
 				TestResult);
-	if(state || iFontNum != 8)
+	if(state != 0|| iFontNum < 7 )
+	{
+		CString tmp;
+		tmp.Format("%d",iFontNum);
+		AfxMessageBox(tmp);
 		return 5;
+	}
   //跳过字2下边缘找到字2
 	rowsold = rows;
 	colsold = cols;
@@ -1892,7 +1960,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 			TestResult.iEdgeRightPosition,
 			TestResult.iEdgeLeftPosition,
 			TestConfig.iBandThirdMinWidth,
-			TestConfig.iTargetMinLength);
+			TestConfig.iTargetMinLength + 30);
 	if(state)
 		return 4;
 	  //检查字2区域
@@ -1912,7 +1980,12 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 				iDirect,
 				TestResult);
 	if(state || iFontNum != 5)
+	{
+		CString tmp;
+		tmp.Format("%d",iFontNum);
+		AfxMessageBox(tmp);
 		return 7;
+	}
 
 //	imwrite("a.bmp",*mPic);
 	return 0;
