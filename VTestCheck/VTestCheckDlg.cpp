@@ -13,7 +13,8 @@
 #include "easysize.h"
 #include "tisudshl.h"
 #include "General.h"
-#include<vector>
+#include <vector>
+#include <deque>
 #include <mmsystem.h>
 //#include "CmdHelper.h"//这两个头文件是需要包含的，这样才能进行文件的生成
 #ifdef _DEBUG
@@ -193,7 +194,16 @@ int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 int checkU(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
 int checkB(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
 int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
-
+int FindEndwiseEdge(Mat* mPic,
+				int RowStart,
+				int ColStart,
+				int Skip,
+				int Spec,
+				deque<sSpotInfo>& EdgeInfo);
+int CalculationAngle(sSpotInfo& spot,
+	deque<sSpotInfo>& edgeinfo,
+	float angle,
+	sSpotInfo& LocationSpot);
 
 
 CVTestCheckDlg::CVTestCheckDlg(CWnd* pParent /*=NULL*/)
@@ -404,8 +414,10 @@ int ii = 0;
 
 void CVTestCheckDlg::OnBnClickedOk()
 {
-#if 0
-	Mat srcImage1 = imread("E:\\Work\\opencv\\tt\\12345.bmp",1);
+#if 1
+	
+//	Mat srcImage1 = imread("E:\\Work\\opencv\\tt\\12345.bmp",1);
+Mat srcImage1 = imread("E:\\Work\\opencv\\New\\VTestCheck\\ddcc.bmp",1);
 //	Mat srcImage1 = imread("D:\\tt\\12345.bmp",1);
 	sTestPicConfig TestConfig;
 	sTestPicResult TestResult;
@@ -417,7 +429,7 @@ void CVTestCheckDlg::OnBnClickedOk()
 
 #endif
 
-#if 1
+#if 0
 	long height,width;
 	Mat *a;
 	int c;
@@ -1608,7 +1620,7 @@ int FindAllSpotLocation(Mat * mPic,
 	ULONG uTargetMeasureLength = 0;
 	ULONG uTargetMeasureNum = 0;
 	ULONG uTargetMeasureDNum = 0;
-
+	int irows,icols;
 
 	iTargetPixNum = 0;
 	i = rows;
@@ -1665,10 +1677,12 @@ int FindAllSpotLocation(Mat * mPic,
 					if(ptr[j + 2] > iTargetSpec)//白色出现
 					{
 						iTargetPixNum ++;
-						if(iTargetPixNum > 8)
+						if(iTargetPixNum > 4)
 						{
 							
 							bF3 = true;
+							irows = k;
+							icols = j;
 							state = 3;
 							goto ForSwitchEnd;
 						}
@@ -1686,10 +1700,12 @@ int FindAllSpotLocation(Mat * mPic,
 ForSwitchEnd:	
 			if(bF1 && bF2 && bF3)
 			{
-				state = FindSpotLocation( mPic,iSpotSpec,k,iSpotMinLength,i,iDirect,vSpot1,vSpot2);
+//				state = FindSpotLocation( mPic,iSpotSpec,irows,iSpotMinLength,icols,iDirect,vSpot1,vSpot2);
 				if(state == 0)
 				{
-					FixAngleAndRowStart(vSpot1,vSpot2,iDirect,angle,rows,iEdgeRightPosition);
+					rows = irows;
+					cols = icols;
+//					FixAngleAndRowStart(vSpot1,vSpot2,iDirect,angle,rows,iEdgeRightPosition);
 					return 0;
 				}else
 				{
@@ -1809,7 +1825,7 @@ int FindEdgeLocation(Mat * mPic,
 					uTargetMeasureNum = 0;
 					uTargetMeasureDNum = 0;
 					rows = i;
-					cols = j;
+					cols = vRowChange[j*2] - iBandFirstMinWidth;
 					return 0;
 				}
 				
@@ -1854,6 +1870,10 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 	int iDirect;
 	int iTargetTopBottomMinPlace;
 	int iFontNum;
+	deque<sSpotInfo> vEdgeInfo;
+	sSpotInfo sSpot,eSpot;
+	uchar* ptr;
+
 
 	state = 0;
 	rows = mPic->rows;
@@ -1879,6 +1899,15 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 								TestResult.iEdgePosition);
 	if(state)
 		return 2;
+	FindEndwiseEdge(mPic,
+				rows,
+				cols,
+				5,
+				TestConfig.iTargetSpec1 - 6,
+				vEdgeInfo);
+
+
+//	return 0;
 
 	//查找点
 	angle = 0.0;
@@ -1903,7 +1932,34 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig)
 					iDirect);
 	if(state)
 		return 3;
+
+	angle = 0.0;
+	sSpot.rows = rows;
+	sSpot.cols = cols;
 	
+	CalculationAngle(sSpot,
+		vEdgeInfo,
+		angle,
+		eSpot);
+
+	for(deque<sSpotInfo>::const_iterator i = vEdgeInfo.begin();i != vEdgeInfo.end();i ++)
+	{
+		ptr = mPic->ptr<uchar>((*i).rows);
+		ptr[(*i).cols * channels] = 255;
+		ptr[(*i).cols * channels + 1] = 0;
+		ptr[(*i).cols * channels + 2] = 0;
+	}
+
+	ptr = mPic->ptr<uchar>(eSpot.rows);
+	ptr[eSpot.cols * channels] = 255;
+	ptr[eSpot.cols * channels + 1] = 0;
+	ptr[eSpot.cols * channels + 2] = 0;
+	imwrite("qq1.bmp",*mPic);
+
+
+	return 0;
+
+
 	//跳过字1下边缘找到字1
 	
 	rowsold = rows;
@@ -2409,5 +2465,180 @@ int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPi
 	return 0;
 }
 
+int FindEndwiseEdge(Mat* mPic,
+				int RowStart,
+				int ColStart,
+				int Skip,
+				int Spec,
+				deque<sSpotInfo>& EdgeInfo)
+{
+	if (mPic == NULL || mPic->empty())
+	{
+		return 1;
+	}
+	if (Skip < 1)
+		return 2;
+
+	int irows,icols,ichannels,icolsend;
+	uchar** ptr;
+	int i,j,x,y,z,m,n,k;
+	int i1,j1,x1,y1,z1,m1,n1;
+	int imid;
+	int iend;
+	int iretry;
+	sSpotInfo spottmp;
+
+
+	ichannels = mPic->channels();
+	irows = mPic->rows - 5;
+	icols = (mPic->cols - 1) * ichannels;
+	imid = Skip/2;
+	ptr = new uchar*[Skip];
+	i1 = 0 - imid;
+
+	
+	z = ColStart * ichannels;
+	z1 = ColStart;
+	icolsend = icols * ichannels;
+	k = RowStart;
+	iend = 0;
+	iretry = 3;
+
+	//向右
+	for(k = RowStart,z1 = ColStart,x = z;x < icolsend;)
+	{
+
+		for(j = 0,i = i1;j < Skip;j ++,i ++)
+		{
+			if (k + i > irows || k + i < Skip)
+			{
+				goto RightEnd;
+			}
+			ptr[j] = mPic->ptr<uchar>(k + i);
+		}
+
+		m = 0;
+		n = 0;
+		for(y = 0;y < Skip;y ++)
+		{
+			if(ptr[y][x] > Spec)
+			{
+				m = y;
+				n ++;
+			}
+		}
+
+		if(n == Skip || n == 0)
+		{
+			iend ++;
+			if(iend > iretry)
+				break;
+		}else
+		{
+			iend = 0;
+		}
+
+		spottmp.rows = k;
+		spottmp.cols = z1;
+		EdgeInfo.push_back(spottmp);//压入上一个分界点
+		k = k + m - imid;
+		z1 ++;
+		x = x + ichannels;
+	}
+RightEnd :
+	//向左
+	for(k = RowStart,z1 = ColStart,x = z;x > ichannels;)
+	{
+
+		for(j = 0,i = i1;j < Skip;j ++,i ++)
+		{
+			if (k + i > irows || k + i < Skip)
+			{
+				goto LeftEnd;
+			}
+			ptr[j] = mPic->ptr<uchar>(k + i);
+		}
+
+		m = 0;
+		n = 0;
+		for(y = 0;y < Skip;y ++)
+		{
+			if(ptr[y][x] > Spec)
+			{
+				m = y;
+				n ++;
+			}
+		}
+
+		if(n == Skip || n == 0)
+		{
+			iend ++;
+			if(iend > iretry)
+				break;
+		}else
+		{
+			iend = 0;
+		}
+
+		spottmp.rows = k;
+		spottmp.cols = z1;
+		EdgeInfo.push_front(spottmp);//压入上一个分界点
+		k = k + m - imid;
+		z1 --;
+		x = x - ichannels;
+	}
+LeftEnd:
+	return 0;
+
+}
+int FindBroadwiseEdge(Mat* mPic)
+{
+	return 0;
+}
+
+int CalculationAngle(sSpotInfo& spot,
+			deque<sSpotInfo>& edgeinfo,
+			float angle,
+			sSpotInfo& LocationSpot)
+{
+	if (edgeinfo.empty())
+	{
+		return 1;
+	}
+
+	int x,y,z;
+	int iend;
+	int mid;
+	int high,low,section;
+
+	high = edgeinfo.size();
+	low = 0;
+	iend = high;
+	section = high - low;
+
+	while (section > 2)
+	{
+		mid = section/2;
+
+		x = abs(edgeinfo[mid].rows - spot.rows) + abs(edgeinfo[mid].cols - spot.cols);
+		y = abs(edgeinfo[mid + 1].rows - spot.rows) + abs(edgeinfo[mid + 1].cols - spot.cols);
+		z = abs(edgeinfo[mid - 1].rows - spot.rows) + abs(edgeinfo[mid - 1].cols - spot.cols);
+		if (z < x&&x < y)
+		{
+			low = mid + 1;
+		}else if(x < z&&x >y)
+		{
+			high = mid - 1;
+		}else
+		{
+			LocationSpot.rows = edgeinfo[mid].rows;
+			LocationSpot.cols = edgeinfo[mid].cols;
+			angle = abs(edgeinfo[mid].rows - spot.rows)/abs(edgeinfo[mid].cols - spot.cols);
+			return 0;
+		}
+		section = high - low;
+	}
+
+}
 
 
