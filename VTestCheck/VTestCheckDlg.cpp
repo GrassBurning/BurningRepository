@@ -15,6 +15,7 @@
 #include "General.h"
 #include <vector>
 #include <deque>
+#include <algorithm>
 #include <mmsystem.h>
 //#include "CmdHelper.h"//这两个头文件是需要包含的，这样才能进行文件的生成
 #ifdef _DEBUG
@@ -617,6 +618,7 @@ void AddProcInfo(CString strProcInfo)
 	int lines;
 	lines = ex->m_ListBox.AddString(strProcInfo);
 	ex->m_ListBox.SetCurSel(lines);
+//	ex->m_ListBox.ResetContent();
 	return;
 }
 
@@ -2541,9 +2543,18 @@ int FindEndwiseEdge(Mat* mPic,
 		spottmp.rows = k;
 		spottmp.cols = z1;
 		EdgeInfo.push_back(spottmp);//压入上一个分界点
-		k = k + m - imid;
+		//k = k + m - imid; 
+		/*原本是k = k + m - imid 那么行永远比实际目标晚一个像素点因为它是根据上一个点调整到下一个点。
+		  如果我判断m与imid的大小可以预判出下一个行是加1还是减1*/
+		if(m < imid)
+		{
+			k = k + m - imid - 1;
+		}else
+		{
+			k = k + m - imid + 1;
+		}
 		z1 ++;
-		x = x + ichannels;
+		x = x + ichannels; //列向右平移
 	}
 RightEnd :
 	//向左
@@ -2595,7 +2606,56 @@ int FindBroadwiseEdge(Mat* mPic)
 {
 	return 0;
 }
+typedef struct SpotLocationLength
+{
+	sSpotInfo Spot;
+	int length;
+}sSpotLocationLength,*pSpotLocationLength;
 
+
+bool CompareLength(const sSpotLocationLength &A,const sSpotLocationLength &B)
+{ 
+	return (A.length < B.length);//升序排列，如果改为return A.length > B.length，则为降序
+} 
+bool CompareRows(const sSpotLocationLength &A,const sSpotLocationLength &B)
+{ 
+	return (A.Spot.rows < B.Spot.rows);//升序排列
+}
+int AnalysisData(vector<sSpotLocationLength>& SpotSet,sSpotInfo& LocationSpot)
+{
+
+	if (SpotSet.empty())
+	{
+		return 1;
+	}
+
+	int i,j,x,y,z;
+	vector<sSpotLocationLength>::iterator iter;
+	z = SpotSet.size() - 3;
+
+	/*
+	理论上说最小值就是我要找的目标，因为考虑到我的列的Skip是5，行的左右为1 最大的跨度
+	也就是3，而正常跳到下个点，跨度为2,所以理论上不会影响到长度排序
+
+	实际做法是选择最小长度相等的取中间值
+	*/
+
+	for (x = 0;x < z;x ++)
+	{
+		if (SpotSet[x].length > SpotSet[0].length)
+		{
+			iter = SpotSet.begin() + x;
+			break;
+		}
+
+	}
+	sort(SpotSet.begin(),iter,CompareRows);
+	z = x/2;
+	LocationSpot.rows = SpotSet[z].Spot.rows;
+	LocationSpot.cols = SpotSet[z].Spot.cols;
+
+	return 0;
+}
 int CalculationAngle(sSpotInfo& spot,
 			deque<sSpotInfo>& edgeinfo,
 			float angle,
@@ -2610,12 +2670,19 @@ int CalculationAngle(sSpotInfo& spot,
 	int iend;
 	int mid;
 	int high,low,section;
+	int i,j;
+	int length;
+	vector<sSpotLocationLength> vSpotLocationLength;
+	sSpotLocationLength sSpotTmp;
 
 	high = edgeinfo.size();
 	low = 0;
 	iend = high;
 	section = high - low;
 
+
+
+#if 0
 	while (section > 2)
 	{
 		mid = section/2;
@@ -2638,7 +2705,108 @@ int CalculationAngle(sSpotInfo& spot,
 		}
 		section = high - low;
 	}
+#endif
+	z = vSpotLocationLength.size();
+	for (x = 0;x < z;x ++)
+	{
+		length = abs(edgeinfo[x].rows - spot.rows) + abs(edgeinfo[x].cols - spot.cols);
+		sSpotTmp.Spot = edgeinfo[x];
+		sSpotTmp.length = length;
+		vSpotLocationLength.push_back(sSpotTmp);
+	}
 
+	sort(vSpotLocationLength.begin(),vSpotLocationLength.end(),CompareLength);
+	AnalysisData(vSpotLocationLength,LocationSpot);
+	angle = abs(LocationSpot.rows - spot.rows)/abs(LocationSpot.cols - spot.cols);
+
+	return 0;
 }
 
+int CheckNewPic(Mat * mPic,uchar**pFont,int Length,int Spec)
+{
+	if (mPic == NULL || mPic->empty())
+	{
+		return 1;
+	}
+	int rows,cols,channels;
+	int i,j;
 
+	rows = mPic->rows;
+	cols = mPic->cols;
+	channels = mPic->channels();
+
+
+	pFont = new uchar*[rows];
+
+	for (i = 0;i < rows;i ++)
+	{
+		pFont[i] = mPic->ptr<uchar>(i);
+	}
+	for (i = 0;i < Length;)
+	{
+		for(j = 0;j < rows;j ++)
+		{
+			if (pFont[j][i] > Spec)
+			{
+				return 2;
+			}
+		}
+	}
+	return 0;	
+}
+
+int CountBandNum(Mat* mPic,
+			uchar** pFont,
+			sSpotInfo& sSpotStart,
+			int width,
+			int length,
+			float angle,
+			int Spec)
+{
+	if (mPic == NULL || mPic->empty())
+	{
+		return 1;
+	}
+	if (pFont == NULL )
+	{
+		return 1;
+	}
+
+	int i,j;
+	int lengthend,widthend;
+	int ichannels;
+	vector<int> datainfo;
+
+	i = sSpotStart.cols * ichannels;
+
+	lengthend = i + length * ichannels;
+	widthend = sSpotStart.rows + width;
+	ichannels = mPic->channels();
+	datainfo.push_back(0); //0 空白 1 黑底
+	for(;i < lengthend;)
+	{
+		for (j = sSpotStart.rows; j < widthend;j ++)
+		{
+			if (pFont[j][i] < Spec)
+			{
+				if(datainfo.back() != 1) 
+				{
+					datainfo.push_back(1);
+				}
+				break;
+			}
+		}
+		if (j >= widthend)
+		{
+			if(datainfo.back() != 0) 
+			{
+				datainfo.push_back(0);
+			}
+		}
+		i = i + ichannels;
+	}
+	i = 1;
+	return count(datainfo.begin(),datainfo.end(),1);
+	
+
+}
