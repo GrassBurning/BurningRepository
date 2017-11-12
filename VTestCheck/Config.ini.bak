@@ -20,18 +20,18 @@ Font2SkipMaxWidth=100
 Font2Deviation=5
 
 
-SpotSpec=80
+SpotSpec=60
 SpotMinLength=25
 SpotMinWidth=10
 SpotDeviation=5
 
 BandFirstMinWidth=10
 BandSecondMinWidth=80
-BandThirdMinWidth=10
+BandThirdMinWidth=5
 
-TargetSpec1=120
-TargetSpec2=100
+TargetSpec1=90
+TargetSpec2=80
 
 BackgroundSpec=60
-TargetTopBottomMinPlace=900
+TargetTopBottomMinPlace=600
 TargetLeftRightMinPlace=400
