@@ -5,7 +5,7 @@ BackgroundDeviation=3
 TargetMinLength=100
 TargetDeviation=10
 
-Font1Spec=90
+Font1Spec=80
 Font1MinLength=40
 Font1MinWidth=10
 Font1BandMinWidth=10
@@ -26,7 +26,7 @@ SpotMinWidth=10
 SpotDeviation=5
 
 BandFirstMinWidth=10
-BandSecondMinWidth=80
+BandSecondMinWidth=200
 BandThirdMinWidth=5
 
 TargetSpec1=90
