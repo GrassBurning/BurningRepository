@@ -3468,13 +3468,19 @@ int CountBandNum(Mat* mPic,
 	int lengthend,widthend;
 	int ichannels;
 	int irows,icols,irowsbegin,*icolsbegin;
+	int irowstop,irowsbottom;
 	vector<int> datainfo;
 	sSpotInfo sleft;
 	sSpotInfo sright;
 	sSpotInfo slefttop,srighttop;
 	sSpotInfo sleftbottom,srightbottom;
+
+	sSpotInfo sTlefttop,sTrighttop;
+	sSpotInfo sTleftbottom,sTrightbottom;
+
 	sSpotInfo stmp;
 	double dangle,dsin,dcos;
+	double b1,b2,slope,Nslope;
 
 	FindColsLeftSpot(vFontLeftEdge,sleft);
 	FindRowsBottomSpot(vFontLeftEdge,sleftbottom);
@@ -3485,56 +3491,105 @@ int CountBandNum(Mat* mPic,
 
 	ichannels = TestInfo.channels;
 
-	dangle = atan(angle);
-	dsin = sin(dangle);
-	dcos = cos(dangle);
+	slope = (1.0)/angle;
+	Nslope = (-slope);
 
-	length = sright.cols - sleft.cols + 16;
+	b1 = (-slefttop.rows) + slefttop.cols * Nslope;
+	sTlefttop.cols = floor((Nslope * (slefttop.rows + b1) + slefttop.cols)/(abs(Nslope) + 1));
+	sTlefttop.rows = floor(Nslope * sTlefttop.rows - b1);
 
-	irows = srightbottom.rows + length * angle;
 
-	if (sleftbottom.rows < irows)  //最低的底的行
+	sTleftbottom.cols = floor((Nslope * (sleftbottom.rows + b1) + sleftbottom.cols)/(abs(Nslope) + 1));
+	sTleftbottom.rows = floor(Nslope * sTleftbottom.rows - b1);
+
+
+	b2 = (-srighttop.rows) + srighttop.cols * Nslope;
+	sTrighttop.cols = floor((Nslope * (srighttop.rows + b2) + srighttop.cols)/(abs(Nslope) + 1));
+	sTrighttop.rows = floor(Nslope * sTrighttop.rows - b2);
+
+	sTrightbottom.cols = floor((Nslope * (srightbottom.rows + b2) + srightbottom.cols)/(abs(Nslope) + 1));
+	sTrightbottom.rows = floor(Nslope * sTrightbottom.rows - b2);
+
+
+	//以左面线为判断依据
+
+	if (sTrighttop.rows > sTlefttop.rows)
 	{
-		irows = sleftbottom.rows;
+		sTlefttop.rows = sTrighttop.rows;
+		sTlefttop.cols = floor((b1 + sTlefttop.rows)/Nslope);
+	}else
+	{
+		sTrighttop.rows = sTlefttop.rows;
+		sTrighttop.cols = floor((b2 + sTrighttop.rows)/Nslope);
 	}
 
-	icols = srighttop.rows + length * angle;
-
-	if (slefttop.rows > icols)  //最高的顶的行
+	if (sTrightbottom.rows < sTleftbottom.rows)
 	{
-		icols = slefttop.rows;
+		sTleftbottom.rows = sTrightbottom.rows;
+		sTleftbottom.cols = floor((b1 + sTleftbottom.rows)/Nslope);
+	}else
+	{
+		sTrightbottom.rows = sTleftbottom.rows;
+		sTrightbottom.cols = floor((b2 + sTrightbottom.rows)/Nslope);
 	}
+
+// 	dangle = atan(angle);
+// 	dsin = sin(dangle);
+// 	dcos = cos(dangle);
+// 
+// 	length = sright.cols - sleft.cols + 16;
+// 
+// 	irows = srightbottom.rows + length * angle;
+// 
+// 	if (sTrightbottom.rows < sTleftbottom.rows)  //最低的底的行
+// 	{
+// 		irows = sleftbottom.rows;
+// 	}else
+// 	{
+// 
+// 	}
+// 
+// 	icols = srighttop.rows + length * angle;
+// 
+// 	if (slefttop.rows > icols)  //最高的顶的行
+// 	{
+// 		icols = slefttop.rows;
+// 	}
 
 
 //	num = vFontLeftEdge.size();
-	num = icols - irows;
-
+	num = sTlefttop.rows - sTleftbottom.rows;
+	length = sTrightbottom.cols - sTleftbottom.cols;
+	if (num < 1)
+	{
+		return 3;
+	}
 	icolsbegin = new int[num];
 	if (icolsbegin == NULL)
 	{
-		return 3;
+		return 4;
 	}
 
 	vFontLeftEdge.clear();
 	for(i = 0;i < num;i ++)
 	{
-
-		vFontLeftEdge[i].rows -= (sleft.cols - vFontLeftEdge[i].cols) * angle;
-		vFontLeftEdge[i].cols = sleft.cols - 5;
-		icolsbegin[i] = vFontLeftEdge[i].cols * ichannels;
+		stmp.rows = sleftbottom.rows + i;
+		stmp.cols = floor((b1 + sleftbottom.rows)/Nslope);
+		vFontLeftEdge.push_back(stmp);
+		icolsbegin[i] = stmp.cols * ichannels;
 	}
-	num = vFontRightEdge.size();
+	vFontRightEdge.clear();
 	for(i = 0;i < num;i ++)
 	{
-		vFontRightEdge[i].rows -= (sright.cols - vFontRightEdge[i].cols) * angle;
-		vFontRightEdge[i].cols = sright.cols;
+		stmp.rows = sleftbottom.rows + i;
+		stmp.cols = floor((b1 + sleftbottom.rows)/Nslope);
+		vFontRightEdge.push_back(stmp);
 	}
 
 	
 
 	
-	length = sright.cols - sleft.cols;
-	num = vFontLeftEdge.size();
+
 	datainfo.push_back(0); //0 空白 1 黑底
 	
 	for (i = 0,i1 = 0;i < length;i ++)
