@@ -487,9 +487,9 @@ void CVTestCheckDlg::OnBnClickedOk()
 #if 1
 	
 //	Mat srcImage1 = imread("E:\\Work\\opencv\\tt\\12345.bmp",1);
-	Mat srcImage1 = imread("E:\\Work\\opencv\\New\\VTestCheck\\zz.bmp",1);
+//	Mat srcImage1 = imread("E:\\Work\\opencv\\New\\VTestCheck\\zz.bmp",1);
 	
-//	Mat srcImage1 = imread("D:\\tt\\12345.bmp",1);
+	Mat srcImage1 = imread("D:\\Work\\opencv\\VTestCheck\\BurningRepository\\VTestCheck\\zz.bmp",1);
 	sTestPicConfig TestConfig;
 	sTestPicResult TestResult;
 	fLoadConfig(TestConfig);
@@ -2350,8 +2350,8 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	for (int j = 0;j < iNum;j ++)
 	{
 		ptr = (*mPicDebug).ptr<uchar>(vFontLeftEdge[j].rows);
-		ptr[vFontLeftEdge[j].cols * channels] = 0;
-		ptr[vFontLeftEdge[j].cols * channels + 1] = 255;
+		ptr[vFontLeftEdge[j].cols * channels] = 255;
+		ptr[vFontLeftEdge[j].cols * channels + 1] = 0;
 		ptr[vFontLeftEdge[j].cols * channels + 2] = 0;
 	}
 	iNum = vFontRightEdge.size();
@@ -2390,7 +2390,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 		ptr[vFontRightEdge[j].cols * channels + 2] = 255;
 	}
 #endif
-// 	return 0;
+ 	
 // 	if(state != 0|| iFontNum < 7 )
 // 	{
 // 		delete (*pPicRows);
@@ -2407,6 +2407,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	ptr[TestInfo.NextStartSpot.cols * channels + 2] = 255;
 
 #endif
+//	return 0;
 	//跳过Band 1
 	iTargetTopBottomMinPlace = 300;
 	iTargetLeftRightMinPlace = 200;
@@ -3494,43 +3495,43 @@ int CountBandNum(Mat* mPic,
 	slope = (1.0)/angle;
 	Nslope = (-slope);
 
-	b1 = (-slefttop.rows) + slefttop.cols * Nslope;
-	sTlefttop.cols = floor((Nslope * (slefttop.rows + b1) + slefttop.cols)/(abs(Nslope) + 1));
-	sTlefttop.rows = floor(Nslope * sTlefttop.rows - b1);
+	b1 = (-sleft.rows) + sleft.cols * Nslope;
+	sTlefttop.cols = floor((Nslope * (slefttop.rows + b1) + slefttop.cols)/((Nslope)*(Nslope) + 1));
+	sTlefttop.rows = floor(Nslope * sTlefttop.cols - b1);
 
 
-	sTleftbottom.cols = floor((Nslope * (sleftbottom.rows + b1) + sleftbottom.cols)/(abs(Nslope) + 1));
-	sTleftbottom.rows = floor(Nslope * sTleftbottom.rows - b1);
+	sTleftbottom.cols = floor((Nslope * (sleftbottom.rows + b1) + sleftbottom.cols)/((Nslope)*(Nslope) + 1));
+	sTleftbottom.rows = floor(Nslope * sTleftbottom.cols - b1);
 
 
-	b2 = (-srighttop.rows) + srighttop.cols * Nslope;
-	sTrighttop.cols = floor((Nslope * (srighttop.rows + b2) + srighttop.cols)/(abs(Nslope) + 1));
-	sTrighttop.rows = floor(Nslope * sTrighttop.rows - b2);
+	b2 = (-sright.rows) + sright.cols * Nslope;
+	sTrighttop.cols = floor((Nslope * (srighttop.rows + b2) + srighttop.cols)/((Nslope)*(Nslope) + 1));
+	sTrighttop.rows = floor(Nslope * sTrighttop.cols - b2);
 
-	sTrightbottom.cols = floor((Nslope * (srightbottom.rows + b2) + srightbottom.cols)/(abs(Nslope) + 1));
-	sTrightbottom.rows = floor(Nslope * sTrightbottom.rows - b2);
+	sTrightbottom.cols = floor((Nslope * (srightbottom.rows + b2) + srightbottom.cols)/((Nslope)*(Nslope) + 1));
+	sTrightbottom.rows = floor(Nslope * sTrightbottom.cols - b2);
 
 
 	//以左面线为判断依据
 
 	if (sTrighttop.rows > sTlefttop.rows)
 	{
-		sTlefttop.rows = sTrighttop.rows;
-		sTlefttop.cols = floor((b1 + sTlefttop.rows)/Nslope);
-	}else
-	{
 		sTrighttop.rows = sTlefttop.rows;
 		sTrighttop.cols = floor((b2 + sTrighttop.rows)/Nslope);
+	}else
+	{
+		sTlefttop.rows = sTrighttop.rows;
+		sTlefttop.cols = floor((b1 + sTlefttop.rows)/Nslope);
 	}
 
 	if (sTrightbottom.rows < sTleftbottom.rows)
 	{
-		sTleftbottom.rows = sTrightbottom.rows;
-		sTleftbottom.cols = floor((b1 + sTleftbottom.rows)/Nslope);
-	}else
-	{
 		sTrightbottom.rows = sTleftbottom.rows;
 		sTrightbottom.cols = floor((b2 + sTrightbottom.rows)/Nslope);
+	}else
+	{
+		sTleftbottom.rows = sTrightbottom.rows;
+		sTleftbottom.cols = floor((b1 + sTleftbottom.rows)/Nslope);
 	}
 
 // 	dangle = atan(angle);
@@ -3558,7 +3559,7 @@ int CountBandNum(Mat* mPic,
 
 
 //	num = vFontLeftEdge.size();
-	num = sTlefttop.rows - sTleftbottom.rows;
+	num = sTleftbottom.rows - sTlefttop.rows;
 	length = sTrightbottom.cols - sTleftbottom.cols;
 	if (num < 1)
 	{
@@ -3573,35 +3574,40 @@ int CountBandNum(Mat* mPic,
 	vFontLeftEdge.clear();
 	for(i = 0;i < num;i ++)
 	{
-		stmp.rows = sleftbottom.rows + i;
-		stmp.cols = floor((b1 + sleftbottom.rows)/Nslope);
+		stmp.rows = sTleftbottom.rows - i;
+		stmp.cols = floor((b1 + sTleftbottom.rows)/Nslope);
 		vFontLeftEdge.push_back(stmp);
 		icolsbegin[i] = stmp.cols * ichannels;
 	}
 	vFontRightEdge.clear();
 	for(i = 0;i < num;i ++)
 	{
-		stmp.rows = sleftbottom.rows + i;
-		stmp.cols = floor((b1 + sleftbottom.rows)/Nslope);
+		stmp.rows = sTrightbottom.rows - i;
+		stmp.cols = floor((b2 + sTrightbottom.rows)/Nslope);
 		vFontRightEdge.push_back(stmp);
 	}
 
-	
-
-	
+//  	vFontRightEdge.push_back(srightbottom);
+//  	vFontRightEdge.push_back(srighttop);
+//  	vFontLeftEdge.push_back(sleftbottom);
+//  	vFontLeftEdge.push_back(slefttop);
 
 	datainfo.push_back(0); //0 空白 1 黑底
-	
+	int bnum,wnum;
+	bnum = 0;
+	wnum = 0;
 	for (i = 0,i1 = 0;i < length;i ++)
 	{
 		for (j = 0;j < num;j ++)
 		{
 			icols = icolsbegin[j] + i1;
 			irows = vFontLeftEdge[j].rows - i * angle;
-			if ((*pFont)[irows][icols] < Spec)
+			if (((*pFont)[irows])[icols] < Spec)
 			{
-				if(datainfo.back() != 1) 
+				bnum ++;
+				if(datainfo.back() != 1 && bnum > 4) 
 				{
+					wnum = 0;
 					datainfo.push_back(1);
 				}
 				break;
@@ -3609,8 +3615,10 @@ int CountBandNum(Mat* mPic,
 		}
 		if (j >= num)
 		{
-			if(datainfo.back() != 0) 
+			wnum ++;
+			if(datainfo.back() != 0 && wnum > 2) 
 			{
+				bnum = 0;
 				datainfo.push_back(0);
 			}
 		}
