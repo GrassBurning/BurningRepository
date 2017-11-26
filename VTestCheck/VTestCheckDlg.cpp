@@ -81,8 +81,9 @@ void onMouse(int Event,int x,int y, int flags,void * param);
 UINT TestEntry(LPVOID pParam);
 CString strMusicPathOK;
 CString strMusicPathNG;
-
-
+Mutex mTestResult;
+HANDLE  hTestResult = NULL;
+CString strPicLogPath;
 
 typedef struct SpotInfo
 {
@@ -165,6 +166,7 @@ typedef struct TestPicConfig
 
 
 	int iSpotSpec;
+	int iSpotSpec1;
 	int iTargetSpec1;
 	int iTargetSpec2;
 
@@ -237,6 +239,8 @@ int checkR(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPic
 int checkU(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
 int checkB(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
 int checkA2(uchar**pFont,int iFontSkip,int &k,sTestPicResult& TestResult,sTestPicConfig& TestConfig);
+UINT TestBegin(LPVOID pParam);
+UINT TestResultHandle(LPVOID pParam);
 int FindEndwiseEdge(Mat* mPic,
 				sTestPicInfo& TestInfo,
 				uchar** ptr[],
@@ -254,8 +258,11 @@ int CountBandNum(Mat* mPic,
 	float angle,
 	int Spec,
 	vector<sSpotInfo>& vFontLeftEdge,
-	vector<sSpotInfo>& vFontRightEdge);
-int CheckNewPic(Mat * mPic,sTestPicInfo& TestInfo,uchar** pFont[],int Length,int Spec);
+	vector<sSpotInfo>& vFontRightEdge,
+	int wSpecNum,
+	int bSpecNum,
+	int bWithSpecNum);
+int CheckNewPic(Mat * mPic,sTestPicInfo& TestInfo,uchar** ptr[],int bLength,int wLength,int Spec);
 int SkipTargetBand(Mat* mPic,
 			sTestPicInfo& TestInfo,
 			uchar** ptr[],
@@ -408,9 +415,17 @@ BOOL CVTestCheckDlg::OnInitDialog()
 	strMusicPath.Format("%s",cMusicPath);
 	strMusicPathOK.Format("%s//OK.wav",strMusicPath);
 	strMusicPathNG.Format("%s//NG.wav",strMusicPath);
-
+	
+	
+	strPicLogPath.Format("D:\\Log");
+	CreateDirectory(strPicLogPath,NULL);
 	UpdateWindow();
 	ex = this;
+	hTestResult = CreateMutex(NULL,FALSE,"TestResult");
+	if (GetLastError() == ERROR_ALREADY_EXISTS)
+	{
+		hTestResult = OpenMutex(MUTEX_ALL_ACCESS,TRUE,"TestResult");
+	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -483,18 +498,25 @@ HCURSOR CVTestCheckDlg::OnQueryDragIcon()
 int ii = 0;
 
 void CVTestCheckDlg::OnBnClickedOk()
-{
-#if 1
-	
-//	Mat srcImage1 = imread("E:\\Work\\opencv\\tt\\12345.bmp",1);
-//	Mat srcImage1 = imread("E:\\Work\\opencv\\New\\VTestCheck\\zz.bmp",1);
-	
-	Mat srcImage1 = imread("D:\\Work\\opencv\\VTestCheck\\BurningRepository\\VTestCheck\\zz.bmp",1);
+{	
+
+// 	AfxBeginThread(TestBegin,NULL);
+// 	AfxBeginThread(TestResultHandle,NULL);
+// 	
+
+//	return ;
 	sTestPicConfig TestConfig;
 	sTestPicResult TestResult;
+	Mat mPicDebug;
+#if 1
+	
+	Mat srcImage1 = imread("D:\\Log\\2017-11-25-14-33-26_163_164.bmp",1);
+//	Mat srcImage1 = imread("E:\\Work\\opencv\\VTestCheck\\VTestCheck\\23445.bmp",1);
+//	Mat srcImage1 = imread("E:\\Work\\opencv\\VTestCheck\\VTestCheck\\zz.bmp",1);
+//	Mat srcImage1 = imread("D:\\Work\\opencv\\VTestCheck\\BurningRepository\\VTestCheck\\zz.bmp",1);
+
 	fLoadConfig(TestConfig);
 #ifdef WMDebug
-	Mat mPicDebug;
 	srcImage1.copyTo(mPicDebug);
 #endif
 	CheckPic(&srcImage1,TestResult,TestConfig,&mPicDebug);
@@ -503,9 +525,7 @@ void CVTestCheckDlg::OnBnClickedOk()
 	imwrite("cc.bmp",mPicDebug);
 	return ;
 
-#endif
-
-#if 0
+#else
 	long height,width;
 	Mat *a;
 	int c;
@@ -524,7 +544,6 @@ void CVTestCheckDlg::OnBnClickedOk()
 
 //	pSink->setSnapMode( false );
 //	m_pGrabber->startLive(true);
-	return ;
 	Mat b;
 //	a->copyTo(b);
 
@@ -541,10 +560,8 @@ void CVTestCheckDlg::OnBnClickedOk()
 	b = imread("zz.bmp");
 //	imshow("img", b);
 //	waitKey(0);
-	sTestPicConfig TestConfig;
-	sTestPicResult TestResult;
 	fLoadConfig(TestConfig);
-	c = CheckPic(&b,TestResult,TestConfig);
+	c = CheckPic(&srcImage1,TestResult,TestConfig,&mPicDebug);
 	if(!c)
 	{
 		ShowPass();
@@ -575,17 +592,42 @@ UINT Test(LPVOID pParam)
 	long height,width;
 	Mat *a;
 	Mat b;
+	Mat mPicDebug;
 	smart_ptr<MemBuffer> pBuffer = pSink->getLastAcqMemBuffer();
 	width = pBuffer->getSize().cx;
 	height = pBuffer->getSize().cy;
-	a = new Mat(height,width,CV_8UC3,(uchar*)pBuffer->getPtr());
+//	a = new Mat(height,width,CV_8UC3,(uchar*)pBuffer->getPtr());
+	pBuffer->save("zz.bmp");
+	b = imread("zz.bmp");
+//	a->copyTo(b);
+#ifdef WMDebug
 
-	a->copyTo(b);
-	imwrite("a.bmp",b);
+	b.copyTo(mPicDebug);
+	
+#endif
+	sTestPicConfig TestConfig;
+	sTestPicResult TestResult;
+	int c;
+	CString sMessage;
+	fLoadConfig(TestConfig);
+	c = CheckPic(&b,TestResult,TestConfig,&mPicDebug);
+	switch (c)
+	{
+	case 0:
+		{
+			ex->ShowPass();
+			break;
+		}
+	case 2:
+		{
+			break;
+		}
+	default:
+		{
+			ex->ShowError();
+		}
+	}
 
-	namedWindow("img");
-	imshow("img", b);
-	waitKey(0);
 	return 0;
 }
 
@@ -601,6 +643,7 @@ void CVTestCheckDlg::OnBnClickedCancel()
 	
 	// Close the device.
 	m_pGrabber->closeDev();
+	CloseHandle(hTestResult);
 	// TODO: 在此添加控件通知处理程序代码
 	CDialogEx::OnCancel();
 }
@@ -732,8 +775,9 @@ typedef struct TestThreadInfo
 	bool bTestEnd;
 	CTime TestTime;
 	Mat * mTestData;
-	UINT iTestPosition;
+	int iTestPosition;
 	ULONG iTestItem;
+	bool bInvalid;
 
 } *pTestThreadInfo,sTestThreadInfo;
 
@@ -744,7 +788,8 @@ UINT TestBegin(LPVOID pParam)
 	long height,width;
 	Mat *pData;
 	ULONG iItem;
-
+	ULONG * ipItem;
+	Mat b;
 	iItem = 0;
 	while (true)
 	{
@@ -754,28 +799,43 @@ UINT TestBegin(LPVOID pParam)
 		TestInfo.mTestData = NULL;
 		TestInfo.pTestThreadEntry = NULL;
 		 
-		width = 0;
-		height = 0;
+// 		width = 0;
+// 		height = 0;
 		pData = NULL;
 		TestInfo.TestTime = CTime::GetCurrentTime();
 		TestInfo.iTestItem = iItem;
+		TestInfo.mTestData = NULL;
 		smart_ptr<MemBuffer> pBuffer = pSink->getLastAcqMemBuffer();
-		width = pBuffer->getSize().cx;
-		height = pBuffer->getSize().cy;
-		pData = new Mat(height,width,CV_8UC3,(uchar*)pBuffer->getPtr());
+// 		width = pBuffer->getSize().cx;
+// 		height = pBuffer->getSize().cy;
+//		
+		pBuffer->save("zz.bmp");
+		b = imread("zz.bmp");
+		TestInfo.mTestData  = new Mat(b);
+		if (TestInfo.mTestData == NULL)
+		{
+			return 1;
+		}
+		b.copyTo(*TestInfo.mTestData);
+		TestInfo.bInvalid = false;
+		ipItem = NULL;
+		ipItem = new ULONG;
+		if (ipItem == NULL)
+		{
+			return 1;
+		}
+		*ipItem = iItem;
+		TestInfo.pTestThreadEntry = AfxBeginThread(TestEntry,(LPVOID) ipItem,0, CREATE_SUSPENDED, NULL);
 
-		TestInfo.mTestData = pData;
-		TestInfo.pTestThreadEntry = AfxBeginThread(TestEntry,(LPVOID) &iItem,0, CREATE_SUSPENDED, NULL);
-
-		
+		GlobalTestInfo.push_back(TestInfo);
 		if (TestInfo.pTestThreadEntry)
 		{
 			TestInfo.pTestThreadEntry->m_bAutoDelete = FALSE;
 			TestInfo.pTestThreadEntry->ResumeThread();
 		}
 		iItem ++;
-		GlobalTestInfo.push_back(TestInfo);
-		Sleep(1000);
+
+		Sleep(500);
 	}
 	
 	return 0;
@@ -788,54 +848,86 @@ UINT TestResultHandle(LPVOID pParam)
 {
 
 	UINT i,j,length;
+	int iTestEntryNum,iTestEndNum,iTestSencodEntryNum;
 	vector<iTestLog> TestLog;
-	
+	bool bSomeEnd;
+	sTestThreadInfo TestInfoTmp;
 	i = 0;
 	j = 0;
+	
 	length = 0;
 	while(TRUE)
 	{
-		if (GlobalTestInfo.empty())
-		{
-			Sleep(2000);
-			continue;
-		}
-		length = GlobalTestInfo.size();
+
 		for (i = 0; i < GlobalTestInfo.size(); i ++)
 		{
-			if (TestLog.empty())
+			TestInfoTmp = GlobalTestInfo[i];
+			iTestEndNum = 0;
+			iTestEntryNum = 0;
+			bSomeEnd = false;
+			iTestSencodEntryNum = 0;
+			for (j = 0;j < GlobalTestInfo.size(); j ++)
 			{
-				break;
+				if (abs((GlobalTestInfo[j].iTestPosition - TestInfoTmp.iTestPosition)) < 5)
+				{
+					iTestEntryNum ++;
+					if (GlobalTestInfo[j].bTestResult)
+					{
+						bSomeEnd = true;
+
+					}else
+					{
+						if (GlobalTestInfo[j].bTestEnd)
+						{
+							iTestEndNum ++;
+						}
+					}
+
+				}else
+				{
+					iTestSencodEntryNum ++;
+				}
 			}
-			for (j = 0;j < TestLog.size(); j ++)
+
+			if (bSomeEnd || (iTestSencodEntryNum != 0 && iTestEndNum == iTestEntryNum))
 			{
+				if (bSomeEnd)
+				{
+					ex->ShowPass();
+					AddProcInfo("测试OK");
+				} 
+				else
+				{
+					ex->ShowError();
+					AddProcInfo("测试NG");
+				}
+				WaitForSingleObject(hTestResult, INFINITE);//等待互斥量
 				vector<sTestThreadInfo>::iterator iter;
 				iter = GlobalTestInfo.begin();
-				if (TestLog[j].iTestPosition == GlobalTestInfo[i].iTestPosition)
+				for (j = 0;j < GlobalTestInfo.size(); j ++)
 				{
-
-					DWORD code;
-					bool res = GetExitCodeThread(GlobalTestInfo[i].pTestThreadEntry, &code);
-					if (!res && code==STILL_ACTIVE)//线程还活着	如果pWinTh 已经结束了，code的值为线程的退出码或返回值
+					if (abs(GlobalTestInfo[j].iTestPosition - TestInfoTmp.iTestPosition) < 5 || GlobalTestInfo[j].bInvalid)
 					{
-						TerminateThread(GlobalTestInfo[i].pTestThreadEntry,NULL);
+						DWORD code;
+						bool res = GetExitCodeThread(GlobalTestInfo[j].pTestThreadEntry, &code);
+						if (!res && code==STILL_ACTIVE)//线程还活着	如果pWinTh 已经结束了，code的值为线程的退出码或返回值
+						{
+							TerminateThread(GlobalTestInfo[j].pTestThreadEntry,NULL);
+						}
+						delete GlobalTestInfo[j].mTestData;
+						GlobalTestInfo.erase(iter + j);
+						j --;
 					}
-				
-					GlobalTestInfo.erase(iter);
-					j --;
-					
 				}
+				ReleaseMutex(hTestResult);//释放互斥量
+				break;
 			}
 			
 		}
 
-		for (i = 0; i < length; i ++)
-		{
-			if (GlobalTestInfo[i].bTestResult)
-			{
 
-			}
-		}
+		Sleep(2000);
+
 	}
 
 
@@ -844,7 +936,107 @@ UINT TestResultHandle(LPVOID pParam)
 
 UINT TestEntry(LPVOID pParam)
 {
+	ULONG iNum;
+	iNum = *(ULONG*)pParam;
 
+	delete (ULONG*)pParam;
+
+	Mat mPicDebug;
+	int c;
+	int i;
+	CString sMessage;
+	sTestPicConfig TestConfig;
+	sTestPicResult TestResult;
+	CString PicName;
+
+	//	return 0;
+	c = GlobalTestInfo.size();
+	for(i = 0;i < c;i ++)
+	{
+		Sleep(0);
+		if (GlobalTestInfo[i].iTestItem == iNum)
+		{
+			break;
+		}
+	}
+	if (i >= c)
+	{
+		return 0;
+	}
+	if ((GlobalTestInfo[i].mTestData)->empty())
+	{
+		GlobalTestInfo[i].bInvalid = true;
+		return 0;
+	}
+#ifdef WMDebug
+	(GlobalTestInfo[i].mTestData)->copyTo(mPicDebug);
+ 	PicName.Format("%s\\%s_%d_%d.bmp",strPicLogPath,GlobalTestInfo[i].TestTime.Format("%Y-%m-%d-%H-%M-%S"),GlobalTestInfo[i].iTestItem,GlobalTestInfo.size());
+ 	imwrite(PicName.GetBuffer(0),mPicDebug);
+#endif
+	fLoadConfig(TestConfig);
+	c = CheckPic(GlobalTestInfo[iNum].mTestData,TestResult,TestConfig,&mPicDebug);
+#ifdef WMDebug
+	//	CString PicName;
+//	if (!GlobalTestInfo[i].bInvalid)
+	{
+		PicName.Format("%s\\%s_%d_%d_1.bmp",strPicLogPath,GlobalTestInfo[i].TestTime.Format("%Y-%m-%d-%H-%M-%S"),GlobalTestInfo[i].iTestItem,GlobalTestInfo.size());
+		imwrite(PicName.GetBuffer(0),mPicDebug);
+	}
+
+#endif
+	switch (c)
+	{
+		 WaitForSingleObject(hTestResult, INFINITE);//等待互斥量
+	case 0:
+		{
+			for(i = 0;i < GlobalTestInfo.size();i ++)
+			{
+				if (GlobalTestInfo[i].iTestItem == iNum)
+				{
+					GlobalTestInfo[i].bTestResult = true;
+					break;
+				}
+			}
+				
+			break;
+		}
+	case 2:
+		{
+			for(i = 0;i < GlobalTestInfo.size();i ++)
+			{
+				if (GlobalTestInfo[i].iTestItem == iNum)
+				{
+					GlobalTestInfo[i].bTestEnd = true;
+					GlobalTestInfo[i].bInvalid = true;
+					break;
+				}
+			}
+			break;
+		}
+	default:
+		{
+			for(i = 0;i < GlobalTestInfo.size();i ++)
+			{
+				if (GlobalTestInfo[i].iTestItem == iNum)
+				{
+					GlobalTestInfo[i].bTestEnd = true;
+					break;
+				}
+			}
+			break;
+		}
+	}
+	
+#ifdef ss
+//	CString PicName;
+	if (!GlobalTestInfo[i].bInvalid)
+	{
+		PicName.Format("%s\\%s_1.bmp",strPicLogPath,GlobalTestInfo[i].TestTime.Format("%Y-%m-%d-%H-%M-%S"));
+		imwrite(PicName.GetBuffer(0),mPicDebug);
+	}
+	
+#endif
+	ReleaseMutex(hTestResult);//释放互斥量
 	return 0;
 }
 
@@ -960,6 +1152,7 @@ int fLoadConfig(sTestPicConfig& TestConfig)
 
 
 	TestConfig.iSpotSpec            =GetPrivateProfileInt("Basic Info","SpotSpec",0,Configfile);
+	TestConfig.iSpotSpec1            =GetPrivateProfileInt("Basic Info","SpotSpec1",0,Configfile);
 	TestConfig.iTargetSpec1         =GetPrivateProfileInt("Basic Info","TargetSpec1",0,Configfile);
 	TestConfig.iTargetSpec2         =GetPrivateProfileInt("Basic Info","TargetSpec2",0,Configfile);
 	
@@ -1682,7 +1875,7 @@ int SkipBandFixFont(Mat* mPic,
 		for (j = 0,icolsbegin = icols * ichannels;icolsbegin < icolsend ;j ++)
 		{
 			irowsbegin = irows - j * angle;
-			if (((*ptr)[irowsbegin])[icolsbegin + 2] > iTargetSpec)
+			if (((*ptr)[irowsbegin])[icolsbegin + 1] > iTargetSpec)
 			{
 				iTargetNum ++;
 				if (iTargetNum >= iTargetLeftRightRange) //找到白点
@@ -1713,7 +1906,7 @@ int SkipBandFixFont(Mat* mPic,
 		for (j = 0,icolsbegin = icols * ichannels;icolsbegin > 12 ;j --)
 		{
 			irowsbegin = irows - j * angle;
-			if (((*ptr)[irowsbegin])[icolsbegin + 2] > iTargetSpec)
+			if (((*ptr)[irowsbegin])[icolsbegin + 1] > iTargetSpec)
 			{
 				iTargetNum ++;
 				if (iTargetNum >= iTargetLeftRightRange) //找到白点
@@ -2173,12 +2366,12 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	TestInfo.channels = mPic->channels();
 	channels = TestInfo.channels;
 
-	state = CheckNewPic(mPic,TestInfo,&pPicRows,5,90);
-//	if(state)
-//	{
-//		delete (*pPicRows);
-//		return 2;
-//	}
+	state = CheckNewPic(mPic,TestInfo,&pPicRows,5,200,90);
+	if(state)
+	{
+		delete (pPicRows);
+		return 2;
+	}
 
 	iTargetTopBottomMinPlace = TestInfo.rows - TestConfig.iTargetTopBottomMinPlace;
 	 //初始状态寻找边界白条
@@ -2197,7 +2390,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	if(state)
 	{
 		delete (pPicRows);
-		return 2;
+		return 3;
 	}
 // 	if (TestResult.iEdgePosition == TestResult)
 // 	{
@@ -2254,7 +2447,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	if(state)
 	{
 		delete (pPicRows);
-		return 3;
+		return 5;
 	}
 
 	angle = 0.0;
@@ -2268,7 +2461,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	if(state)
 	{
 		delete (pPicRows);
-		return 3;
+		return 6;
 	}
 
 #ifdef WMDebug
@@ -2282,7 +2475,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	ptr[eSpot.cols * channels + 1] = 255;
 	ptr[eSpot.cols * channels + 2] = 0;
 #endif
-	
+//	return 0;
 	//计算点下面的白色区域开始点
 	//首先我根据给出的row col 和角度计算出我需要遍历的row的所有起始包括col
 	//后面有了起始点和角度再加上终止点我就可以遍历所有的了
@@ -2312,7 +2505,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	if(state)
 	{
 		delete (pPicRows);
-		return 4;
+		return 7;
 	}
 
 	SpotStartSpotLog.rows = TestInfo.NextStartSpot.rows;
@@ -2322,7 +2515,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	ptr = (*mPicDebug).ptr<uchar>(SpotStartSpotLog.rows);
 	ptr[SpotStartSpotLog.cols * channels] = 0;
 	ptr[SpotStartSpotLog.cols * channels + 1] = 255;
-	ptr[SpotStartSpotLog.cols * channels + 2] = 0;
+	ptr[SpotStartSpotLog.cols * channels + 2] = 255;
 
 #endif
 	//确定点的范围
@@ -2332,7 +2525,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	state = SkipBandFixFont(mPic,
 					TestInfo,
 					&pPicRows,
-					TestConfig.iTargetSpec1,
+					TestConfig.iSpotSpec1,
 					iTargetTopBottomMinPlace,
 					iTargetLeftRightMinPlace,
 					angle,
@@ -2343,7 +2536,7 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	if(state)
 	{
 		delete (pPicRows);
-		return 4;
+		return 8;
 	}
 #ifdef WMDebug
 	iNum = vFontLeftEdge.size();
@@ -2369,9 +2562,12 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 					TestInfo,
 					&pPicRows,
 					angle,
-					TestConfig.iFont1Spec,
+					TestConfig.iSpotSpec1,
 					vFontLeftEdge,
-					vFontRightEdge);
+					vFontRightEdge,
+					3,
+					2,
+					2);
 #ifdef WMDebug
 	iNum = vFontLeftEdge.size();
 	for (int j = 0;j < iNum;j ++)
@@ -2391,12 +2587,9 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 	}
 #endif
  	
-// 	if(state != 0|| iFontNum < 7 )
+// 	if(state != 4 )
 // 	{
-// 		delete (*pPicRows);
-// 		CString tmp;
-// 		tmp.Format("%d",iFontNum);
-// 		AfxMessageBox(tmp);
+// 		delete (pPicRows);
 // 		return 5;
 // 	}
 
@@ -2420,11 +2613,11 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 		angle,
 		TestConfig.iBandSecondMinWidth,
 		3);
-// 	if(state)
-// 	{
-// 		delete (*pPicRows);
-// 		return 4;
-// 	}
+	if(state)
+	{
+		delete (pPicRows);
+		return 10;
+	}
 
 	Font1StartSpotLog.rows = TestInfo.NextStartSpot.rows;
 	Font1StartSpotLog.cols = TestInfo.NextStartSpot.cols;
@@ -2453,18 +2646,18 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 					30,
 					vFontLeftEdge,
 					vFontRightEdge);
-// 	if(state)
-// 	{
-// 		delete (*pPicRows);
-// 		return 4;
-// 	}
+	if(state)
+	{
+		delete (pPicRows);
+		return 11;
+	}
 #ifdef WMDebug
 	iNum = vFontLeftEdge.size();
 	for (int j = 0;j < iNum;j ++)
 	{
 		ptr = (*mPicDebug).ptr<uchar>(vFontLeftEdge[j].rows);
-		ptr[vFontLeftEdge[j].cols * channels] = 0;
-		ptr[vFontLeftEdge[j].cols * channels + 1] = 255;
+		ptr[vFontLeftEdge[j].cols * channels] = 255;
+		ptr[vFontLeftEdge[j].cols * channels + 1] = 0;
 		ptr[vFontLeftEdge[j].cols * channels + 2] = 0;
 	}
 	iNum = vFontRightEdge.size();
@@ -2483,7 +2676,10 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 					angle,
 					TestConfig.iFont1Spec,
 					vFontLeftEdge,
-					vFontRightEdge);
+					vFontRightEdge,
+					2,
+					4,
+					2);
 #ifdef WMDebug
 	iNum = vFontLeftEdge.size();
 	for (int j = 0;j < iNum;j ++)
@@ -2502,14 +2698,11 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 		ptr[vFontRightEdge[j].cols * channels + 2] = 255;
 	}
 #endif
-// 	if(state != 0|| iFontNum < 7 )
-// 	{
-// 		delete (*pPicRows);
-// 		CString tmp;
-// 		tmp.Format("%d",iFontNum);
-// 		AfxMessageBox(tmp);
-// 		return 5;
-// 	}
+	if(state != 8 )
+	{
+		delete (pPicRows);
+		return 5;
+	}
 	//跳过第三个白条
 #ifdef WMDebug
 	ptr = (*mPicDebug).ptr<uchar>(TestInfo.NextStartSpot.rows);
@@ -2529,11 +2722,11 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 		angle,
 		TestConfig.iBandThirdMinWidth,
 		3);
-// 	if(state)
-// 	{
-// 		delete (*pPicRows);
-// 		return 4;
-// 	}
+	if(state)
+	{
+		delete (pPicRows);
+		return 13;
+	}
 
 	Font2StartSpotLog.rows = TestInfo.NextStartSpot.rows;
 	Font2StartSpotLog.cols = TestInfo.NextStartSpot.cols;
@@ -2562,18 +2755,18 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 					30,
 					vFontLeftEdge,
 					vFontRightEdge);
-// 	if(state)
-// 	{
-// 		delete (*pPicRows);
-// 		return 4;
-// 	}
+ 	if(state)
+ 	{
+ 		delete (pPicRows);
+ 		return 14;
+ 	}
 #ifdef WMDebug
 	iNum = vFontLeftEdge.size();
 	for (int j = 0;j < iNum;j ++)
 	{
 		ptr = (*mPicDebug).ptr<uchar>(vFontLeftEdge[j].rows);
-		ptr[vFontLeftEdge[j].cols * channels] = 0;
-		ptr[vFontLeftEdge[j].cols * channels + 1] = 255;
+		ptr[vFontLeftEdge[j].cols * channels] = 255;
+		ptr[vFontLeftEdge[j].cols * channels + 1] = 0;
 		ptr[vFontLeftEdge[j].cols * channels + 2] = 0;
 	}
 	iNum = vFontRightEdge.size();
@@ -2592,7 +2785,10 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 					angle,
 					TestConfig.iFont1Spec,
 					vFontLeftEdge,
-					vFontRightEdge);
+					vFontRightEdge,
+					2,
+					4,
+					3);
 #ifdef WMDebug
 	iNum = vFontLeftEdge.size();
 	for (int j = 0;j < iNum;j ++)
@@ -2611,14 +2807,12 @@ int CheckPic(Mat * mPic,sTestPicResult& TestResult,sTestPicConfig& TestConfig,Ma
 		ptr[vFontRightEdge[j].cols * channels + 2] = 255;
 	}
 #endif
-// 	if(state != 0|| iFontNum < 7 )
-// 	{
-// 		
-// 		CString tmp;
-// 		tmp.Format("%d",iFontNum);
-// 		AfxMessageBox(tmp);
-// 		return 5;
-// 	}
+	if(state != 5)
+	{
+		
+		CString tmp;
+		return 5;
+	}
 
 	delete (pPicRows);
 //	imwrite("a.bmp",*mPic);
@@ -3396,7 +3590,7 @@ int CalculationAngle(sSpotInfo& spot,
 	return 0;
 }
 
-int CheckNewPic(Mat * mPic,sTestPicInfo& TestInfo,uchar** ptr[],int Length,int Spec)
+int CheckNewPic(Mat * mPic,sTestPicInfo& TestInfo,uchar** ptr[],int bLength,int wLength,int Spec)
 {
 	if (mPic == NULL || mPic->empty())
 	{
@@ -3425,8 +3619,10 @@ int CheckNewPic(Mat * mPic,sTestPicInfo& TestInfo,uchar** ptr[],int Length,int S
 	}
 
 	//初判
+	int TargetLength;
 	num = 0;
-	for (i = 0;i < Length * channels;)
+	TargetLength = bLength * channels;
+	for (i = 0;i < TargetLength;)
 	{
 		for(j = 0;j < rows;j ++)
 		{
@@ -3438,13 +3634,62 @@ int CheckNewPic(Mat * mPic,sTestPicInfo& TestInfo,uchar** ptr[],int Length,int S
 					return 2;
 				}
 				
+			}else
+			{
+				num = 0;
 			}
 			
 		}
 		i = i + channels;
 	}
 
-	return 0;	
+	num = 0;
+	
+	for (i = TargetLength,TargetLength = wLength * channels;i < TargetLength;)
+	{
+		for(j = 0;j < rows;j ++)
+		{
+			if (((*ptr)[j])[i] > Spec)
+			{
+				num ++;
+				if (num > 5)
+				{
+					rows --;
+					cols = rows;
+					cols --;
+					TargetLength = TestInfo.channels * TestInfo.cols;
+					for (i = 0;i <TargetLength;)
+					{
+						if (((*ptr)[rows])[i] > Spec || ((*ptr)[cols])[i] > Spec)
+						{
+							num ++;
+							if (num > 5)
+							{
+								return 2;
+							}
+
+						}else
+						{
+							num = 0;
+						}
+						i += channels;
+					}
+					return 0;	
+				}
+
+			}else
+			{
+				num = 0;
+			}
+
+		}
+		i = i + channels;
+	}
+
+
+
+	return 2;
+
 }
 
 int CountBandNum(Mat* mPic,
@@ -3453,10 +3698,13 @@ int CountBandNum(Mat* mPic,
 			float angle,
 			int Spec,
 			vector<sSpotInfo>& vFontLeftEdge,
-			vector<sSpotInfo>& vFontRightEdge)
+			vector<sSpotInfo>& vFontRightEdge,
+			int wSpecNum,
+			int bSpecNum,
+			int bWithSpecNum)
 	
 {
-	if (mPic == NULL || mPic->empty())
+	if (mPic == NULL || mPic->empty() || vFontLeftEdge.empty() || vFontRightEdge.empty())
 	{
 		return 1;
 	}
@@ -3497,19 +3745,23 @@ int CountBandNum(Mat* mPic,
 
 	b1 = (-sleft.rows) + sleft.cols * Nslope;
 	sTlefttop.cols = floor((Nslope * (slefttop.rows + b1) + slefttop.cols)/((Nslope)*(Nslope) + 1));
-	sTlefttop.rows = floor(Nslope * sTlefttop.cols - b1);
-
+//	sTlefttop.rows = floor(Nslope * sTlefttop.cols - b1);
+	sTlefttop.rows = floor((Nslope * (slefttop.cols) - b1 - slefttop.rows)/((Nslope)*(Nslope)) + slefttop.rows);
 
 	sTleftbottom.cols = floor((Nslope * (sleftbottom.rows + b1) + sleftbottom.cols)/((Nslope)*(Nslope) + 1));
-	sTleftbottom.rows = floor(Nslope * sTleftbottom.cols - b1);
-
+//	sTleftbottom.rows = floor(Nslope * sTleftbottom.cols - b1);
+	sTleftbottom.rows = floor((Nslope * (sleftbottom.cols) - b1 - sleftbottom.rows)/((Nslope)*(Nslope)) + sleftbottom.rows);
 
 	b2 = (-sright.rows) + sright.cols * Nslope;
 	sTrighttop.cols = floor((Nslope * (srighttop.rows + b2) + srighttop.cols)/((Nslope)*(Nslope) + 1));
-	sTrighttop.rows = floor(Nslope * sTrighttop.cols - b2);
+//	sTrighttop.rows = floor(Nslope * sTrighttop.cols - b2);
+	sTrighttop.rows = floor((Nslope * (srighttop.cols) - b1 - srighttop.rows)/((Nslope)*(Nslope)) + srighttop.rows);
+
+
 
 	sTrightbottom.cols = floor((Nslope * (srightbottom.rows + b2) + srightbottom.cols)/((Nslope)*(Nslope) + 1));
-	sTrightbottom.rows = floor(Nslope * sTrightbottom.cols - b2);
+//	sTrightbottom.rows = floor(Nslope * sTrightbottom.cols - b2);
+	sTrightbottom.rows = floor((Nslope * (srightbottom.cols) - b1 - srightbottom.rows)/((Nslope)*(Nslope)) + srightbottom.rows);
 
 
 	//以左面线为判断依据
@@ -3593,30 +3845,37 @@ int CountBandNum(Mat* mPic,
 //  	vFontLeftEdge.push_back(slefttop);
 
 	datainfo.push_back(0); //0 空白 1 黑底
-	int bnum,wnum;
+	int bnum,wnum,bwnum;
 	bnum = 0;
 	wnum = 0;
+	bwnum = 0;
 	for (i = 0,i1 = 0;i < length;i ++)
 	{
+		bwnum = 0;
 		for (j = 0;j < num;j ++)
 		{
 			icols = icolsbegin[j] + i1;
 			irows = vFontLeftEdge[j].rows - i * angle;
-			if (((*pFont)[irows])[icols] < Spec)
+			if (((*pFont)[irows])[icols + 1] < Spec)  //绿色差别比较大
 			{
-				bnum ++;
-				if(datainfo.back() != 1 && bnum > 4) 
+				bwnum ++;
+				if (bwnum > bWithSpecNum)
 				{
-					wnum = 0;
-					datainfo.push_back(1);
+					bnum ++;
+					if(datainfo.back() != 1 && bnum > bSpecNum) 
+					{
+						wnum = 0;
+						datainfo.push_back(1);
+					}
+					break;
 				}
-				break;
+				
 			}
 		}
 		if (j >= num)
 		{
 			wnum ++;
-			if(datainfo.back() != 0 && wnum > 2) 
+			if(datainfo.back() != 0 && wnum > wSpecNum) 
 			{
 				bnum = 0;
 				datainfo.push_back(0);
